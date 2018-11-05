@@ -1,0 +1,12 @@
+{
+    "name": "arief/it-a",
+    "authors": [
+        {
+            "name": "ariefkahfi",
+            "email": "ariefkahfi@gmail.com"
+        }
+    ],
+    "require": {
+        "bramus/router": "~1.3"
+    }
+}
