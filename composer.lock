@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c48535cd141cda7ae1f5f7a3e86a5070",
+    "content-hash": "687e3b85c8ef108ec236c1be3d1ba2bc",
     "packages": [
         {
             "name": "bramus/router",
@@ -51,12 +51,44 @@
                 "routing"
             ],
             "time": "2017-12-21T20:37:23+00:00"
+        },
+        {
+            "name": "itpolsri/felis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itpolsri/Felis.git",
+                "reference": "0e405ec96f0a9d401d30a3121b43a2499f8a57af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itpolsri/Felis/zipball/0e405ec96f0a9d401d30a3121b43a2499f8a57af",
+                "reference": "0e405ec96f0a9d401d30a3121b43a2499f8a57af",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Felis\\": "src/Felis/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "IT Polsri",
+                    "email": "itpolsri@gmail.com"
+                }
+            ],
+            "description": "Mini & Simple Framework PHP",
+            "time": "2018-11-04T12:41:03+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "itpolsri/felis": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

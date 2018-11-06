@@ -1,0 +1,22 @@
+#d-top-nav {
+    background-color: #3585E8;
+    color: white;
+    padding: 15px;
+}
+
+.d-title {
+    margin: 0;
+    display: inline-block;
+}
+
+.d-right-container {
+    float: right;
+    padding-top: 2px;
+    padding-right: 2px;
+    cursor: pointer;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
