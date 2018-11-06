@@ -48,8 +48,8 @@
 		      <div class="row">	
 		      	<label class="label-size"><center>Login</center></label>
 		        <div class="input-field col s12">
-		          	<input id="email" type="email" class="validate">
-		          	<label for="email">Email</label>
+		          	<input id="username" type="text" class="validate">
+		          	<label for="username">Username</label>
 		        </div>
 		        <div class="input-field col s12">
 		          	<input id="password" type="password" class="validate">
@@ -70,7 +70,7 @@
 	<div class="parallax-container" id="daftar">
 		<div class="title-page center">
 			<p class="font-size animasi-in-zoom">Welcome To Belajar Online</p>
-			<p class="font-size-2 animasi-in-zoom">Belajar Online adalah solusi belajar untuk segala kesulitan kamu. Konten tersedia untuk berbagai jenjang mulai dari SD, SMP dan SMA sesuai dengan kurikulum nasional dan dirancang khusus oleh pengajar terbaik dan berpengalaman.</p>
+			<p class="font-size-2 animasi-in-zoom">Belajar Online adalah solusi belajar untuk segala kesulitan kamu di kampus. Matakuliah tersedia untuk seluruh mahasiswa dengan pengajar berpengalaman serta dapat diakses dimanapun.</p>
 			<a class="waves-effect waves-light btn-large red">Daftar Sekarang</a>
 		</div>
       	<div class="parallax"><img src="/it-a/assets/img/background-2.jpg"></div>
