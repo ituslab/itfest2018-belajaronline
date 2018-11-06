@@ -1,0 +1,130 @@
+.font-title {font-size: 18px;}
+.menu-style {font-size: 16px; color: white;}
+.red-icon {color: #f44336;}
+.nav-icon {padding: 0px 15px;}
+.title-page {color: white; padding: 5px 20px; width: 700px; margin: 20px auto;}
+.header {padding-bottom: 40px; font-size: 30px;}
+.parallax-container {height: 700px;}
+.parallax {filter: blur(4px);}
+.font-size {font-size: 35px; padding-top: 10px;}
+.font-size-2 {font-size: 17px; margin-bottom: 50px;}
+.no-margin {margin: 0px;}
+.label-size {font-size: 25px; color: #039be5; margin: 15px 0px;}
+.modal {width: 100%; width: 550px; margin: 90px auto;}
+.input-field {margin: 10px 0px;}
+.img-sponsor {width: 150px; height: auto; padding: 10px;}
+.color-white {color: white;}
+.top-title {padding-top: 20px;}
+
+@media screen and (max-width: 600px) {
+	.modal {width: 98%; max-width: 400px; margin: 90px auto; }
+	.modal-content {padding: 15px !important;}
+  .title-page {color: white; padding: 5px 20px;max-width: 600px; width: 90%; margin: 10px auto;}
+
+}
+
+@media screen and (max-width: 320px) {
+	.modal {width: 98%; max-width: 300px; margin: 90px auto; }
+	.modal-content {padding: 10px !important;}
+  .title-page {color: white; padding: 5px 20px; max-width: 320px; width: 95%; margin: 10px auto;}
+}
+
+/*animasi*/
+.animasi-scroll-opacity,.animasi-scroll-top,.animasi-scroll-right,.animasi-scroll-bottom,.animasi-scroll-left,.animasi-scroll-zoom{
+  visibility: hidden
+}
+.animasi-in-opacity{
+  visibility: visible;
+  animation: animasiopacity 3s;
+}
+.animasi-in-top{
+  visibility: visible;
+  position: relative;
+  animation: animasitop 0.4s;
+}
+.animasi-in-right{
+  visibility: visible;
+  position: relative;
+  animation: animasiright 0.4s;
+}
+.animasi-in-bottom{
+  visibility: visible;
+  position: relative;
+  animation: animasibottom 0.4s;
+}
+.animasi-in-left{
+  visibility: visible;
+  position: relative;
+  animation: animasileft 0.4s;
+}
+.animasi-in-zoom{
+  visibility: visible;
+  animation: animasizoom 0.5s;
+}
+.animasi-fade{
+  visibility: visible;
+  animation: animasifading 5s infinite;
+}
+/* Keyframes */
+@keyframes animasiopacity{
+  from{
+    opacity:0;
+  } to{
+    opacity:1;
+  }
+}
+@keyframes animasitop{
+  from{
+    top: -300px;
+    opacity: 0;
+  } to{
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes animasiright{
+  from{
+    right: -300px;
+    opacity: 0;
+  } to{
+    right: 0;
+    opacity: 1;
+  }
+}
+@keyframes animasibottom{
+  from{
+    bottom: -300px;
+    opacity: 0;
+  } to{
+    bottom: 0;
+    opacity: 1;
+  }
+}
+@keyframes animasileft{
+  from{
+    left: -300px;
+    opacity: 0;
+  } to{
+    left: 0;
+    opacity: 1;
+  }
+}
+@keyframes animasizoom{
+  from{
+    transform: scale(0);
+  } to{
+    transform: scale(1);
+  }
+}
+@keyframes animasifading{
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
