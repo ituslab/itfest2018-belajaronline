@@ -2,7 +2,8 @@ body {
     margin: 0;
     height: 100vh;
     min-height: 100vh;
-
+    display: flex;
+    align-items: center;;
     position: relative;
     background-image: url('/it-a/assets/img/person1.jpg');
     background-position: center;
@@ -14,7 +15,6 @@ body {
     font-family: 'Roboto',sans-serif;
 }
 
-
 #side-container {
     display: flex;
     height: 100%;
@@ -23,9 +23,12 @@ body {
 #left-side-caption{
     color: white;
     z-index: 1;
+    margin: 10px auto;
+    width: 80%;
 }
 .left-side-desc {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    padding-left: 10px;
 }
 
 .left-side-item {
@@ -38,6 +41,8 @@ body {
     justify-content: center;
     flex-basis: 50%;
     flex-grow: 1;
+    height: 100%;
+    margin: 160px auto;
 }
 #left-side-overlay {
     position: absolute;
@@ -76,8 +81,7 @@ body {
     z-index: 2;
     height: 500px;
     background-color: white;
-    box-shadow: -10px -10px 30px 4px rgba(0,0,0,0.1),
-              10px 10px 30px 4px rgba(0,0,0,0.15);
+    box-shadow: -10px -10px 30px 4px rgba(0,0,0,0.1),10px 10px 30px 4px rgba(0,0,0,0.15);
 }
 
 
@@ -114,25 +118,13 @@ body {
 
 
 /* responsive code */
-@media screen and (max-width: 1199px) { 
-    
+@media screen and (max-width: 600px) {
+
 }
 
-@media screen and (max-width: 991px) { 
-    
+@media screen and (max-width: 320px) {
+
 }
 
-@media screen and (max-width: 767px) { 
-    
-}
-
-
-@media screen and (max-width: 575px) { 
-    
-}
-
-@media screen and (max-width: 450px){
-   
-}
 /* responsive code */
 

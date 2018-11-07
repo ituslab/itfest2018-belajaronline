@@ -1,0 +1,44 @@
+body {
+    margin: 0;
+    height: 100vh;
+    min-height: 100vh;
+    background-image: url('/it-a/assets/img/person2.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+* {box-sizing: border-box;font-family: 'Roboto',sans-serif;}
+.left-side-desc {font-size: 1.5rem;}
+.padding {padding: 0px 10px;}
+.color-white {color: white; padding: 25px 0px;}
+.margin-left-side {margin: 10px auto; width: 100%; padding: 0 25px;}
+.fa-responsive {size: 20px;}
+.fa-2x {font-size: 2.1rem}
+.width-daftar {padding: 20px; width: 90%;}
+.form-row {margin: 5px 0; padding: 11.25px;}
+.form-label {display: block;width: 100%; padding: 6px 0; font-size: 15px;}
+.form-input {display: block;width: 100%;border-radius: 4px;padding: 5px;border: 1px solid #DFDFDF;}
+.height-left {margin: 160px auto;}
+.title-form {font-size: 20px; text-align: center;}
+.border-form {border-radius: 3px;}
+.margin-nol {margin-bottom: 0px;}
+.margin-btn {margin-right: 30px;}
+.height-daftar {height: 100%;}
+.margin-form {margin: 55px auto;}
+
+
+@media screen and (max-width: 600px) {
+	.left-side-desc {font-size: 1.3rem;}
+	.fa-2x {font-size: 1.7rem;}
+	.margin-left-side {width: 100%}
+	.width-daftar {width: 100%; margin: 50px auto;}
+	.height-left {margin: 200px auto;}
+}
+
+@media screen and (max-width: 320px) {
+	.left-side-desc {font-size: 1rem;}
+	.fa-2x {font-size: 1.5rem}
+	.margin-left-side {width: 100%;}
+	.height-left {margin: 170px auto;}
+	.width-daftar {width: 100%; margin: 25px auto;}
+}
