@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="/it-a/assets/css/daftar.css"/>
 </head>
 <body>
+    <div id="left-side-overlay"></div>
+    
     <div id="side-container">
         <div id="left-side">
-            <div id="left-side-overlay"></div>
             <div id="left-side-caption">
                 <div class="left-side-item">
                     <i class="fa fa-fw fa-2x fa-user-plus"></i>

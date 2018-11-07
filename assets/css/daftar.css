@@ -2,6 +2,11 @@ body {
     margin: 0;
     height: 100vh;
     min-height: 100vh;
+
+    position: relative;
+    background-image: url('/it-a/assets/img/person1.jpg');
+    background-position: center;
+    background-size: cover;
 }
 
 *{
@@ -24,18 +29,13 @@ body {
 }
 
 .left-side-item {
-    margin: 15px 0;
+    margin: 3rem 0;
 }
 
 #left-side {
-    background-image: url('/it-a/assets/img/person1.jpg');
-    background-position: center;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-size: cover;
     flex-basis: 50%;
     flex-grow: 1;
 }
@@ -60,7 +60,8 @@ body {
     margin: 0;
 }
 #right-side {
-    background-color: #424242;
+    /* background-color: #424242; */
+    /* background-color: #FFF; */
     flex-grow: 1;
     flex-basis: 50%;
     display: flex;
@@ -70,7 +71,9 @@ body {
 
 #form-container {
     border-radius: 3px;
-    width: 340px;
+    /* width: 340px; */
+    width: 500px;
+    z-index: 2;
     height: 500px;
     background-color: white;
     box-shadow: -10px -10px 30px 4px rgba(0,0,0,0.1),
