@@ -11,26 +11,29 @@
     <link rel="stylesheet" href="/it-a/assets/css/daftar.css"/>
 </head>
 <body>
-    <div id="left-side-overlay"></div>
+    <div id="left-side-overlay">
     
     <div id="side-container">
         <div id="left-side">
             <div id="left-side-caption">
                 <div class="left-side-item">
-                    <i class="fa fa-fw fa-2x fa-user-plus"></i>
+                    <i class="fa fa-fw fa-user-plus"></i>
                     <span class="left-side-desc">Daftar</span>
                 </div>
                 <div class="left-side-item">
-                    <i class="fa fa-fw fa-2x fa-search"></i>
+                    <i class="fa fa-fw fa-search"></i>
                     <span class="left-side-desc">Cari kelas</span>
                 </div>
                 <div class="left-side-item">
-                    <i class="fa fa-fw fa-2x fa-pencil"></i>
+                    <i class="fa fa-fw fa-pencil"></i>
                     <span class="left-side-desc">Kerjakan ujian dan dapatkan skornya</span>
                 </div>
             </div>
         </div>
+    </div>
+
         <div id="right-side">
+
             <div id="form-container">
                 <div id="right-side-header">
                     <h2 id="right-side-title">Daftar</h2>

@@ -60,11 +60,10 @@ class WebDb {
 
     static function buatSoal($dataInput){
         $webDb = self::getDb();
-        $matkulId = "M_".uniqid();
 
         $insertMatkul = $webDb
             ->insert("mata_kuliah",array(
-                'matkul_id'=>$matkulId,
+                'matkul_id'=>$dataInput['matkul_id'],
                 'matkul_nama'=>$dataInput['matkul_nama'],
                 'pengajar_id'=>$dataInput['pengajar_id']
             ));
@@ -72,11 +71,11 @@ class WebDb {
         foreach ($dataInput['soal'] as $v) {
             $webDb
                 ->insert("soal_matkul",array(
-                    'soal_id'=>"S_".uniqid(),
+                    'soal_id'=>substr("S_".uniqid(), 0 , 10),
                     'soal_no'=>$v['soal_no'],
                     'soal_text'=>$v['soal_text'],
                     'soal_jawab'=>$v['soal_jawab'],
-                    'matkul_id'=>$matkulId
+                    'matkul_id'=>$dataInput['matkul_id']
                 ));   
         }   
 
