@@ -1,49 +1,52 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
 
 use Models\WebDb;
-use Felis\Silvestris\Database;
+use Ramsey\Uuid\Uuid;
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$db = new Database("mysql:host=sekolah-db;dbname=sekolah_db","root","");
-$matkulId = substr("M_".uniqid() , 0, 10);
+$matkulId = substr("M_".Uuid::uuid4()->toString() , 0 ,10);
 
-
-$db->insert('mata_kuliah',[
+$matkul = [
     'matkul_id'=>$matkulId,
-    'matkul_nama'=>'Matkul 001',
-    'pengajar_id'=>'155689'
-]);
+    'matkul_nama'=>'Matkul baru',
+    'pengajar_id'=>155689
+];
 
-$db->insert('soal_matkul',[
-    'soal_id'=>'S_'.uniqid(),
-    'soal_no'=>1,
-    'soal_text'=> 'asd',
-    'soal_jawab'=>'A',
-    'matkul_id'=>$matkulId
-]);
+$soal = [
+    [
+        'soal_no'=>2,
+        'soal_text'=> 'dkqokwd',
+        'soal_jawab'=>'B',
+    ],
+    [
+        'soal_no'=>3,
+        'soal_text'=> 'oajjoqw',
+        'soal_jawab'=>'C',
+    ],
+    [
+        'soal_no'=>4,
+        'soal_text'=> 'ojojwei',
+        'soal_jawab'=>'A',
+    ],
+    [
+        'soal_no'=>5,
+        'soal_text'=> 'lololo',
+        'soal_jawab'=>'E',
+    ],
+    [
+        'soal_no'=>8,
+        'soal_text'=> 'qwert',
+        'soal_jawab'=>'C',
+    ]
+];
+
+
+WebDb::buatMatkul($matkul);
+WebDb::buatSoal($soal,$matkulId);
 
 
 
 
-// $dataInput = array(
-//     'matkul_nama'=>'Matkul001',
-//     'matkul_id'=>substr("M_".uniqid() , 0 , 10),
-//     'pengajar_id'=>'155689',
-//     'soal'=>[
-//         [
-//             'soal_no'=> 1,
-//             'soal_text'=> "Soal 001",
-//             'soal_jawab'=> "A"
-//         ],
-//         [
-//             'soal_no'=> 2,
-//             'soal_text'=> "Soal 002",
-//             'soal_jawab'=> "A"
-//         ]
-//     ]
-// );
-
-// WebDb::buatSoal($dataInput);
 
 
 

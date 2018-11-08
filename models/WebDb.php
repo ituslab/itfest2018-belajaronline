@@ -2,6 +2,7 @@
 
 namespace Models;
 use Felis\Silvestris\Database;
+use Ramsey\Uuid\Uuid;
 
 
 class WebDb {
@@ -58,27 +59,22 @@ class WebDb {
                 ->get();
     }
 
-    static function buatSoal($dataInput){
+    static function buatMatkul($matkul) {
         $webDb = self::getDb();
+        $webDb->insert('mata_kuliah',array(
+            'matkul_id'=>$matkul['matkul_id'],
+            'matkul_nama'=>$matkul['matkul_nama'],
+            'pengajar_id'=>$matkul['pengajar_id']
+        ));
+    }
 
-        $insertMatkul = $webDb
-            ->insert("mata_kuliah",array(
-                'matkul_id'=>$dataInput['matkul_id'],
-                'matkul_nama'=>$dataInput['matkul_nama'],
-                'pengajar_id'=>$dataInput['pengajar_id']
-            ));
-        
-        foreach ($dataInput['soal'] as $v) {
-            $webDb
-                ->insert("soal_matkul",array(
-                    'soal_id'=>substr("S_".uniqid(), 0 , 10),
-                    'soal_no'=>$v['soal_no'],
-                    'soal_text'=>$v['soal_text'],
-                    'soal_jawab'=>$v['soal_jawab'],
-                    'matkul_id'=>$dataInput['matkul_id']
-                ));   
+    static function buatSoal($dataInput , $matkulId){
+        $webDb = self::getDb();
+        foreach ($dataInput as $v) {
+            $v['soal_id'] = substr("S_".Uuid::uuid4()->toString() , 0 , 10);
+            $v['matkul_id'] = $matkulId;
+            $webDb->insert("soal_matkul",$v);   
         }   
-
     }
 
     static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp) {
