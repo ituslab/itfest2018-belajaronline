@@ -11,19 +11,23 @@
     <div class="col s12 m6 height-left">
     	<div class="margin-left-side">
     	<a href="#daftar-form">
-	    	<div class="color-white fa-2x">
+	    	<div class="color-white fa-2x animasi-in-zoom">
 				<i class="fa fa-fw fa-user-plus fa-2x"></i>
 				<span class="left-side-desc">Daftar Sekarang</span>
 			</div>
 		</a>
-		<div class="color-white fa-2x">
+		<a href="#daftar-form">
+		<div class="color-white fa-2x animasi-in-zoom-1">
 			<i class="fa fa-fw fa-search fa-2x"></i>
 			<span class="left-side-desc">Pilih Matakuliah</span>
 		</div>
-		<div class="color-white fa-2x">
+		</a>
+    	<a href="#daftar-form">
+		<div class="color-white fa-2x animasi-in-zoom-2">
 			<i class="fa fa-fw fa-pencil fa-2x"></i>
 			<span class="left-side-desc">Kerjakan soal dan dapatkan nilai</span>
 		</div>
+		</a>
     	</div>	
     </div>
 

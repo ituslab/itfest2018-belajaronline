@@ -14,7 +14,7 @@ body {
 .margin-left-side {margin: 10px auto; width: 100%; padding: 0 25px;}
 .fa-responsive {size: 20px;}
 .fa-2x {font-size: 2.1rem}
-.width-daftar {padding: 20px; width: 90%;}
+.width-daftar {padding: 25px; width: 90%;}
 .form-row {margin: 5px 0; padding: 11.25px;}
 .form-label {display: block;width: 100%; padding: 6px 0; font-size: 15px;}
 .form-input {display: block;width: 100%;border-radius: 4px;padding: 5px;border: 1px solid #DFDFDF;}
@@ -41,4 +41,43 @@ body {
 	.margin-left-side {width: 100%;}
 	.height-left {margin: 170px auto;}
 	.width-daftar {width: 100%; margin: 25px auto;}
+}
+
+/*animasi*/
+.animasi-in-zoom{
+  visibility: visible;
+  animation: animasizoom 0.5s;
+}
+
+@keyframes animasizoom{
+  from{
+    transform: scale(0);
+  } to{
+    transform: scale(1);
+  }
+}
+.animasi-in-zoom-1{
+  visibility: visible;
+  animation: animasizoom 1s;
+}
+
+@keyframes animasizoom{
+  from{
+    transform: scale(0);
+  } to{
+    transform: scale(1);
+  }
+}
+
+.animasi-in-zoom-2{
+  visibility: visible;
+  animation: animasizoom 1.5s;
+}
+
+@keyframes animasizoom{
+  from{
+    transform: scale(0);
+  } to{
+    transform: scale(1);
+  }
 }
