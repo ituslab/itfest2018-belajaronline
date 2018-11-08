@@ -35,14 +35,14 @@
                 <div id="right-side-header">
                     <h2 id="right-side-title">Daftar</h2>
                 </div>
-                <form action="" id="form-wrapper">
+                <form action="/it-a/daftar" method="post" id="form-wrapper">
                     <div class="form-row">
-                        <label class="form-label" name="nama">Nama</label>
-                        <input type="text" class="form-input"/>
+                        <label class="form-label" >Nama</label>
+                        <input type="text" name="nama" class="form-input"/>
                     </div>
                     <div class="form-row">
                         <label class="form-label">Daftar sebagai</label>
-                        <select id="daftar-sebagai" nama="daftar_sebagai" class="form-input">
+                        <select id="daftar-sebagai" name="daftar_sebagai" class="form-input">
                             <option value="Mahasiswa">Mahasiswa</option>
                             <option value="Pengajar">Pengajar</option>
                         </select>

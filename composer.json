@@ -12,6 +12,11 @@
     },
     "autoload": {
         "psr-4": {
+            "Controllers\\":"controllers/",
+            "Models\\":"models/"
         }
+    },
+    "require-dev": {
+        "nette/tester": "^2.1"
     }
 }

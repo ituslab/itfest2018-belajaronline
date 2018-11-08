@@ -43,6 +43,9 @@ body {
 }
 
 
+.dashboard-container {
+    display: flex;
+}
 
 *{
     box-sizing: border-box;

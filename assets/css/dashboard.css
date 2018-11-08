@@ -16,6 +16,13 @@
     cursor: pointer;
 }
 
+#left-nav-signout{
+    padding: 8px;
+    cursor: pointer;
+    background-color: crimson;
+    color: white;
+}
+
 a {
     color: white;
     text-decoration: none;

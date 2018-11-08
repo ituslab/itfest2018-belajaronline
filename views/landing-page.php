@@ -38,24 +38,33 @@
 	</ul>                 
 <!-- navbar -->
 
+
+
 	
 <!-- modal -->
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
     	  <div class="row no-margin">
-		    <form class="col s12" method="POST" action="login.php">
+		    <form class="col s12" method="POST" action="/it-a/login">
 		      <div class="row">	
 		      	<label class="label-size"><center>Login</center></label>
 		        <div class="input-field col s12">
-		          	<input id="email" type="email" class="validate">
-		          	<label for="email">Email</label>
+		          	<input id="username" name="username" type="text" class="validate">
+		          	<label for="username" >Username</label>
 		        </div>
 		        <div class="input-field col s12">
-		          	<input id="password" type="password" class="validate">
+		          	<input id="password" name="password" type="password" class="validate">
           			<label for="password">Password</label>
-		        </div>
-		      </div>
+				</div>
+				<div class="input-field col s12">
+					<select name="login_sebagai">
+						<option value="siswa">Mahasiswa</option>
+						<option value="pengajar">Pengajar</option>
+					</select>
+					<label>Login sebagai</label>
+				</div>
+			  </div>
 		      <div class="modal-footer">
       			<a class="modal-close waves-effect waves-light btn-flat">CANCEL</a>
       			<button class="modal-close waves-effect waves-light btn-flat">LOGIN</button>
