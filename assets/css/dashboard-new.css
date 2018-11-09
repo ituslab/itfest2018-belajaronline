@@ -1,0 +1,16 @@
+body {background-color: #fafafa}
+.container-dashboard {width: 93%; margin: 0 auto;}
+.height-img {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 20px 0 0 0;}
+.height-profile {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 20px 0 0 0;}
+.li-height {height: 200px}
+.white-color {color: white; font-weight: bold;}
+.padding-left {margin-right: 5px;}
+.sidebar-right {margin: 10px 10px 10px 310px;}
+
+@media screen and (max-width: 600px) {
+	.sidebar-right {margin: 10px;}
+}
+
+@media screen and (max-width: 320px) {
+	.sidebar-right {margin: 10px;}
+}

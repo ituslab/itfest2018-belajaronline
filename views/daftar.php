@@ -24,13 +24,13 @@
 		</a>
     	<a href="#daftar-form">
 		<div class="color-white fa-2x animasi-in-zoom-2">
-			<i class="fa fa-fw fa-pencil fa-2x"></i>
+			<i class="fas fa-pen fa-2x fa-fw"></i>
 			<span class="left-side-desc">Kerjakan soal dan dapatkan nilai</span>
 		</div>
 		</a>
     	</div>	
     </div>
-
+<!-- form daftar -->
     <div class="col s12 m6 margin-form" id="daftar-form">	
     <form method="POST" action="daftar.php">
 	    <div class="section white width-daftar border-form" >
@@ -66,7 +66,9 @@
 			    </div>        
 	    	</div>
 		</form>
-    </div>
+	</div>
+<!-- form daftar -->
+	
 </div>
 
 

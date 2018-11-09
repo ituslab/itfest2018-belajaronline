@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/it-a/assets/css/materialize.min.css">
+<head>	
+	<?php include_once __DIR__ . '/includes/top.php'; ?>
     <link rel="stylesheet" type="text/css" href="/it-a/assets/css/index.css">
 	<title>BelajarOnline</title>
 </head>
@@ -38,9 +33,6 @@
 	</ul>                 
 <!-- navbar -->
 
-
-
-	
 <!-- modal -->
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
@@ -62,7 +54,6 @@
 						<option value="siswa">Mahasiswa</option>
 						<option value="pengajar">Pengajar</option>
 					</select>
-					<label>Login sebagai</label>
 				</div>
 			  </div>
 		      <div class="modal-footer">
@@ -80,7 +71,7 @@
 		<div class="title-page center">
 			<p class="font-size animasi-in-zoom">Welcome To Belajar Online</p>
 			<p class="font-size-2 animasi-in-zoom">Belajar Online adalah solusi belajar untuk segala kesulitan kamu di kampus. Matakuliah tersedia untuk seluruh mahasiswa dengan pengajar berpengalaman serta dapat diakses dimanapun.</p>
-			<a href="daftar.php" class="waves-effect waves-light btn-large red hover-animasi">Daftar Sekarang</a>
+			<a href="/it-a/views/daftar.php" class="waves-effect waves-light btn-large red hover-animasi">Daftar Sekarang</a>
 		</div>
       	<div class="parallax"><img src="/it-a/assets/img/background-2.jpg"></div>
     </div>
@@ -277,9 +268,7 @@
           </div>
         </footer>
 <!-- footer -->
-
-<script src="/it-a/assets/js/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>  
+<?php include_once __DIR__ . '/includes/bottom.php'; ?>
 <script src="/it-a/assets/js/index.js"></script>
    
 </body>
