@@ -101,6 +101,22 @@ class WebDb {
         return $result;
     }
 
+    static function listMatkulYangDiambilSiswa($siswaId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select s.siswa_id,s.siswa_nama,m.*,p.pengajar_nama,p.pengajar_nohp from siswa s 
+            inner join siswa_matkul sm on s.siswa_id = sm.siswa_id 
+            inner join mata_kuliah m on sm.matkul_id = m.matkul_id 
+            inner join pengajar p 
+            on m.pengajar_id = p.pengajar_id
+            where s.siswa_id = :siswa_id ",[
+                'siswa_id'=>$siswaId
+            ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
     static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp) {
         $webDb = self::getDb();
         $result = false;

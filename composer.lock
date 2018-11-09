@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac3668b36ab2b9d0dc42d42b58b48d14",
+    "content-hash": "fdb7d807a83bce2dfc36740464abe89e",
     "packages": [
         {
             "name": "bramus/router",
@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/itpolsri/Felis.git",
-                "reference": "0e405ec96f0a9d401d30a3121b43a2499f8a57af"
+                "reference": "e25983b270fba515f066f3eaa31cbd33ae99e2e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itpolsri/Felis/zipball/0e405ec96f0a9d401d30a3121b43a2499f8a57af",
-                "reference": "0e405ec96f0a9d401d30a3121b43a2499f8a57af",
+                "url": "https://api.github.com/repos/itpolsri/Felis/zipball/e25983b270fba515f066f3eaa31cbd33ae99e2e1",
+                "reference": "e25983b270fba515f066f3eaa31cbd33ae99e2e1",
                 "shasum": ""
             },
             "type": "library",
@@ -80,7 +80,7 @@
                 }
             ],
             "description": "Mini & Simple Framework PHP",
-            "time": "2018-11-04T12:41:03+00:00"
+            "time": "2018-11-09T14:29:41+00:00"
         },
         {
             "name": "paragonie/random_compat",

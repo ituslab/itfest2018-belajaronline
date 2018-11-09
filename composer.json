@@ -8,8 +8,8 @@
     ],
     "require": {
         "bramus/router": "~1.3",
-        "itpolsri/felis": "dev-master",
-        "ramsey/uuid": "^3.8"
+        "ramsey/uuid": "^3.8",
+        "itpolsri/felis": "dev-master"
     },
     "autoload": {
         "psr-4": {
