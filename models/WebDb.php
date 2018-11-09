@@ -10,7 +10,7 @@ class WebDb {
 
     static function getDb(){
         if(!isset($db)){
-            $db = new Database("mysql:host=localhost;dbname=sekolah_db","root","arief");
+            $db = new Database("mysql:host=sekolah-db;dbname=sekolah_db","root","");
         }
         return $db;
     }
