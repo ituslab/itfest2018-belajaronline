@@ -8,9 +8,9 @@ $("#user-id-label").html("NIM " +initialSelectValue);
 
 $("#form-daftar").validate({
   rules:{
-      nama:{
-        required:true
-      },
+    nama:{
+      required:true
+    },
     user_id:{
       required:true
     },
@@ -27,14 +27,11 @@ $("#form-daftar").validate({
     var errorText = $(error).html();
     var inputElName = $(element).attr('name');
     var errorIdElement = "#error_"+inputElName;
-    // console.log(errorText,$(element).attr('name'));
     
     $(errorIdElement).html(errorText);
 
   },
-  success:function(label,validElement){
-    // console.log('valid element',validElement);
-  },
+  success:function(label,validElement){},
   messages:{
     nama:"Nama tidak boleh kosong",
     user_id: "User id anda tidak boleh kosong",
