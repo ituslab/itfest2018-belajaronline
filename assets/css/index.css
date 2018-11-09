@@ -12,9 +12,10 @@
 .label-size {font-size: 25px; color: #039be5; margin: 15px 0px;}
 .modal {width: 100%; width: 550px; margin: 90px auto;}
 .input-field {margin: 10px 0px;}
-.img-sponsor {width: 150px; height: auto; padding: 10px;}
+.img-sponsor {width: 150px; height: auto; margin: 5px;}
 .color-white {color: white;}
 .top-title {padding-top: 20px;}
+.hover-animasi:hover {color: white;transform: scale(0.9);}
 
 @media screen and (max-width: 600px) {
 	.modal {width: 98%; max-width: 400px; margin: 90px auto; }
@@ -40,7 +41,7 @@
 .animasi-in-top{
   visibility: visible;
   position: relative;
-  animation: animasitop 0.4s;
+  animation: animasitop 0.8s;
 }
 .animasi-in-right{
   visibility: visible;
@@ -59,7 +60,7 @@
 }
 .animasi-in-zoom{
   visibility: visible;
-  animation: animasizoom 0.5s;
+  animation: animasizoom 0.8s;
 }
 .animasi-fade{
   visibility: visible;

@@ -1,75 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Daftar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-    <link rel="stylesheet" href="/it-a/assets/css/daftar.css"/>
+	<title>BelajarOnline</title>
 </head>
+	<?php include_once __DIR__ . '/includes/top.php'; ?>
+    <link rel="stylesheet" href="/it-a/assets/css/daftar.css"/>
 <body>
-    <div id="left-side-overlay">
-    
-    <div id="side-container">
-        <div id="left-side">
-            <div id="left-side-caption">
-                <div class="left-side-item">
-                    <i class="fa fa-fw fa-user-plus"></i>
-                    <span class="left-side-desc">Daftar</span>
-                </div>
-                <div class="left-side-item">
-                    <i class="fa fa-fw fa-search"></i>
-                    <span class="left-side-desc">Cari kelas</span>
-                </div>
-                <div class="left-side-item">
-                    <i class="fa fa-fw fa-pencil"></i>
-                    <span class="left-side-desc">Kerjakan ujian dan dapatkan skornya</span>
-                </div>
-            </div>
-        </div>
+
+ <div class="row margin-nol height-daftar">
+    <div class="col s12 m6 height-left">
+    	<div class="margin-left-side">
+    	<a href="#daftar-form">
+	    	<div class="color-white fa-2x animasi-in-zoom">
+				<i class="fa fa-fw fa-user-plus fa-2x"></i>
+				<span class="left-side-desc">Daftar Sekarang</span>
+			</div>
+		</a>
+		<a href="#daftar-form">
+		<div class="color-white fa-2x animasi-in-zoom-1">
+			<i class="fa fa-fw fa-search fa-2x"></i>
+			<span class="left-side-desc">Pilih Matakuliah</span>
+		</div>
+		</a>
+    	<a href="#daftar-form">
+		<div class="color-white fa-2x animasi-in-zoom-2">
+			<i class="fas fa-pen fa-2x fa-fw"></i>
+			<span class="left-side-desc">Kerjakan soal dan dapatkan nilai</span>
+		</div>
+		</a>
+    	</div>	
     </div>
+<!-- form daftar -->
+    <div class="col s12 m6 margin-form" id="daftar-form">	
+    <form method="POST" action="daftar.php">
+	    <div class="section white width-daftar border-form" >
+	        <div class="title-form">Daftar</div>
+		        <div class="row margin-nol">
+			        <div class="input-field col s12">
+			          <input id="nama" type="text" class="validate">
+			          <label for="nama">Nama Anda</label>
+			        </div>
+		            <div class="form-row">
+		                <label class="form-label">Daftar sebagai</label>
+		                <select id="daftar-sebagai" nama="daftar_sebagai" class="form-input">
+		                    <option value="Mahasiswa">Mahasiswa</option>
+		                    <option value="Pengajar">Pengajar</option>
+		                </select>
+		            </div>
+			        <div class="input-field col s12">
+			          <input id="user-name-input" name="user_id" type="text" class="validate">
+			          <label for="user-name-input" id="user-id-label"></label>
+			        </div>
+			        <div class="input-field col s12">
+			          <input id="no_hp" type="tel" name="no_hp" class="validate">
+			          <label for="no_hp">Nomor Handphone</label>
+			        </div>
+			        <div class="input-field col s12">
+			          <input id="password" type="password" name="user_password" class="validate">
+			          <label for="password">Password</label>
+			        </div>
+			    </div>
+			    <div class="center">
+				    <a href="landing-page.php" class="waves-effect waves-light btn margin-btn">Batal</a>
+				    <button class="waves-effect waves-light btn">Daftar</button>				    	
+			    </div>        
+	    	</div>
+		</form>
+	</div>
+<!-- form daftar -->
+	
+</div>
 
-        <div id="right-side">
 
-            <div id="form-container">
-                <div id="right-side-header">
-                    <h2 id="right-side-title">Daftar</h2>
-                </div>
-                <form action="/it-a/daftar" method="post" id="form-wrapper">
-                    <div class="form-row">
-                        <label class="form-label" >Nama</label>
-                        <input type="text" name="nama" class="form-input"/>
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label">Daftar sebagai</label>
-                        <select id="daftar-sebagai" name="daftar_sebagai" class="form-input">
-                            <option value="Mahasiswa">Mahasiswa</option>
-                            <option value="Pengajar">Pengajar</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label" id="user-id-label"></label>
-                        <input class="form-input" name="user_id" type="number" id="user-name-input"/>
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="user_password" class="form-input"/>
-                    </div>
-                    <div class="form-row">
-                        <label class="form-label">No HP</label>
-                        <input type="number" name="no_hp" class="form-input" />
-                    </div>
-                    <div class="form-row">
-                        <button id="btn-daftar">Daftar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> 
 </body>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="/it-a/assets/js/daftar.js"></script>
+	<?php include_once __DIR__ . '/includes/bottom.php'; ?>
+	<script type="text/javascript" src="/it-a/assets/js/daftar-new.js"></script>
 </html>
