@@ -29,7 +29,6 @@ class WebController {
 
 
 
-    // belum divalidasi
     // handle gagal belum diperbaiki
     public function handleDaftar() {
         $nama = $_POST['nama'];

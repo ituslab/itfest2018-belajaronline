@@ -38,16 +38,18 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
     	  <div class="row no-margin">
-		    <form class="col s12" method="POST" action="/it-a/login">
+		    <form id="form-login" class="col s12" method="POST" action="/it-a/login">
 		      <div class="row">	
 		      	<label class="label-size"><center>Login</center></label>
 		        <div class="input-field col s12">
 		          	<input id="username" name="username" type="text" class="validate">
-		          	<label for="username" >Username</label>
+					<label for="username" >Username</label>
+					<div id="error_username"></div>
 		        </div>
 		        <div class="input-field col s12">
 		          	<input id="password" name="password" type="password" class="validate">
-          			<label for="password">Password</label>
+					<label for="password">Password</label>
+					<div id="error_password"></div>
 				</div>
 				<div class="input-field col s12">
 					<select name="login_sebagai">
@@ -58,7 +60,7 @@
 			  </div>
 		      <div class="modal-footer">
       			<a class="modal-close waves-effect waves-light btn-flat">CANCEL</a>
-      			<button class="modal-close waves-effect waves-light btn-flat">LOGIN</button>
+      			<button class="waves-effect waves-light btn-flat">LOGIN</button>
 		      </div>
 		    </form>
 		  </div>
@@ -269,7 +271,8 @@
         </footer>
 <!-- footer -->
 <?php include_once __DIR__ . '/includes/bottom.php'; ?>
-<script src="/it-a/assets/js/index.js"></script>
+	<script type="text/javascript" src="/it-a/assets/js/jquery.validate.min.js"></script>
+	<script src="/it-a/assets/js/index.js"></script>
    
 </body>
 </html>
