@@ -30,7 +30,6 @@ function loadIntoDom(currentSoal){
     var currentInputJawab = inputJawab[currentIdx];
 
     if(currentInputJawab) {
-        console.log(currentInputJawab);
         $('input[name=soal-radio][value=' + currentInputJawab.siswa_jawaban + ']').prop('checked',true);
     } else {
         $('input[name=soal-radio]').prop('checked',false);
