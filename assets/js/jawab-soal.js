@@ -9,28 +9,29 @@ $('#submit-btn').hide();
 function onResponse(apiResp){
     var data = apiResp.data;
     soalData = data;
+    soalData.forEach(function(s){
+        inputJawab.push({
+            'siswa_soalid':s.soal_id,
+            'matkul_id':s.matkul_id,
+            'siswa_jawaban':null
+        });
+    });
     loadIntoDom(soalData[0]);
 }
 
 
 $('.soal-radio').click(function(){
-    console.log(currentIdx , $(this).attr('value'));
-
-    inputJawab.push({
-        'siswa_soalid':soalData[currentIdx].soal_id,
-        'matkul_id':soalData[currentIdx].matkul_id,
-        'siswa_jawaban':$(this).attr('value')
-    });
+    inputJawab[currentIdx].siswa_jawaban = $(this).attr('value');
 });
 
 function loadIntoDom(currentSoal){
     $('#soal-no-container').html('Soal no ' +currentSoal.soal_no);
     $('#soal-text-container').html(currentSoal.soal_text);
 
-    var currentInputJawab = inputJawab[currentIdx];
+    var currentInputJawab = inputJawab[currentIdx].siswa_jawaban;
 
     if(currentInputJawab) {
-        $('input[name=soal-radio][value=' + currentInputJawab.siswa_jawaban + ']').prop('checked',true);
+        $('input[name=soal-radio][value=' + currentInputJawab + ']').prop('checked',true);
     } else {
         $('input[name=soal-radio]').prop('checked',false);
     }
