@@ -1,16 +1,86 @@
 body {background-color: #fafafa}
 .container-dashboard {width: 93%; margin: 0 auto;}
-.height-img {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 20px 0 0 0;}
+.height-img {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 0 auto;}
 .height-profile {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 20px 0 0 0;}
-.li-height {height: 200px}
+.li-height {height: 200px; padding: 25px 0;}
 .white-color {color: white; font-weight: bold;}
 .padding-left {margin-right: 5px;}
 .sidebar-right {margin: 10px 10px 10px 310px;}
+.margin-img {margin: 25px auto;}
+.m3 {width: 23% !important;}
+.m9 {width: 76% !important; height: 575px;}
+.name-user {margin: 5px 0 15px 0;}
+.padding-profile {margin-right: 30px;}
+.margin-row {margin: 0px; padding: 10px 0;}
+.row-data {margin-bottom: 50px;}
+.height-soal {height: 600px;}
+.margin-matkul {margin: 10px;}
+.margin-soal {margin: 10px auto; }
+.padding-soal {padding: 15px 0px;}
+.padding-title {padding: 0px 0 50px 0;}
+.card-content {width: 100%; height: 150px;}
+.number-soal {width: 20px !important;}
+.padding-collapsible {padding: 10px 20px;}
+.icon-color {color: #0277bd;}
+.padding-form {padding: 10px;}
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 1300px) {
 	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 24% !important;}
+}
+
+
+@media screen and (max-width: 1270px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 24% !important;}
+
+}
+
+@media screen and (max-width: 1254px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 25% !important; width: 74% !important;}
+}
+
+
+@media screen and (max-width: 1200px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 26% !important; width: 73% !important;}
+}
+
+@media screen and (max-width: 1122px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 27% !important; width: 72% !important;}
+}
+
+@media screen and (max-width: 1092px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 28% !important; width: 71% !important;}
+}
+
+@media screen and (max-width: 1036px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 29% !important; width: 70% !important;}
+}
+
+@media screen and (max-width: 1002px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 30% !important; width: 69% !important;}
+}
+
+@media screen and (max-width: 990px) {
+	.sidebar-right {margin: 10px;}
+	.m9 {margin-left: 0% !important ; width: 100% !important;}
+}
+
+@media screen and (max-width: 900px) {
+	.sidebar-right {margin: 10px;}
+	.m3 {width: 0% !important;}
+	.m9 {width: 100% !important;}
 }
 
 @media screen and (max-width: 320px) {
 	.sidebar-right {margin: 10px;}
+	.m3 {width: 0% !important;}
+	.m9 {width: 100% !important;}
 }

@@ -247,10 +247,10 @@ include_once __DIR__ . '/includes/top.php'; ?>
 	    	<i class="large material-icons">share</i>
 	  	</a>
 	  	<ul>
-	    	<li><a class="btn-floating btn-large blue" href="https://twitter.com/home?status=https%3A//materializecss.com/"><i class="fa fa-twitter"></i></a></li>
-	  		<li><a class="btn-floating btn-large green accent-3" href="https://api.whatsapp.com/send?&text=https://materializecss.com/"><i class="fa fa-whatsapp"></i></a></li>
-	    	<li><a class="btn-floating btn-large red accent-3" href="https://api.instagram.com/itpolsri"><i class="fa fa-instagram"></i></a></li>
-	    	<li><a class="btn-floating btn-large blue darken-4" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//materializecss.com/"><i class="fa fa-facebook"></i></a></li>
+	    	<li><a class="btn-floating btn-large blue" href="https://twitter.com/home?status=https%3A//materializecss.com/"><i class="fab fa-twitter"></i></a></li>
+	  		<li><a class="btn-floating btn-large green accent-3" href="https://api.whatsapp.com/send?&text=https://materializecss.com/"><i class="fab fa-whatsapp"></i></a></li>
+	    	<li><a class="btn-floating btn-large red accent-3" href="https://api.instagram.com/itpolsri"><i class="fab fa-instagram"></i></a></li>
+	    	<li><a class="btn-floating btn-large blue darken-4" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//materializecss.com/"><i class="fab fa-facebook-f"></i></a></li>
 	  	</ul>
 	</div>
 <!-- floating button -->
