@@ -19,7 +19,8 @@ class WebController {
         $loginResult = WebDb::handleLogin($username,$password, $loginSebagai);
 
         if(!$loginResult) {
-            echo("Login gagal");
+            Session::set("login_gagal","Username atau password salah");
+            header("Location: /it-a");
             return;
         }
         Session::set("user_id",$username);

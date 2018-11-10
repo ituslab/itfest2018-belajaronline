@@ -40,7 +40,15 @@
     	  <div class="row no-margin">
 		    <form id="form-login" class="col s12" method="POST" action="/it-a/login">
 		      <div class="row">	
-		      	<label class="label-size"><center>Login</center></label>
+				<label class="label-size"><center>Login</center></label>
+				
+				<?php if (isset($_SESSION['login_gagal'])) {?>
+					<div class="left-align red-text login-gagal-container">
+						<?= $_SESSION['login_gagal']?>
+					</div>
+				<?php }?>
+
+
 		        <div class="input-field col s12">
 		          	<input id="username" name="username" type="text" class="validate">
 					<label for="username" >Username</label>
@@ -60,7 +68,7 @@
 			  </div>
 		      <div class="modal-footer">
       			<a class="modal-close waves-effect waves-light btn-flat">CANCEL</a>
-      			<button class="waves-effect waves-light btn-flat">LOGIN</button>
+				<button class="waves-effect waves-light btn-flat">LOGIN</button>
 		      </div>
 		    </form>
 		  </div>
