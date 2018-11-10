@@ -2,9 +2,6 @@
 namespace Controllers;
 use Models\WebDb;
 use Felis\Silvestris\Database;
-use Felis\Silvestris\Session;
-
-
 
 class WebController { 
 
@@ -21,7 +18,7 @@ class WebController {
         if(!$loginResult) {
             Session::set("login_gagal","Username atau password salah");
             header("Location: /it-a");
-            return;
+            die();
         }
         Session::set("user_id",$username);
         Session::set("login_sebagai",$loginSebagai);
