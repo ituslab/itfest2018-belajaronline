@@ -55,6 +55,22 @@ $router->get('/daftar',function(){
 });
 
 
+$router->get('/jawab-soal',function(){
+    loadView("jawab-soal.php");
+});
+
+$router->get('/api/jawab-soal/(\w+)',function($matkulId){
+    $result = WebDb::listSoalByMatkulId($matkulId);
+    $toJson = json_encode([
+        'code'=>200,
+        'data'=>$result
+    ]);
+    header('Content-type: application/json');
+    echo $toJson;
+});
+
+
+
 $router->post('/login',"Controllers\WebController@handleLogin");
 $router->post("/daftar","Controllers\WebController@handleDaftar");
 
