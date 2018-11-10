@@ -35,6 +35,7 @@ class WebDb {
                 ->select("pengajar","pengajar_id,pengajar_nama,pengajar_nohp")
                 ->fetchAll()
                 ->get();
+        return $selectPengajar;
     }
 
     static function listMatkulByPengajar($pengajarId) {
@@ -46,35 +47,74 @@ class WebDb {
                 ])
                 ->fetchAll()
                 ->get();
+        return $selectMatakuliah;
     }
 
     static function listSoalByMatkulId($matkulId) {
         $webDb = self::getDb();
-        $selectMatakuliah = $webDb
-                ->select("soal_matkul","soal_no,soal_text")
+        $selectSoal = $webDb
+                ->select("soal_matkul","soal_id,soal_no,soal_text,matkul_id")
                 ->where([
                     'matkul_id'=>['=' => $matkulId]
                 ])
                 ->fetchAll()
                 ->get();
+        return $selectSoal;
     }
 
     static function buatMatkul($matkul) {
         $webDb = self::getDb();
-        $webDb->insert('mata_kuliah',array(
+        $result = $webDb->insert('mata_kuliah',array(
             'matkul_id'=>$matkul['matkul_id'],
             'matkul_nama'=>$matkul['matkul_nama'],
             'pengajar_id'=>$matkul['pengajar_id']
         ));
+        return $result;
     }
 
-    static function buatSoal($dataInput , $matkulId){
+    static function addNewMatkulToSiswa($matkulId , $siswaId){
         $webDb = self::getDb();
-        foreach ($dataInput as $v) {
+        $result = $webDb->insert('siswa_matkul',[
+            'matkul_id'=>$matkulId,
+            'siswa_id'=>$siswaId
+        ]);
+        return $result;
+    }
+
+    static function buatSoal($soalInput , $matkulId){
+        $webDb = self::getDb();
+        foreach ($soalInput as $v) {
             $v['soal_id'] = substr("S_".Uuid::uuid4()->toString() , 0 , 10);
             $v['matkul_id'] = $matkulId;
             $webDb->insert("soal_matkul",$v);   
         }   
+    }
+
+    static function jawabSoal($siswaId,$matkulId,$soalId,$siswaJawaban) {
+        $webDb = self::getDb();
+        $result = $webDb->insert('siswa_jawaban',[
+            'siswa_id'=>$siswaId,
+            'matkul_id'=>$matkulId,
+            'siswa_soalid'=>$soalId,
+            'siswa_jawaban'=>$siswaJawaban
+        ]);
+        return $result;
+    }
+
+    static function listMatkulYangDiambilSiswa($siswaId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select s.siswa_id,s.siswa_nama,m.*,p.pengajar_nama,p.pengajar_nohp from siswa s 
+            inner join siswa_matkul sm on s.siswa_id = sm.siswa_id 
+            inner join mata_kuliah m on sm.matkul_id = m.matkul_id 
+            inner join pengajar p 
+            on m.pengajar_id = p.pengajar_id
+            where s.siswa_id = :siswa_id ",[
+                'siswa_id'=>$siswaId
+            ])
+            ->fetchAll()
+            ->get();
+        return $result;
     }
 
     static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp) {

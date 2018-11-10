@@ -7,6 +7,8 @@ body {
     background-size: cover;
 }
 
+
+
 * {box-sizing: border-box;font-family: 'Roboto',sans-serif;}
 .left-side-desc {font-size: 1.5rem;}
 .padding {padding: 0px 10px;}

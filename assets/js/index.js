@@ -1,3 +1,30 @@
+$('#form-login').validate({
+  rules:{
+    username:'required',
+    password:{
+      required:true,
+      minlength:6
+    }
+  },
+  errorPlacement:function(error,element){
+    var errorText = $(error).html();
+    var inputElName = $(element).attr('name');
+    var errorIdElement = "#error_"+inputElName;
+    
+    $(errorIdElement).html(errorText);
+
+  },
+  success:function(label,validElement){},
+  messages:{
+    username:'Username tidak boleh kosong',
+    password:{
+      required:'Password tidak boleh kosong',
+      minlength:'Password minimal 6 karakter'
+    }
+  }
+});
+
+
 $(document).ready(function(){
   $('.sidenav').sidenav();
   $('select').formSelect();

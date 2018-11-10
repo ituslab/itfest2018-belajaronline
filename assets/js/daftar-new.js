@@ -6,6 +6,46 @@
 $("#user-id-label").html("NIM " +initialSelectValue);
 
 
+$("#form-daftar").validate({
+  rules:{
+    nama:{
+      required:true
+    },
+    user_id:{
+      required:true
+    },
+    user_password:{
+      required:true,
+      minlength: 6
+    },
+    no_hp:{
+      required:true,
+      digits:true
+    }
+  },
+  errorPlacement:function(error,element){
+    var errorText = $(error).html();
+    var inputElName = $(element).attr('name');
+    var errorIdElement = "#error_"+inputElName;
+    
+    $(errorIdElement).html(errorText);
+
+  },
+  success:function(label,validElement){},
+  messages:{
+    nama:"Nama tidak boleh kosong",
+    user_id: "User id anda tidak boleh kosong",
+    user_password:{
+      required:"Password tidak boleh kosong",
+      minlength:"Password minimal 6 karakter"
+    },
+    no_hp:{
+      required:"No hp tidak boleh kosong",
+      digits:"Hanya angka yang diperbolehkan"
+    }
+  }
+});
+
 $('#daftar-sebagai').change(function(){
     var selectValue = $(this).prop("value");
     var prefix = "NIM";

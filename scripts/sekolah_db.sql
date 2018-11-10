@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `mata_kuliah`;
 CREATE TABLE `mata_kuliah` (
   `matkul_id` varchar(10) NOT NULL,
   `matkul_nama` varchar(250) DEFAULT NULL,
-  `pengajar_id` varchar(20) DEFAULT NULL,
+  `pengajar_id` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`matkul_id`),
   KEY `pengajar_id` (`pengajar_id`),
-  CONSTRAINT `mata_kuliah_ibfk_1` FOREIGN KEY (`pengajar_id`) REFERENCES `pengajar` (`pengajar_id`)
+  CONSTRAINT `mata_kuliah_ibfk_1` FOREIGN KEY (`pengajar_id`) REFERENCES `pengajar` (`pengajar_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,12 +101,14 @@ DROP TABLE IF EXISTS `siswa_jawaban`;
 CREATE TABLE `siswa_jawaban` (
   `siswa_id` varchar(20) DEFAULT NULL,
   `matkul_id` varchar(10) DEFAULT NULL,
-  `siswa_soalno` int(11) DEFAULT NULL,
-  `siswa_jawab` varchar(1) DEFAULT NULL,
+  `siswa_soalid` varchar(10) DEFAULT NULL,
+  `siswa_jawaban` varchar(1) DEFAULT NULL,
   KEY `siswa_id` (`siswa_id`),
   KEY `matkul_id` (`matkul_id`),
-  CONSTRAINT `siswa_jawaban_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`),
-  CONSTRAINT `siswa_jawaban_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`)
+  KEY `siswa_soalid` (`siswa_soalid`),
+  CONSTRAINT `siswa_jawaban_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE,
+  CONSTRAINT `siswa_jawaban_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE,
+  CONSTRAINT `siswa_jawaban_ibfk_3` FOREIGN KEY (`siswa_soalid`) REFERENCES `soal_matkul` (`soal_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,6 +119,61 @@ CREATE TABLE `siswa_jawaban` (
 LOCK TABLES `siswa_jawaban` WRITE;
 /*!40000 ALTER TABLE `siswa_jawaban` DISABLE KEYS */;
 /*!40000 ALTER TABLE `siswa_jawaban` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `siswa_matkul`
+--
+
+DROP TABLE IF EXISTS `siswa_matkul`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `siswa_matkul` (
+  `siswa_id` varchar(20) DEFAULT NULL,
+  `matkul_id` varchar(20) DEFAULT NULL,
+  KEY `siswa_id` (`siswa_id`),
+  KEY `matkul_id` (`matkul_id`),
+  CONSTRAINT `siswa_matkul_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE,
+  CONSTRAINT `siswa_matkul_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `siswa_matkul`
+--
+
+LOCK TABLES `siswa_matkul` WRITE;
+/*!40000 ALTER TABLE `siswa_matkul` DISABLE KEYS */;
+/*!40000 ALTER TABLE `siswa_matkul` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `siswa_skor`
+--
+
+DROP TABLE IF EXISTS `siswa_skor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `siswa_skor` (
+  `skor_id` varchar(10) NOT NULL,
+  `matkul_id` varchar(10) DEFAULT NULL,
+  `skor_nilai` double DEFAULT NULL,
+  `siswa_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`skor_id`),
+  KEY `matkul_id` (`matkul_id`),
+  KEY `siswa_id` (`siswa_id`),
+  CONSTRAINT `siswa_skor_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `soal_matkul` (`matkul_id`) ON DELETE CASCADE,
+  CONSTRAINT `siswa_skor_ibfk_2` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `siswa_skor`
+--
+
+LOCK TABLES `siswa_skor` WRITE;
+/*!40000 ALTER TABLE `siswa_skor` DISABLE KEYS */;
+/*!40000 ALTER TABLE `siswa_skor` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -134,7 +191,7 @@ CREATE TABLE `soal_matkul` (
   `matkul_id` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`soal_id`),
   KEY `matkul_id` (`matkul_id`),
-  CONSTRAINT `soal_matkul_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`)
+  CONSTRAINT `soal_matkul_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -156,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-07  9:23:50
+-- Dump completed on 2018-11-09 10:05:32

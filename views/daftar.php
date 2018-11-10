@@ -32,32 +32,37 @@
     </div>
 <!-- form daftar -->
     <div class="col s12 m6 margin-form" id="daftar-form">	
-    <form method="POST" action="daftar.php">
+    <form method="POST" id="form-daftar" action="/it-a/daftar">
 	    <div class="section white width-daftar border-form" >
 	        <div class="title-form">Daftar</div>
 		        <div class="row margin-nol">
 			        <div class="input-field col s12">
-			          <input id="nama" type="text" class="validate">
-			          <label for="nama">Nama Anda</label>
+			          <input id="nama" name="nama" type="text" class="validate">
+					  <label for="nama">Nama Anda</label>
+					  <div id="error_nama"></div>
 			        </div>
 		            <div class="form-row">
 		                <label class="form-label">Daftar sebagai</label>
-		                <select id="daftar-sebagai" nama="daftar_sebagai" class="form-input">
+		                <select id="daftar-sebagai" name="daftar_sebagai" class="form-input">
 		                    <option value="Mahasiswa">Mahasiswa</option>
 		                    <option value="Pengajar">Pengajar</option>
-		                </select>
+						</select>
+						<div id="error_daftar_sebagai"></div>
 		            </div>
 			        <div class="input-field col s12">
 			          <input id="user-name-input" name="user_id" type="text" class="validate">
-			          <label for="user-name-input" id="user-id-label"></label>
+					  <label for="user-name-input" id="user-id-label"></label>
+					  <div id="error_user_id"></div>
 			        </div>
 			        <div class="input-field col s12">
 			          <input id="no_hp" type="tel" name="no_hp" class="validate">
-			          <label for="no_hp">Nomor Handphone</label>
+					  <label for="no_hp">Nomor Handphone</label>
+					  <div id="error_no_hp"></div>
 			        </div>
 			        <div class="input-field col s12">
 			          <input id="password" type="password" name="user_password" class="validate">
-			          <label for="password">Password</label>
+					  <label for="password">Password</label>
+					  <div id="error_user_password"></div>
 			        </div>
 			    </div>
 			    <div class="center">
@@ -74,5 +79,6 @@
 
 </body>
 	<?php include_once __DIR__ . '/includes/bottom.php'; ?>
+	<script type="text/javascript" src="/it-a/assets/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="/it-a/assets/js/daftar-new.js"></script>
 </html>
