@@ -11,6 +11,11 @@
     ?>
 </head>
 <body>
+
+    <?php
+        loadPengajarNavbar();
+    ?>
+
     <!-- List Matakuliah -->
     <div class="row height-soal">
         <div class="center padding-collapsible">

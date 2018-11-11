@@ -11,6 +11,11 @@
     ?>
 </head>
 <body>
+
+    <?php
+        loadPengajarNavbar();
+    ?>
+
     <!-- buat soal -->
     <div class="row height-soal">
         <div class="col s12"> 

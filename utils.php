@@ -8,6 +8,11 @@ function loadView($viewName){
     include_once VIEW_DIR . '/views/' . $viewName;
 }
 
+
+function loadPengajarNavbar() {
+    include_once VIEW_DIR . '/views/pengajar/navbar.php';
+}
+
 function loadTop() {
     include_once VIEW_DIR . '/views/includes/top.php';
 }

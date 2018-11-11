@@ -12,6 +12,10 @@
 </head>
 <body>
 
+    <?php
+        loadPengajarNavbar();
+    ?>
+
     <div class="row height-soal">
         <div class="center padding-title">
           <h5>Tambah Matakuliah</h5>
