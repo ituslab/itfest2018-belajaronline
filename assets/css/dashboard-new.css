@@ -1,3 +1,5 @@
+* {font-family: 'Roboto', sans-serif;}
+
 body {background-color: #fafafa}
 .container-dashboard {width: 93%; margin: 0 auto;}
 .height-img {height: 120px; width: 120px; border-radius: 50%; background-color: white; margin: 0 auto;}
