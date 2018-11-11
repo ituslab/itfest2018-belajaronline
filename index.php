@@ -14,18 +14,61 @@ $router->get('/',function(){
 });
 
 $router->get("/signout",function(){
-    $userIdSession = Session::get("user_id");
-    if($userIdSession) {
-        Session::destroy();
-    }
+    Session::destroy();
     header("Location: /it-a");
 });
+
+
+$router->get("/dashboard/buat-soal",function(){
+    $sessionUserId = Session::get("user_id");
+    $sessionLoginSebagai = Session::get("login_sebagai");
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
+        loadView("pengajar/buat-soal.php");
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
+
+$router->get("/dashboard/list-matkul",function(){
+    $sessionUserId = Session::get("user_id");
+    $sessionLoginSebagai = Session::get("login_sebagai");
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
+        loadView("pengajar/list-matkul.php");
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
+
+$router->get("/dashboard/tambah-matkul",function(){
+    $sessionUserId = Session::get("user_id");
+    $sessionLoginSebagai = Session::get("login_sebagai");
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
+        loadView("pengajar/tambah-matkul.php");
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
+
+
 
 $router->get("/dashboard",function(){
     $userIdSession = Session::get("user_id");
     $loginSebagai = Session::get("login_sebagai");
     if($userIdSession && $loginSebagai){
         $colArray = array(
+            $loginSebagai. "_id",
             $loginSebagai. "_nama",
             $loginSebagai. "_nohp"
         );
@@ -38,10 +81,21 @@ $router->get("/dashboard",function(){
             ->fetch()
             ->get();
 
-        loadViewAndModel("dashboard.php",array(
-            'nama'=>$getUser->{$loginSebagai. "_nama"},
-            'noHp'=>$getUser->{$loginSebagai. "_nohp"}
-        ));
+        
+
+        if($loginSebagai === "pengajar") {
+            loadViewAndModel("dashboard-new.php",array(
+                'pengajar_id'=>$getUser->pengajar_id,
+                'pengajar_nama'=>$getUser->pengajar_nama,
+                'pengajar_nohp'=>$getUser->pengajar_nohp
+            ));
+        } else if($loginSebagai === "siswa") {
+            loadViewAndModel("dashboard-siswa.php",array(
+                'siswa_nama'=>$getUser->siswa_nama,
+                'siswa_nohp'=>$getUser->siswa_nohp
+            ));
+        }
+
     }else{
         loadViewAndModel("error.php",array(
             'title'=>'Informasi',
