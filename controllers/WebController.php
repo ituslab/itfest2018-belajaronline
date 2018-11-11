@@ -7,6 +7,10 @@ use Felis\Silvestris\Session;
 class WebController { 
 
 
+    public function handleBuatMatkul(){
+        
+    }
+
     // login gagal belum diperbaiki
     public function handleLogin(){
         $username = $_POST['username'];

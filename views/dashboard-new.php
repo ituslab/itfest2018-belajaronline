@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<?php 
-include_once __DIR__ . '/includes/top.php'; ?>
-    <link rel="stylesheet" href="/it-a/assets/css/dashboard-new.css"/>
+  <?php
+    loadTop();
+    loadCSS("dashboard.override.css");
+  ?>
 	<title>BelajarOnline</title>
 </head>
 <body>
@@ -20,7 +21,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
     <div class="col s12 m9 ">
       <!-- foto -->
       <div class="center margin-img">
-        <img src="/it-a/assets/img/avatar2.png" class="height-profile">
+        <!-- <img src="/it-a/assets/img/avatar2.png" class="height-img"> -->
         <p class="name-user"><?= $pengajar_nama?></p>
       </div>
       

@@ -7,7 +7,7 @@
     <title>List matakuliah</title>
     <?php 
         loadTop();
-        loadCSS("dashboard-new.css");
+        loadCSS("dashboard.override.css");
     ?>
 </head>
 <body>
@@ -39,9 +39,12 @@
         </div>
     </div>
     <!-- List Matakuliah -->
+
+
+    
 </body>
     <?php 
         loadBottom(); 
-        loadJS("dashboard-new.js");
+        loadJS("dashboard.override.js");
     ?>
 </html>

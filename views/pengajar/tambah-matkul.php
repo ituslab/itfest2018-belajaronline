@@ -7,7 +7,7 @@
     <title>Tambah matkul</title>
     <?php 
         loadTop();
-        loadCSS("dashboard-new.css");
+        loadCSS("dashboard.override.css");
     ?>
 </head>
 <body>
@@ -16,97 +16,33 @@
         loadPengajarNavbar();
     ?>
 
-    <div class="row height-soal">
-        <div class="center padding-title">
-          <h5>Tambah Matakuliah</h5>
-        </div>
-        <div class="col s12"> 
-            <div class="row">
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Praktikum
-                            </p>
+
+    <div class="my-sidebar-right">
+        <div class="my-row">
+            <form class="card">
+                <div class="card-content">
+                    <span class="card-title">Tambah Matakuliah</span>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">library_books</i>
+                            <input id="matkul_nama" name="matkul_nama" type="text" class="validate"/>
+                            <label for="matkul_nama">Nama matakuliah</label>
                         </div>
                     </div>
                 </div>
-
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Bahasa Inggris
-                            </p>
-                        </div>
-                    </div>
+                <div class="card-action grey lighten-5">
+                    <button class="btn waves-effect waves-light my-btn-bgcolor" type="submit" name="action">Submit data
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
-
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red " style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Bahasa Indonesia
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Teori Robotika
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Pemograman
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12 m4 margin-soal"> 
-                    <div class="card padding-soal">
-                        <div class="card-image">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" style="bottom: -5px;"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <p>
-                                Matakuliah Matematika
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            </form>
         </div>
     </div>
+
     
 </body>
     <?php 
         loadBottom();
-        loadJS("dashboard-new.js");
+        loadJS("dashboard.override.js");
     ?>
 </html>

@@ -113,6 +113,28 @@ $router->get('/jawab-soal',function(){
     loadView("jawab-soal.php");
 });
 
+
+$router->get('/api/list-matkul',function(){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'pengajar') {
+        $result = WebDb::listMatkulByPengajar($userIdSession);
+        $toJson = json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+        header('Content-type: application/json');
+        echo $toJson;
+    }else {
+        header('Content-type: application/json');
+        echo json_encode([
+            'code'=>200,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
 $router->get('/api/jawab-soal/(\w+)',function($matkulId){
     $result = WebDb::listSoalByMatkulId($matkulId);
     $toJson = json_encode([
@@ -124,7 +146,7 @@ $router->get('/api/jawab-soal/(\w+)',function($matkulId){
 });
 
 
-
+$router->post('/buat-matkul','Controllers\WebController@handleBuatMatkul');
 $router->post('/login',"Controllers\WebController@handleLogin");
 $router->post("/daftar","Controllers\WebController@handleDaftar");
 
