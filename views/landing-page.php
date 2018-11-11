@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>	
-	<?php include_once __DIR__ . '/includes/top.php'; ?>
+	<?php 
+
+include_once __DIR__ . '/includes/top.php'; ?>
     <link rel="stylesheet" type="text/css" href="/it-a/assets/css/index.css">
 	<title>BelajarOnline</title>
 </head>
@@ -281,7 +283,14 @@
 <?php include_once __DIR__ . '/includes/bottom.php'; ?>
 	<script type="text/javascript" src="/it-a/assets/js/jquery.validate.min.js"></script>
 	<script src="/it-a/assets/js/index.js"></script>
-   
+	<?php if (isset($_SESSION['login_gagal'])) {?>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var modalInstance = M.Modal.getInstance(document.getElementById('modal1'));
+				modalInstance.open();
+			});
+		</script>
+	<?php }?>
 </body>
 </html>
 
