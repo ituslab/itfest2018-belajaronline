@@ -122,12 +122,14 @@ function createOptionMatkulEl(value,innerHTML){
 }
 
 function loadListMatkul() {
-    $.get('/it-a/api/list-matkul',function(apiResponse){
-        $('#matkul-id').empty()
-        var data = apiResponse.data;
-        data.forEach(function(d){
-            createOptionMatkulEl(d.matkul_id, d.matkul_nama);
-        }); 
+    $.get('/it-a/api/list-matkul',function(apiResponse,textStatus , xhr){
+        if(textStatus === 'success') {
+            $('#matkul-id').empty()
+            var data = apiResponse.data;
+            data.forEach(function(d){
+                createOptionMatkulEl(d.matkul_id, d.matkul_nama);
+            }); 
+        }
     });
 }
 
@@ -214,9 +216,16 @@ $('#buat-soal-form').submit(function(ev){
     console.log(arrBuatSoal);
 
 
-    arrBuatSoal = [];
-    $('#soal-container').empty();
-    $('#jumlah-soal').val('');
+    $.post('/it-a/api/buat-soal',
+    JSON.stringify(arrBuatSoal),
+    function(data,statusText,xhr){
+        if(statusText === 'success') {
+            console.log(data);
+            arrBuatSoal = [];
+            $('#soal-container').empty();
+            $('#jumlah-soal').val('');
+        }
+    });
 
 
     ev.preventDefault();

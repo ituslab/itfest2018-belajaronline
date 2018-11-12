@@ -194,14 +194,39 @@ $router->get('/api/list-matkul',function(){
     }else {
         http_response_code(403);
         echo json_encode([
-            'code'=>200,
+            'code'=>403,
             'data'=>'Akses ditolak'
         ]);
     }
 });
 
 $router->post('/api/buat-soal',function(){
-    
+    $userIdSession = Session::get("user_id");
+    $loginSebagai = Session::get("login_sebagai");
+    header('Content-type: application/json');
+
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'pengajar') {
+        http_response_code(200);
+        $jsonString = file_get_contents('php://input');
+        
+        $toObj = json_decode($jsonString);
+
+        echo json_encode([
+            'code'=>200,
+            'data'=>[
+                'user_id'=>$userIdSession,
+                'request_body'=>$jsonString
+            ]
+        ]);
+
+    }else{
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>"Akses Ditolak"
+        ]);
+    }
 });
 
 $router->get('/api/jawab-soal/(\w+)',function($matkulId){
