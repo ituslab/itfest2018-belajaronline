@@ -2,7 +2,7 @@
 <html>
 <head>
 	<?php include_once __DIR__ . '/includes/top.php'; ?>
-    <link rel="stylesheet" href="/it-a/assets/css/dashboard-new.css"/>
+    <link rel="stylesheet" href="/it-a/assets/css/dashboard-siswa.css"/>
 	<title>BelajarOnline</title>
 </head>
 <body>
@@ -334,6 +334,6 @@
 </body>
 
 	<?php include_once __DIR__ . '/includes/bottom.php'; ?>
-  <script type="text/javascript" src="/it-a/assets/js/dashboard-new.js"></script>
+  <script type="text/javascript" src="/it-a/assets/js/dashboard-siswa.js"></script>
 
 </html>
