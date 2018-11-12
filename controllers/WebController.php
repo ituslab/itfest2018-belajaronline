@@ -2,11 +2,15 @@
 namespace Controllers;
 use Models\WebDb;
 use Felis\Silvestris\Database;
+use Felis\Silvestris\Session;
 
 class WebController { 
 
 
-    // belum divalidasi...
+    public function handleBuatMatkul(){
+        
+    }
+
     // login gagal belum diperbaiki
     public function handleLogin(){
         $username = $_POST['username'];

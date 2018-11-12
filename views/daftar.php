@@ -64,6 +64,22 @@
 					  <label for="password">Password</label>
 					  <div id="error_user_password"></div>
 			        </div>
+			        <div class="input-field col s12">
+			          <input id="email" name="email" type="email" class="validate">
+					  <label for="email">Email</label>
+					  <div id="error_email"></div>
+			        </div>
+	        	    <label class="margin-gender">
+				      <input class="with-gap" name="gender" type="radio"/>
+				      <span>Laki - Laki</span>
+				      <input class="with-gap" name="gender" type="radio" />
+				      <span>Perempuan</span>
+				    </label>
+			        <div class="input-field col s12">
+			          <input id="alamat" name="alamat" type="text" class="validate">
+					  <label for="alamat">Alamat</label>
+					  <div id="error_alamat"></div>
+			        </div>
 			    </div>
 			    <div class="center">
 				    <a href="landing-page.php" class="waves-effect waves-light btn margin-btn">Batal</a>

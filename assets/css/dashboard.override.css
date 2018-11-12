@@ -1,0 +1,100 @@
+#my-sidebar-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0; 
+    height: 100%;
+    z-index: 9999;
+    background-color: white;
+    transition: left 350ms;
+    width: 280px;
+}
+
+
+#my-overlay {
+    position: absolute;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#my-sidebar-header {
+    background-color: #0277bd;
+    margin-bottom: 15px;
+    padding: 8px;
+}
+
+#my-sidebar-img {
+    height: 120px ; 
+    width: 120px ;
+    border-radius: 120px;
+    display: block;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.my-sidebar-item{
+    height: auto !important;
+    line-height: 0 !important;
+}
+
+.my-icons-default {
+    display: inline-block !important;
+}
+
+.my-sidebar-link {
+    display: inline-block;
+    cursor: pointer;
+    color: #757575;
+}
+
+#my-sidebar-title{
+    margin: 0;
+}
+
+#my-sidenav-toggler {
+    cursor: pointer;
+}
+
+.my-clearfix:after{
+    display: block;
+    content: '';
+    clear:both;
+}
+
+
+
+.my-row {
+    padding: 10px;
+}
+.my-btn-bgcolor {
+    background-color: #0277bd !important;
+}
+
+
+.my-sidebar-right {
+    margin-left: 280px;
+}
+
+#my-sidebar-content {
+    color: #757575;
+    padding-left: 25px;
+}
+
+
+/* responsive code */
+
+/* hide sidebar */
+@media screen and (max-width: 750px) {
+    .my-sidebar-right {
+        margin-left: 0;
+    }
+}
+
+
+@media screen and (max-width: 650px){
+}
+/* responsive code */
