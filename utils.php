@@ -9,6 +9,9 @@ function loadView($viewName){
 }
 
 
+function loadSiswaNavbar() {
+    include_once VIEW_DIR . '/views/siswa/navbar.php';
+}
 function loadPengajarNavbar() {
     include_once VIEW_DIR . '/views/pengajar/navbar.php';
 }

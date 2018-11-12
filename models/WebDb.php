@@ -74,6 +74,28 @@ class WebDb {
         return $result;
     }
 
+    static function listMatkul() {
+        $webDb = self::getDb();
+        $findAll = $webDb
+            ->query(
+                "select 
+                m.matkul_id,
+                m.matkul_nama,
+                p.pengajar_nama,
+                p.pengajar_email,
+                p.pengajar_nohp,
+                p.pengajar_alamat,
+                (select count(s.soal_id) from soal_matkul s where s.matkul_id = m.matkul_id) as total_soal 
+                from mata_kuliah m 
+                inner join pengajar p 
+                on m.pengajar_id = p.pengajar_id
+                "
+            )
+            ->fetchAll()
+            ->get();
+        return $findAll;
+    }
+
     static function listMatkulByPengajar($pengajarId) {
         $webDb = self::getDb();
         $selectMatakuliah = $webDb
@@ -110,6 +132,20 @@ class WebDb {
 
     static function addNewMatkulToSiswa($matkulId , $siswaId){
         $webDb = self::getDb();
+
+        $result = $webDb
+            ->select('siswa_matkul')
+            ->where([
+                'matkul_id'=>['='=>$matkulId],
+                'siswa_id'=>['='=>$siswaId]
+            ])
+            ->fetch()
+            ->get();
+
+        if($result) {
+            return false;
+        }
+
         $result = $webDb->insert('siswa_matkul',[
             'matkul_id'=>$matkulId,
             'siswa_id'=>$siswaId
