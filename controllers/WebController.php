@@ -39,12 +39,24 @@ class WebController {
         $userId = $_POST['user_id'];
         $userPassword = $_POST['user_password'];
         $noHp = $_POST['no_hp'];
+        $gender = $_POST['gender'];
+        $alamat = $_POST['alamat'];
+        $email = $_POST['email'];
 
         $result = substr($daftarSebagai , 1 );
         $toLower = strtolower($daftarSebagai[0]);
         $daftarSebagai = $toLower . $result;
 
-        $saveResult = WebDb::handleSaveDaftar($daftarSebagai,$nama,$userId,$userPassword,$noHp);
+        $saveResult = WebDb::handleSaveDaftar(
+                $daftarSebagai,
+                $nama,
+                $userId,
+                $userPassword,
+                $noHp,
+                $email,
+                $alamat,
+                $gender
+        );
 
         if($saveResult) {
             header("Location: /it-a/daftar");

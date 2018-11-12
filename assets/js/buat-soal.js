@@ -1,11 +1,31 @@
-
 var arrBuatSoal = [];
 
 
 $(document).ready(function(){
     $('select').formSelect();
 });
-      
+
+
+
+// function onChangeRadio(ev){
+//     var elTarget = ev.target;
+//     var rowParentEl = $(elTarget).closest('.row');
+    
+//     var isChecked = $(elTarget).prop('checked');
+    
+//     if(isChecked) {
+//         var mySoalTextEl = rowParentEl.find('.my-soal-text');
+//         var soalNoVal = $(elTarget).data('soal_no');
+
+//         var mySoalTextElVal = mySoalTextEl.val().toString().trim();
+
+//         if(mySoalTextElVal) {
+//             currentSoal(soalNoVal)['soal_jawab_text'] = mySoalTextElVal;
+
+//             console.log(currentSoal);
+//         }
+//     }
+// }
 
 function createSoalPanel(soalTitleValue,soalNoValue){
     var soalCardPanel = document.createElement('div');
@@ -27,6 +47,7 @@ function createSoalPanel(soalTitleValue,soalNoValue){
     var inputTextPertanyaanEl = document.createElement('input');
     inputTextPertanyaanEl.setAttribute('type','text');
     inputTextPertanyaanEl.setAttribute('placeholder','');
+    inputTextPertanyaanEl.setAttribute('data-soal_no',soalNoValue);
     inputTextPertanyaanEl.className = 'validate my-soal-pertanyaan';
 
     var labelPertanyaanEl = document.createElement('label');
@@ -77,6 +98,7 @@ function createSoalPanel(soalTitleValue,soalNoValue){
         
         var inputMySoalTextEl = document.createElement('input');
         inputMySoalTextEl.setAttribute('type','text');
+        inputMySoalTextEl.setAttribute('data-soal_no',soalNoValue);
         inputMySoalTextEl.className = 'my-soal-text';
         
         rowMySoalTextEl.appendChild(inputMySoalTextEl);
@@ -117,12 +139,17 @@ $('#btn-buat-soal').click(function(){
     var jumlahSoalValue = $('#jumlah-soal').val();
     // do process
     if(jumlahSoalValue >=5 && jumlahSoalValue <= 10) {
+        if(arrBuatSoal.length > 0) {
+            arrBuatSoal = [];
+        }
         $('#soal-container').empty();
          for(var i =1; i<=jumlahSoalValue; i++){
              createSoalPanel('Soal no',i);
              arrBuatSoal.push({
                  soal_no:i,
-                 soal_jawab:null
+                 soal_jawab:null,
+                 soal_pertanyaan:null,
+                 soal_jawab_text:null
              });
          }
     }
@@ -132,37 +159,65 @@ $('#btn-buat-soal').click(function(){
 });
 
 function getSoalPertanyaanInput(){
-    $('.my-soal-pertanyaan').each(function(el){
-        console.log(el);
+    $('.my-soal-pertanyaan').each(function(i,el){
+        var soalPertanyaanVal = $(el).val().trim();
+        var soalNoVal = $(el).data('soal_no');
+        
+        if(soalPertanyaanVal) {
+            currentSoal(soalNoVal)['soal_pertanyaan'] = soalPertanyaanVal;
+        }
     });
+}
+
+function currentSoal(soalNo){
+    var mapToArrSoalNo = arrBuatSoal.map(function(n){ return n.soal_no});
+    var indexOfSoalNo = mapToArrSoalNo.indexOf(soalNo);
+
+    return arrBuatSoal[indexOfSoalNo];
 }
 
 function getRadioSoalInputVal(){
     $('input[name^="my-radio-soal"]:checked').each(function(i,el){
         var soalNo = $(el).data('soal_no');
 
-        var mapToArrSoalNo = arrBuatSoal.map(function(v){ return v.soal_no;});
-        var indexOfSoalNo = mapToArrSoalNo.indexOf(soalNo);
-        
-        arrBuatSoal[indexOfSoalNo]['soal_jawab'] = $(el).attr('value');
+        currentSoal(soalNo)['soal_jawab'] = $(el).attr('value');
     });
 }
 
+
+
 function getSoalTextInputVal(){
-    $('.my-soal-text').each(function(el,i){
-        var soalTextVal = $(el).val();
-        var trimIt = soalTextVal.toString().trim();
-        var soalNo = $(el).data('soal_no');
+    $('.my-soal-text').each(function(i,el){
+        var rowParentEl = $(el).closest('.row');
+        var myRadioSoalEl = rowParentEl.find('.my-radio-soal');
+        var checkedRadio = myRadioSoalEl.prop('checked');
         
-        console.log(trimIt);
+        if(checkedRadio) {
+            var soalTextVal = $(el).val();
+            var trimIt = soalTextVal.toString().trim();
+            var soalNo = $(el).data('soal_no');
+
+            if(trimIt) {
+                currentSoal(soalNo)['soal_jawab_text'] = trimIt;
+            }
+
+        }
+
     });
 }
 
 $('#buat-soal-form').submit(function(ev){
-    // getRadioSoalInputVal();
-    // console.log(arrBuatSoal);
+    getRadioSoalInputVal();
+    getSoalPertanyaanInput();
     getSoalTextInputVal();
 
+    console.log(arrBuatSoal);
+
+
     arrBuatSoal = [];
+    $('#soal-container').empty();
+    $('#jumlah-soal').val('');
+
+
     ev.preventDefault();
 });

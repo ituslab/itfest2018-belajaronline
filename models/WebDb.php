@@ -153,7 +153,7 @@ class WebDb {
         return $result;
     }
 
-    static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp) {
+    static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp , $email , $alamat , $gender) {
         $webDb = self::getDb();
         $result = false;
         if($daftarSebagai === "pengajar") {
@@ -161,14 +161,20 @@ class WebDb {
                 'pengajar_id'=>$userId,
                 'pengajar_nama'=>$nama,
                 'pengajar_password'=>md5($password),
-                'pengajar_nohp'=>$noHp
+                'pengajar_nohp'=>$noHp,
+                'pengajar_email'=>$email,
+                'pengajar_gender'=>$gender,
+                'pengajar_alamat'=>$alamat                
             ));
         } else if ($daftarSebagai === "mahasiswa") {
             $result = $webDb->insert("siswa",array(
                 'siswa_id'=>$userId,
                 'siswa_nama'=>$nama,
                 'siswa_password'=>md5($password),
-                'siswa_nohp'=>$noHp
+                'siswa_nohp'=>$noHp,
+                'siswa_email'=>$email,
+                'siswa_gender'=>$gender,
+                'siswa_alamat'=>$alamat
             ));
         }
 

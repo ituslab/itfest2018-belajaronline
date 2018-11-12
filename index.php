@@ -200,6 +200,10 @@ $router->get('/api/list-matkul',function(){
     }
 });
 
+$router->post('/api/buat-soal',function(){
+    
+});
+
 $router->get('/api/jawab-soal/(\w+)',function($matkulId){
     $result = WebDb::listSoalByMatkulId($matkulId);
     $toJson = json_encode([

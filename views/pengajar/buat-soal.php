@@ -131,6 +131,9 @@
                 </div> -->
 
               </div>
+              <div id="error-soal-container">
+
+              </div>
             </div>
             <div class="card-action grey lighten-5">
               <button class="btn waves-effect waves-light my-btn-bgcolor" type="submit" name="action">Submit data
