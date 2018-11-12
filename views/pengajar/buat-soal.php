@@ -18,7 +18,7 @@
 
       <div class="my-sidebar-right">
         <div class="my-row">
-          <form class="card">
+          <form id="buat-soal-form" class="card">
             <div class="card-content">
               <span class="card-title">Buat soal</span>
               <div class="row">

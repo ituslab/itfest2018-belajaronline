@@ -38,6 +38,42 @@ class WebDb {
         return $selectPengajar;
     }
 
+    static function countListSiswaYangMengambilMataKuliah($matkulId) {
+        $webDb = self::getDb();
+        $result = $webDb
+            ->query("
+            select count(s.siswa_id) as total from siswa s 
+            inner join siswa_matkul sm on 
+            s.siswa_id = sm.siswa_id 
+            inner join mata_kuliah m on 
+            sm.matkul_id = m.matkul_id 
+            where sm.matkul_id = :matkul_id
+            ",[
+                ':matkul_id'=>$matkulId
+            ])
+            ->fetch()
+            ->get();
+
+        return $result;
+    }
+
+    static function listSiswaYangMengambilMataKuliah($matkulId) {
+        $webDb = self::getDb();
+        $result = $webDb
+            ->query("
+            select s.siswa_id,s.siswa_nama,m.matkul_nama 
+            from siswa s inner join siswa_matkul sm 
+            on s.siswa_id = sm.siswa_id 
+            inner join mata_kuliah m on sm.matkul_id = m.matkul_id  
+            where sm.matkul_id = :matkul_id
+            ",[
+                ':matkul_id'=>$matkulId
+            ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
     static function listMatkulByPengajar($pengajarId) {
         $webDb = self::getDb();
         $selectMatakuliah = $webDb
@@ -62,12 +98,12 @@ class WebDb {
         return $selectSoal;
     }
 
-    static function buatMatkul($matkul) {
+    static function buatMatkul($matkulNama , $pengajarId) {
         $webDb = self::getDb();
         $result = $webDb->insert('mata_kuliah',array(
-            'matkul_id'=>$matkul['matkul_id'],
-            'matkul_nama'=>$matkul['matkul_nama'],
-            'pengajar_id'=>$matkul['pengajar_id']
+            'matkul_id'=>substr("M_".Uuid::uuid4()->toString() , 0 , 10),
+            'matkul_nama'=>$matkulNama,
+            'pengajar_id'=>$pengajarId
         ));
         return $result;
     }

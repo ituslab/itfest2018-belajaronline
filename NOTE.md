@@ -25,3 +25,13 @@ where sj.siswa_jawaban = sm.soal_jawab
 and sj.siswa_id = 'SISWA_ID_VALUE'
 and sj.matkul_id = 'MATKUL_ID_VALUE'
 ```
+
+### List siswa yang mengambil mata kuliah (Dari matkul_id)
+```
+select s.siswa_id,s.siswa_nama,m.matkul_nama from siswa s inner join siswa_matkul sm on s.siswa_id = sm.siswa_id  inner join mata_kuliah m on sm.matkul_id = m.matkul_id  where sm.matkul_id = 'MATKUL_ID_VALUE'
+```
+
+### Count List siswa yang mengambil mata kuliah (Dari matkul_id)
+```
+select count(s.siswa_id) as total from siswa s inner join siswa_matkul sm on s.siswa_id = sm.siswa_id  inner join mata_kuliah m on sm.matkul_id = m.matkul_id  where sm.matkul_id = 'MATKUL_ID_VALUE';
+```

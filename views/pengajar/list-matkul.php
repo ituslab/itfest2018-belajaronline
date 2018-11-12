@@ -16,29 +16,19 @@
         loadPengajarNavbar();
     ?>
 
-    <!-- List Matakuliah -->
-    <div class="row height-soal">
-        <div class="center padding-collapsible">
-          <h5>List Matakuliah</h5>
-        </div>
-        <div class="col s12 m12">
-          <ul class="collapsible">
-            <li class="active">
-              <div class="collapsible-header"><i class="fas fa-swatchbook icon-color"></i>Matakuliah 1</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="fas fa-swatchbook icon-color"></i>Matakuliah 2</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-            <li>
-              <div class="collapsible-header"><i class="fas fa-swatchbook icon-color"></i>Matakuliah 3</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-            </li>
-          </ul>
+    <div class="my-sidebar-right">
+        <div class="my-row">
+            <ul class="collection">
+                <?php foreach($list_matkul as $l) {?>
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle red">library_books</i>
+                        <span class="title">Nama matakuliah</span>
+                        <p><?= $l->matkul_nama?></p>
+                    </li>
+                <?php }?>
+            </ul>
         </div>
     </div>
-    <!-- List Matakuliah -->
 
 
     
@@ -46,5 +36,6 @@
     <?php 
         loadBottom(); 
         loadJS("dashboard.override.js");
+        loadJS("list-matkul.js");
     ?>
 </html>

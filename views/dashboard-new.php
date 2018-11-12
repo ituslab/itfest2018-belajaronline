@@ -129,7 +129,10 @@
 
 </body>
 
-	<?php include_once __DIR__ . '/includes/bottom.php'; ?>
-  <script type="text/javascript" src="/it-a/assets/js/dashboard-new.js"></script>
+   <?php 
+      loadBottom();
+      loadJS("dashboard.override.js");
+   ?>
+  <!-- <script type="text/javascript" src="/it-a/assets/js/dashboard-new.js"></script> --> -->
 
 </html>

@@ -19,7 +19,7 @@
 
     <div class="my-sidebar-right">
         <div class="my-row">
-            <form class="card">
+            <form id="tambah-matkul-form" class="card">
                 <div class="card-content">
                     <span class="card-title">Tambah Matakuliah</span>
                     <div class="row">
@@ -28,6 +28,9 @@
                             <input id="matkul_nama" name="matkul_nama" type="text" class="validate"/>
                             <label for="matkul_nama">Nama matakuliah</label>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div id="error_matkul_nama" class="col s12 m12"></div>
                     </div>
                 </div>
                 <div class="card-action grey lighten-5">
@@ -44,5 +47,7 @@
     <?php 
         loadBottom();
         loadJS("dashboard.override.js");
+        loadJS("jquery.validate.min.js");
+        loadJS("tambah-matkul.js");
     ?>
 </html>
