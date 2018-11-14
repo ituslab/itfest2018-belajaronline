@@ -353,6 +353,7 @@ $router->post('/api/tambah-matkul',function(){
 
 
 $router->get('/dashboard/finish',function(){
+    Session::unset('matkul_id_session');
     header('Location: /it-a/dashboard');
 });
 
@@ -385,7 +386,7 @@ $router->get('/api/ambil-jawaban/(\w+)',function($matkulId){
 $router->get('/api/list-sesi/(\w+)',function($matkulId){
     $userIdSession = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
-
+    Session::set('matkul_id_session',$matkulId);
 
     header('Content-type: application/json');
     if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
@@ -418,13 +419,13 @@ $router->post('/api/jawab-soal',function(){
         $jsonString = file_get_contents('php://input');
         $toObj = json_decode($jsonString);
 
+        
         foreach ($toObj as $v) {
             $v->siswa_id = $userIdSession;
-            $v->matkul_id = $matkulIdSession;
 
             WebDb::jawabSoal(
                 $v->siswa_id, 
-                $v->matkul_id , 
+                $matkulIdSession , 
                 $v->siswa_soalid , 
                 $v->siswa_jawaban);
         }
