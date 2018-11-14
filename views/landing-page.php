@@ -18,7 +18,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="#modal1" class="waves-effect waves-light modal-trigger animasi-in-top">Login</a></li>
 				<li><a href="#daftar" class="waves-effect waves-light animasi-in-top">Daftar</a></li>
-				<li><a href="#fasilitas" class="waves-effect waves-light animasi-in-top">Fasilitas</a></li>
+				<li><a href="#fasilitas" class="waves-effect waves-light animasi-in-top">Fitur</a></li>
 				<li><a href="#about" class="waves-effect waves-light animasi-in-top">About</a></li>
 				<li><a href="#sponsor" class="waves-effect waves-light animasi-in-top">Sponsors</a></li>
 			</ul>
@@ -29,7 +29,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 		<li><center class="light-blue darken-1 menu-style">Menu</center></li>
 		<li><a href="#modal1" class="waves-effect waves-light sidenav-close modal-trigger">Login</a></li>
 		<li><a href="#daftar" class="waves-effect waves-light sidenav-close">Daftar</a></li>
-		<li><a href="#fasilitas" class="waves-effect waves-light sidenav-close">Fasilitas</a></li>
+		<li><a href="#fasilitas" class="waves-effect waves-light sidenav-close">Fitur</a></li>
 		<li><a href="#about" class="waves-effect waves-light sidenav-close">About</a></li>
 		<li><a href="#sponsor" class="waves-effect waves-light sidenav-close">Sponsors</a></li>
 	</ul>                 
@@ -89,34 +89,31 @@ include_once __DIR__ . '/includes/top.php'; ?>
     </div>
     <div class="section white" id="fasilitas">
       	<div class="row container">
-       		<h2 class="header center top-title">Fasilitas</h2>
+       		<h2 class="header center top-title">Fitur Kami</h2>
        		<!-- fitur -->
 				<div class="row">
-					<div class="col s12 m4">
+					<div class="col s12 m4 margin-icon-top">
 						<div class="center">
-       						<i class="material-icons medium">flash_on</i>
+       						<i class="fas fa-book-open medium fa-fw"></i>
 						</div>
-						<div class="left">	
-       						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="center">	
+       						<p>Buat soal pilihan ganda</p>
 						</div>
 					</div>
-					<div class="col s12 m4">
+					<div class="col s12 m4 margin-icon-top">
 						<div class="center">
-       						<i class="material-icons medium">flash_on</i>
+       						<i class="fa fa-search medium fa-fw"></i>
 						</div>
-						<div class="left">	
-       						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="center">	
+       						<p>Cari Matakuliah anda</p>
 						</div>
 					</div>
-					<div class="col s12 m4">
+					<div class="col s12 m4 margin-icon-top">
 						<div class="center">
-       						<i class="material-icons medium">flash_on</i>
+       						<i class="fas fa-pen medium fa-fw"></i>
 						</div>
-						<div class="left">	
-       						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="center">	
+       						<p>Kerjakan dan dapatkan hasilnya</p>
 						</div>
 					</div>
 				</div>
@@ -149,28 +146,69 @@ include_once __DIR__ . '/includes/top.php'; ?>
 			<!-- fitur -->
       	</div>
     </div>
-    <div class="parallax-container" id="about">
+    <div class="parallax-container height-paralax-container" id="about">
     	<!-- about -->
     <div class="section color-white">
       	<div class="row container">
-       		<h2 class="header center top-title">About Me</h2>
+       		<h2 class="header center top-title">About us</h2>
     		<div class="row">
-					<div class="col s12 m6">
+					<div class="col s12 m6 margin-m6">
 						<div class="center">
-       						<i class="fa fa-user medium"></i>
+							<img src="/it-a/assets/img/foto2.jpg" class="img-about">
 						</div>
-						<div class="left">	
-       						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="center">
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Aref%20Al-Kahfi%0A%0A+6282179400816"><i class="fab fa-whatsapp"></i></a>
+	    					<a class="btn-floating btn-medium grey darken-4" href="https://github.com/ariefkahfi"><i class="fab fa-github"></i></a><br>
+	    					<p>Arief Al-Kahfi Verdana<br>
+       						Full Stack Developer</p>
 						</div>
 					</div>
-					<div class="col s12 m6">
+					<div class="col s12 m6 margin-m6">
 						<div class="center">
-       						<i class="fa fa-users medium"></i>
+							<img src="/it-a/assets/img/foto5.jpg" class="img-about">
 						</div>
-						<div class="left">	
-       						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       						tempor incididunt ut labore et dolore magna aliqua.</p>
+						<div class="center">
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Aji%20Prasetyo%0A%0A+6282311695444"><i class="fab fa-whatsapp"></i></a>
+	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/aji.prasetyoo.5"><i class="fab fa-instagram"></i></a><br>
+
+	    					<p>Aji Prasetyo<br>
+       						Front End Developer</p>
+						</div>
+					</div>
+					<div class="col s12 m4 margin-m6">
+						<div class="center">
+							<img src="/it-a/assets/img/foto1.jpg" class="img-about">
+						</div>
+						<div class="center">
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Sutan%20Gading%0A%0A+6281271377018"><i class="fab fa-whatsapp"></i></a>
+	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/sutan_gnst"><i class="fab fa-instagram"></i></a><br>
+
+	    					<p>Sutan Gading Fadilah N<br>
+       						Full Stack Developer</p>
+						</div>
+					</div>
+					<div class="col s12 m4 margin-m6">
+						<div class="center">
+							<img src="/it-a/assets/img/foto3.jpg" class="img-about">
+						</div>
+						<div class="center">
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Irvan%20Refnaldi%0A%0A+6282176868926"><i class="fab fa-whatsapp"></i></a>
+	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/irvref02"><i class="fab fa-instagram"></i></a><br>
+
+	    					<p>M. Irvan Refnaldi<br>
+       						JavaScript Developer</p>
+						</div>
+					</div>
+					<div class="col s12 m4 margin-m6">
+						<div class="center">
+							<img src="/it-a/assets/img/foto6.jpg" class="img-about">
+						</div>
+						<div class="center">
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Jian%20Malik%0A%0A+6285269574522"><i class="fab fa-whatsapp"></i></a>
+	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/Jian.malik69"><i class="fab fa-instagram"></i></a><br>
+
+	    					<p>Jian Malik Hidayat<br>
+       						Network Engineer</p>
 						</div>
 					</div>
 				</div>
