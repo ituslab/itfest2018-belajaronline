@@ -1,0 +1,21 @@
+version: '3'
+services: 
+  sekolah-app:
+    build: .
+    image: sekolah-app
+    container_name: sekolah-app
+    ports: 
+      - "80:80"
+    volumes: 
+      - .:/var/www/html/it-a/
+    depends_on: 
+      - sekolah-db
+    command: ["./wait-for-it.sh","sekolah-db:3306","-t","120","--","apache2-foreground"]
+  sekolah-db:
+    image: mysql:5.7
+    container_name: sekolah-db
+    volumes: 
+      - ./scripts/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: sekolah_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'   

@@ -1,6 +1,6 @@
 vendor
-Dockerfile
-.dockerignore
-docker-compose.yml
-*.sh
+#Dockerfile
+#.dockerignore
+#docker-compose.yml
+# *.sh
 tests/
