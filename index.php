@@ -14,6 +14,10 @@ $router->get('/',function(){
     loadView("landing-page.php");
 });
 
+$router->set404(function(){
+  loadView("404.php");
+});
+
 $router->get("/signout",function(){
     Session::destroy();
     header("Location: /it-a");
