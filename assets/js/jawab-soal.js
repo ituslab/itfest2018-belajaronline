@@ -1,80 +1,165 @@
-var soalData = [];
-var inputJawab = [];
+document.addEventListener('DOMContentLoaded',function(){
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {
+        dismissible:false
+    });
+});
+
+
+
+
+$('#soal-prev-btn').hide();
+$('#soal-submit-btn').hide();
+
+
+var freshSoalArr = [];
+var inputSoalJawab = [];
 var currentIdx = 0;
 
-$('#prev-btn').hide();
-$('#submit-btn').hide();
-
-
-function onResponse(apiResp){
-    var data = apiResp.data;
-    soalData = data;
-    soalData.forEach(function(s){
-        inputJawab.push({
-            'siswa_soalid':s.soal_id,
-            'matkul_id':s.matkul_id,
-            'siswa_jawaban':null
+function processSoal(soals){
+    var onlySoalId =
+        soals.map(function(v){return v.soal_id;});
+    var onlySoalNo = 
+        soals.map(function(v){return v.soal_no;});
+    var onlySoalText =
+        soals.map(function(v){return v.soal_text; });
+    var onlySoalOpsiAndSoalOpsiTextAndSoalNo =
+        soals.map(function(v){
+            return {
+                soal_no:v.soal_no,
+                soal_opsi:v.soal_opsi,
+                soal_opsi_text:v.soal_opsi_text
+            }
         });
-    });
-    loadIntoDom(soalData[0]);
+    
+    
+    var uniqueSoalId = _.uniq(onlySoalId);
+    var uniqueSoalNo = _.uniq(onlySoalNo);
+    var uniqueSoalText = _.uniq(onlySoalText);
+
+    for(var i =0; i<uniqueSoalNo.length; i++){
+        var currSoalNo = uniqueSoalNo[i];
+        
+        var fWhere = _.where(onlySoalOpsiAndSoalOpsiTextAndSoalNo , {
+            soal_no:currSoalNo
+        });
+
+        var fWhereMap = fWhere.map(function(v){
+            return {
+                soal_opsi:v.soal_opsi,
+                soal_opsi_text:v.soal_opsi_text
+            }
+        });
+
+        freshSoalArr.push({
+            soal_id:uniqueSoalId[i],
+            soal_no:currSoalNo,
+            soal_pertanyaan:uniqueSoalText[i],
+            soal_opsis:fWhereMap
+        });
+
+        inputSoalJawab.push({
+            siswa_soalid:uniqueSoalId[i],
+            siswa_jawaban:null
+        });
+    }
+    loadIntoDom(freshSoalArr[currentIdx]);
 }
-
-
-$('.soal-radio').click(function(){
-    inputJawab[currentIdx].siswa_jawaban = $(this).attr('value');
-});
 
 function loadIntoDom(currentSoal){
-    $('#soal-no-container').html('Soal no ' +currentSoal.soal_no);
-    $('#soal-text-container').html(currentSoal.soal_text);
+    var pertanyaan = currentSoal.soal_pertanyaan;
+    var soalNo = currentSoal.soal_no;
+    var soalId = currentSoal.soal_id;
 
-    var currentInputJawab = inputJawab[currentIdx].siswa_jawaban;
+    var soalOpsiTextA = currentSoal.soal_opsis[0].soal_opsi_text;
+    var soalOpsiTextB = currentSoal.soal_opsis[1].soal_opsi_text;
+    var soalOpsiTextC = currentSoal.soal_opsis[2].soal_opsi_text;
+    var soalOpsiTextD = currentSoal.soal_opsis[3].soal_opsi_text;
+    var soalOpsiTextE = currentSoal.soal_opsis[4].soal_opsi_text;
 
-    if(currentInputJawab) {
-        $('input[name=soal-radio][value=' + currentInputJawab + ']').prop('checked',true);
+    $('#soal-pertanyaan-el').text(pertanyaan);
+    $('#soal-no-el').text('Soal no. ' +soalNo);
+
+    $('#soal_opsi_text_A').text('A. ' +soalOpsiTextA);
+    $('#soal_opsi_text_B').text('B. ' +soalOpsiTextB);
+    $('#soal_opsi_text_C').text('C. ' +soalOpsiTextC);
+    $('#soal_opsi_text_D').text('D. ' +soalOpsiTextD);
+    $('#soal_opsi_text_E').text('E. ' +soalOpsiTextE);
+
+    var currentJawabChecked = inputSoalJawab[currentIdx].siswa_jawaban;
+
+    if(currentJawabChecked) {
+        $("input[name=soal_opsi][value=" + currentJawabChecked + "]").prop('checked', true);
     } else {
-        $('input[name=soal-radio]').prop('checked',false);
+        $('input[name=soal_opsi]').prop('checked',false);
     }
+
 }
 
-$('#next-btn').click(function(){
+$('input[name=soal_opsi]').change(function(){
+    var checkedOpsi = $(this).val();
+    inputSoalJawab[currentIdx].siswa_jawaban = checkedOpsi;
+});
+
+$('#soal-submit-btn').click(function(){
+    var currentModal = M.Modal.getInstance(document.querySelector('.modal'));
+    currentModal.open();
+
+    $.post('/it-a/api/jawab-soal',
+        JSON.stringify(inputSoalJawab),
+        function(apiResponse,statusText,xhr){
+            currentModal.close();
+            
+            if(statusText === 'success') {
+                window.location.href = '/it-a/dashboard/finish';
+            }
+        }
+    );
+});
+
+$('#soal-next-btn').click(function(){
     ++currentIdx;
-    loadIntoDom(soalData[currentIdx]);
-    if(currentIdx === soalData.length -1 ) {
-        $('#submit-btn').show();
+    loadIntoDom(freshSoalArr[currentIdx]);
+
+    if(currentIdx === freshSoalArr.length - 1) {
+        $('#soal-submit-btn').show();
         $(this).hide();
         return;
     }
 
-    if(currentIdx >=1 && currentIdx < soalData.length - 1 ){
-        $('#prev-btn').show();
+    if(currentIdx >= 1 && currentIdx < freshSoalArr.length - 1 ) {
+        $('#soal-prev-btn').show();
     }
 });
 
-$('#submit-btn').click(function(){
-    console.log(inputJawab);
+$('#soal-prev-btn').click(function(){
+   --currentIdx;
+   loadIntoDom(freshSoalArr[currentIdx]);
+
+   if(currentIdx === 0) {
+       $(this).hide();
+       return;
+   }
+
+   if(currentIdx >=1 && currentIdx < freshSoalArr.length - 1){
+       $('#soal-submit-btn').hide();
+       $('#soal-next-btn').show();
+   }
 });
 
-$('#prev-btn').click(function(){
-    --currentIdx;
-    loadIntoDom(soalData[currentIdx]);
+function fetchSoal(){
+    var splitted = window.location.pathname.split('/');
+    var lastPath = splitted[splitted.length - 1];
+    
 
-    if(currentIdx === 0) {
-        $(this).hide();
-        return;
-    }
-
-    if(currentIdx >= 1 && currentIdx < soalData.length - 1) {
-        $('#submit-btn').hide();
-        $('#next-btn').show();
-    }
-});
-
-
-
-
-function loadSoal(){
-    $.get('/it-a/api/jawab-soal/'+'M_001',onResponse);
+    $.get("/it-a/api/jawab-soal/"+lastPath,
+    function(apiResponse,statusText,xhr){
+        if(statusText === 'success') {
+            processSoal(apiResponse.data);
+        }else{
+            console.log('gagal load soal dari server');
+        }
+    });
 }
 
-loadSoal();
+fetchSoal();

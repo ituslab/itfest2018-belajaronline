@@ -32,5 +32,9 @@
       <i class="fas fa-swatchbook fa-fw fa-lg my-icons-default"></i>
       <a href="/it-a/dashboard/matkul-saya" class="my-sidebar-link">Matakuliah saya</a>
     </div>
+    <div class="my-sidebar-item">
+      <i class="fas fa-bookmark fa-fw fa-lg my-icons-default"></i>
+      <a href="/it-a/dashboard/hasil-matkul" class="my-sidebar-link">Hasil matakuliah saya</a>
+    </div>
   </div>
 </nav>

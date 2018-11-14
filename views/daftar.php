@@ -25,7 +25,7 @@
     	<a href="#daftar-form">
 		<div class="color-white fa-2x animasi-in-zoom-2">
 			<i class="fas fa-pen fa-2x fa-fw"></i>
-			<span class="left-side-desc">Kerjakan soal dan dapatkan nilai</span>
+			<span class="left-side-desc">Kerjakan soal dan lihat hasilnya</span>
 		</div>
 		</a>
     	</div>	

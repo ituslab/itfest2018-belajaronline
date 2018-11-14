@@ -52,10 +52,15 @@
                                             <span class="title">Total soal</span>
                                             <p><?= $c->total_soal?></p>
                                         </li>
+                                        <li class="collection-item avatar">
+                                            <i class="material-icons circle teal">layers</i>
+                                            <span class="title">Total sesi / pertemuan</span>
+                                            <p><?= $c->total_sesi?></p>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="card-action">
-                                    <?php if($c->total_soal > 0) {?>
+                                    <?php if($c->total_soal >= 5) {?>
                                         <button class="btn waves-effect waves-light" onclick="onTambahMatkul('<?php echo($c->matkul_id);?>')">Tambahkan ke matakuliah saya
                                             <i class="material-icons right">add</i>
                                         </button>
