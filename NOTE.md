@@ -10,27 +10,23 @@ where s.siswa_id = 'SISWA_ID_VALUE'
 ```
 
 
-### Ambil jawaban dari siswa dan pengajar
+### Ambil jawaban dari siswa dan pengajar (Dari siswa dan sesi id)
 ```
-select sj.siswa_soalid,sm.soal_no,sm.soal_text, sj.siswa_jawaban,sm.soal_jawab from siswa_jawaban sj inner join soal_matkul sm on sj.matkul_id = sm.matkul_id and sj.siswa_soalid = sm.soal_id where sj.siswa_id = 'SISWA_ID_VALUE' and sj.matkul_id = 'MATKUL_ID_VALUE';
-
-```
-
-
-### Ambil jawaban yang salah 
-```
-select sm.matkul_id, sj.siswa_id,sm.soal_no,sj.siswa_jawaban,sm.soal_jawab from siswa_jawaban sj inner join soal_matkul sm on sj.siswa_soalid = sm.soal_id and sj.matkul_id = sm.matkul_id
-where sj.siswa_id = 'SISWA_ID_VALUE' and 
-and sj.matkul_id = 'MATKUL_ID_VALUE' and
-sj.siswa_jawaban != sm.soal_jawab ;
+select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE';
 ```
 
-### Ambil jawaban yang benar (Dari siswa id dan matkul id)
+
+### Ambil jawaban yang salah (Dari siswa dan sesi id)
 ```
-select sj.siswa_soalid,sm.soal_no, sj.siswa_jawaban,sm.soal_jawab from siswa_jawaban sj inner join soal_matkul sm on sj.matkul_id = sm.matkul_id and sj.siswa_soalid = sm.soal_id
-where sj.siswa_jawaban = sm.soal_jawab
-and sj.siswa_id = 'SISWA_ID_VALUE'
-and sj.matkul_id = 'MATKUL_ID_VALUE'
+select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
+and sm.soal_jawab != sj.siswa_jawaban ;
+```
+
+### Ambil jawaban yang benar (Dari siswa id dan sesi id)
+```
+select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
+and sm.soal_jawab = sj.siswa_jawaban ;
+
 ```
 
 ### List siswa yang mengambil mata kuliah (Dari matkul_id)
@@ -56,10 +52,6 @@ select  sm.soal_no,sm.soal_text,sd.soal_opsi,sd.soal_opsi_text from soal_matkul 
 ```
 
 
-### Load matkul yang sudah dijawab
-```
-select distinct m.* from mata_kuliah m  inner join siswa_jawaban sj on m.matkul_id = sj.matkul_id  where sj.siswa_id = 'SISWA_ID_VALUE';
-```
 
 ### List sesi yang sudah dijawab oleh siswa
 ```
