@@ -30,18 +30,47 @@
 
     <div class="my-sidebar-right">
         <div class="my-row">
-        <?php if (gettype($list_matkul) !== 'boolean') {?>
-                <ul class="collection">
-                        <?php foreach($list_matkul as $l) {?>
-                            <li class="collection-item avatar">
-                                <i class="material-icons circle red">library_books</i>
-                                <span class="title">Nama matakuliah</span>
-                                <p><?= $l->matkul_nama?></p>
-                                <a style="cursor: pointer;" onclick="onDetailMatakuliah('<?=$l->matkul_id?>')" class="secondary-content">
-                                    <i class="material-icons">rate_review</i>
-                                </a>
-                            </li>
-                        <?php }?>
+        <?php if ($list_sesi) {?>
+                <ul class="collapsible popout">
+                    <?php foreach($list_sesi as $l) {?>
+                        <li>
+                            <div class="collapsible-header teal white-text">
+                                <i class="material-icons">account_circle</i>Nama siswa
+                            </div>
+                            <div class="collapsible-body">
+                                <?= $l->siswa_nama?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header teal white-text">
+                                <i class="material-icons">layers</i>Nama sesi matakuliah
+                            </div>
+                            <div class="collapsible-body">
+                                <?= $l->sesi_nama?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header teal white-text">
+                                <i class="material-icons">book</i>Nama matakuliah
+                            </div>
+                            <div class="collapsible-body">
+                                <?= $l->matkul_nama?>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header teal white-text">
+                                <i class="material-icons">rate_review</i>Review soal
+                            </div>
+                            <div class="collapsible-body">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Check jawaban yang benar
+                                    <i class="material-icons right">check</i>
+                                </button>
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Check jawaban yang salah
+                                    <i class="material-icons right">clear</i>
+                                </button>
+                            </div>
+                        </li>
+                    <?php }?>
                 </ul>
             <?php }else{?>
                 <div class="col s12 m12 card-panel">

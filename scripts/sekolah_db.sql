@@ -135,12 +135,15 @@ CREATE TABLE `siswa_jawaban` (
   `matkul_id` varchar(10) DEFAULT NULL,
   `siswa_soalid` varchar(10) DEFAULT NULL,
   `siswa_jawaban` varchar(1) DEFAULT NULL,
+  `sesi_id` varchar(20) DEFAULT NULL,
   KEY `siswa_id` (`siswa_id`),
   KEY `matkul_id` (`matkul_id`),
   KEY `siswa_soalid` (`siswa_soalid`),
+  KEY `sesi_id` (`sesi_id`),
   CONSTRAINT `siswa_jawaban_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE,
   CONSTRAINT `siswa_jawaban_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE,
-  CONSTRAINT `siswa_jawaban_ibfk_3` FOREIGN KEY (`siswa_soalid`) REFERENCES `soal_matkul` (`soal_id`) ON DELETE CASCADE
+  CONSTRAINT `siswa_jawaban_ibfk_3` FOREIGN KEY (`siswa_soalid`) REFERENCES `soal_matkul` (`soal_id`) ON DELETE CASCADE,
+  CONSTRAINT `siswa_jawaban_ibfk_4` FOREIGN KEY (`sesi_id`) REFERENCES `sesi_kuliah` (`sesi_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -244,4 +247,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-14  5:42:43
+-- Dump completed on 2018-11-14 14:11:44

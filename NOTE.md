@@ -60,3 +60,10 @@ select  sm.soal_no,sm.soal_text,sd.soal_opsi,sd.soal_opsi_text from soal_matkul 
 ```
 select distinct m.* from mata_kuliah m  inner join siswa_jawaban sj on m.matkul_id = sj.matkul_id  where sj.siswa_id = 'SISWA_ID_VALUE';
 ```
+
+### List sesi yang sudah dijawab oleh siswa
+```
+select distinct(sj.sesi_id),sj.matkul_id,sj.siswa_id,s.siswa_nama,sk.sesi_nama,m.matkul_nama from siswa_jawaban sj inner join sesi_kuliah sk on sj.sesi_id = sk.sesi_id  inner join mata_kuliah m on sj.matkul_id = m.matkul_id  inner join siswa s  on s.siswa_id = sj.siswa_id 
+where s.siswa_id = 'SISWA_ID_VALUE';
+
+```

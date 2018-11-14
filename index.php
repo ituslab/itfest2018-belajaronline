@@ -24,9 +24,9 @@ $router->get('/dashboard/hasil-matkul',function(){
     $sessionLoginSebagai = Session::get('login_sebagai');
 
     if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === 'siswa') {
-        $listMatkul = WebDb::listMatkulInnerJoinSiswaJawaban($sessionUserId);
+        $listSesi = WebDb::listSesiYangSudahDijawabSiswa($sessionUserId);
         loadViewAndModel('siswa/hasil-matkul.php',[
-            'list_matkul'=>$listMatkul    
+            'list_sesi'=>$listSesi    
         ]);
     } else {
         loadViewAndModel("error.php",array(
@@ -67,15 +67,35 @@ $router->get('/dashboard/matkul-saya',function(){
     }
 });
 
-$router->get('/dashboard/jawab-soal/(\w+)',function($matkulId){
+$router->get('/dashboard/jawab-soal/(\w+)',function($sesiId){
     $sessionUserId = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
+
+
+
 
     if($sessionUserId 
         && $loginSebagai 
         && $loginSebagai === 'siswa'
     ){
-        loadView('siswa/jawab-soal.php');
+        $result = WebDb::listSiswaJawabanBySiswaIdAndSoalSesiId($sessionUserId , $sesiId);
+        $getInfo = WebDb::getDb()
+            ->query(
+                " select sk.sesi_nama,sm.matkul_nama from sesi_kuliah sk
+                inner join mata_kuliah sm 
+                on sk.matkul_id = sm.matkul_id 
+                where sk.sesi_id = :sesi_id "
+            ,[
+                ':sesi_id'=>$sesiId
+            ])
+            ->fetch()
+            ->get();
+        
+
+        loadViewAndModel('siswa/jawab-soal.php',[
+            'list_siswa_jawaban'=>$result,
+            'getInfo'=>$getInfo
+        ]);
     } else {
         loadViewAndModel('error.php',[
             'title'=>'Warning',
@@ -420,14 +440,16 @@ $router->post('/api/jawab-soal',function(){
         $toObj = json_decode($jsonString);
 
         
-        foreach ($toObj as $v) {
+        foreach ($toObj->soal_jawab as $v) {
             $v->siswa_id = $userIdSession;
 
             WebDb::jawabSoal(
                 $v->siswa_id, 
                 $matkulIdSession , 
                 $v->siswa_soalid , 
-                $v->siswa_jawaban);
+                $v->siswa_jawaban,
+                $toObj->sesi_id
+            );
         }
 
 

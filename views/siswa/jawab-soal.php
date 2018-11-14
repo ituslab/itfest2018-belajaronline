@@ -41,49 +41,57 @@
         <div class="my-row">
             <div class="row">
                 <div class="col s12 m12">
-                    
-                    <div id="my-soal-card" class="card">
-                        <div class="card-content">
-                            <span id="soal-no-el" class="card-title"></span>
-                            <p id="soal-pertanyaan-el"></p>
-                            <p>
-                                <label>
-                                    <input name="soal_opsi" class="with-gap" type="radio" value="A"/>
-                                    <span id="soal_opsi_text_A"></span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input name="soal_opsi" class="with-gap" type="radio" value="B"/>
-                                    <span id="soal_opsi_text_B"></span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input name="soal_opsi" class="with-gap" type="radio" value="C"/>
-                                    <span id="soal_opsi_text_C"></span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input name="soal_opsi" class="with-gap" type="radio" value="D"/>
-                                    <span id="soal_opsi_text_D"></span>
-                                </label>
-                            </p>
-                            <p>
-                                <label>
-                                    <input name="soal_opsi" class="with-gap" type="radio" value="E"/>
-                                    <span id="soal_opsi_text_E"></span>
-                                </label>
-                            </p>
-                        </div>
-                        <div class="card-action">
-                            <a id="soal-prev-btn" class="waves-effect waves-light btn">Previous</a>
-                            <a id="soal-next-btn" class="waves-effect waves-light btn">Next</a>
+                    <?php if (!$list_siswa_jawaban) {?>
+                        <!-- my-soal-card -->
+                            <div id="my-soal-card" class="card">
+                                <div class="card-content">
+                                    <span id="soal-no-el" class="card-title"></span>
+                                    <p id="soal-pertanyaan-el"></p>
+                                    <p>
+                                        <label>
+                                            <input name="soal_opsi" class="with-gap" type="radio" value="A"/>
+                                            <span id="soal_opsi_text_A"></span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="soal_opsi" class="with-gap" type="radio" value="B"/>
+                                            <span id="soal_opsi_text_B"></span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="soal_opsi" class="with-gap" type="radio" value="C"/>
+                                            <span id="soal_opsi_text_C"></span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="soal_opsi" class="with-gap" type="radio" value="D"/>
+                                            <span id="soal_opsi_text_D"></span>
+                                        </label>
+                                    </p>
+                                    <p>
+                                        <label>
+                                            <input name="soal_opsi" class="with-gap" type="radio" value="E"/>
+                                            <span id="soal_opsi_text_E"></span>
+                                        </label>
+                                    </p>
+                                </div>
+                                <div class="card-action">
+                                    <a id="soal-prev-btn" class="waves-effect waves-light btn">Previous</a>
+                                    <a id="soal-next-btn" class="waves-effect waves-light btn">Next</a>
 
-                            <a id="soal-submit-btn" class="waves-effect waves-light btn">Submit</a>
+                                    <a id="soal-submit-btn" class="waves-effect waves-light btn">Submit</a>
+                                </div>
+                            </div>
+                        <!-- my-soal-card -->
+                    <?php }else{?>
+                        <div class="card-panel teal white-text">
+                            Anda sudah menyelesaikan soal '<?= $getInfo->matkul_nama?>' dengan nama sesi '<?= $getInfo->sesi_nama?>' <br/>
+                            <a href='/it-a/dashboard/hasil-matkul' class="white-text">Lihat hasil di matakuliah saya</a>
                         </div>
-                    </div>
+                    <?php }?>
 
                 </div>
             </div>
@@ -95,6 +103,8 @@
     <?php
         loadBottom();
         loadJS("dashboard.override.js");
-        loadJS("jawab-soal.js");
+        if(!$list_siswa_jawaban) {
+            loadJS('jawab-soal.js');
+        }
     ?>
 </html>
