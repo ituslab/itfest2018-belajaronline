@@ -72,7 +72,9 @@
 	        	    <label class="margin-gender">
 				      <input class="with-gap" name="gender" value="pria" type="radio"/>
 				      <span>Pria</span>
-				      <input class="with-gap" name="gender" value="wanita" type="radio" />
+				    </label>
+				    <label class="margin-gender">
+				      <input class="with-gap" name="gender" value="wanita" type="radio"/>
 				      <span>Wanita</span>
 				    </label>
 			        <div class="input-field col s12">
