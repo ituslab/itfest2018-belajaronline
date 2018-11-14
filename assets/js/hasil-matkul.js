@@ -8,24 +8,46 @@ $(document).ready(function(){
     $('.modal').modal();
 });
 
-function onDetailMatakuliah(matkulId) {
-    console.log(matkulId);
+
+$('#li-benar').hide();
+$('#li-salah').hide();
+
+
+
+var arrJawabSalah = [];
+var arrJawabBenar = [];
+
+
+function onResponseJawabBenar(){
+
+}
+
+function onResponseJawabSalah(){
+
+}
+
+
+function onReviewSoal(sesiId){
+    console.log('sesi_id',sesiId);
+
     $('.modal').modal('open');
-    loadSiswaJawaban(matkulId);
-}
 
-
-function loadIntoDom(siswaJawaban) {
-    console.log(siswaJawaban);
-}
-
-function loadSiswaJawaban(matkulId) {
-    $.get('/it-a/api/ambil-jawaban/'+matkulId,
+    $.get('/it-a/api/jawab-benar/' +sesiId, 
     function(apiResponse,statusText,xhr){
         if(statusText === 'success') {
-            loadIntoDom(apiResponse.data);
-        } else {
-            console.log('gagal mengambil data dari server...');
+            if(apiResponse.data) {
+                arrJawabBenar = apiResponse.data;
+                $('#badge-benar').text('Ada ' +apiResponse.data.length + ' Yang benar');
+            }
+        }
+    });
+    $.get('/it-a/api/jawab-salah/' +sesiId, 
+    function(apiResponse,statusText,xhr){
+        if(statusText === 'success') {
+            if(apiResponse.data) {
+                arrJawabSalah = apiResponse.data;
+                $('#badge-salah').text('Ada ' + apiResponse.data.length + ' Yang salah ');
+            }
         }
     });
 }

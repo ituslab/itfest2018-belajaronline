@@ -20,7 +20,33 @@
         <div id="modal1" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <h4>Detail matakuliah</h4>
-                <div id="soal-review-container"></div>
+                <div id="soal-review-container">
+                    <ul class="collapsible popout">
+                        <li>
+                            <div class="collapsible-header teal white-text">Hasil soal yang anda jawab</div>
+                            <div id="soal-review-content" class="collapsible-body">
+                                <div class="collection">
+                                    <a href='#!' id='link-benar' class="collection-item">
+                                        <span class="new badge" id="badge-benar"></span>
+                                        Total jawaban yang benar
+                                    </a>
+                                    <a href='#!' id='link-salah' class="collection-item">
+                                        <span class="new badge red" id="badge-salah"></span>
+                                        Total jawaban yang salah
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li id='li-benar'>
+                            <div class="collapsible-header teal white-text">Review soal yang benar</div>
+                            <div class="collapsible-body"></div>
+                        </li>
+                        <li id='li-salah'>
+                            <div class="collapsible-header red white-text">Review soal yang salah</div>
+                            <div class="collapsible-body"></div>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
@@ -28,11 +54,12 @@
         </div>
     <!--  modal here -->
 
+    
     <div class="my-sidebar-right">
         <div class="my-row">
-        <?php if ($list_sesi) {?>
-                <ul class="collapsible popout">
-                    <?php foreach($list_sesi as $l) {?>
+            <?php if($list_sesi) {?>
+                <?php foreach($list_sesi as $l) {?>
+                    <ul class="collapsible popout">
                         <li>
                             <div class="collapsible-header teal white-text">
                                 <i class="material-icons">account_circle</i>Nama siswa
@@ -41,6 +68,7 @@
                                 <?= $l->siswa_nama?>
                             </div>
                         </li>
+
                         <li>
                             <div class="collapsible-header teal white-text">
                                 <i class="material-icons">layers</i>Nama sesi matakuliah
@@ -49,6 +77,7 @@
                                 <?= $l->sesi_nama?>
                             </div>
                         </li>
+
                         <li>
                             <div class="collapsible-header teal white-text">
                                 <i class="material-icons">book</i>Nama matakuliah
@@ -57,21 +86,17 @@
                                 <?= $l->matkul_nama?>
                             </div>
                         </li>
+
                         <li>
                             <div class="collapsible-header teal white-text">
                                 <i class="material-icons">rate_review</i>Review soal
                             </div>
                             <div class="collapsible-body">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Check jawaban yang benar
-                                    <i class="material-icons right">check</i>
-                                </button>
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Check jawaban yang salah
-                                    <i class="material-icons right">clear</i>
-                                </button>
+                                <a onclick="onReviewSoal('<?= $l->sesi_id?>')" class="waves-effect waves-light btn">review</a>
                             </div>
                         </li>
-                    <?php }?>
-                </ul>
+                    </ul>
+                <?php }?>
             <?php }else{?>
                 <div class="col s12 m12 card-panel">
                     Anda belum menjawab soal mata kuliah apa pun 
@@ -79,8 +104,6 @@
             <?php }?>
         </div>
     </div>
-
-
 
 </body>
     <?php

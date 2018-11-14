@@ -258,6 +258,55 @@ class WebDb {
         return $result;
     }
 
+
+    static function ambilJawabanYangSalah($siswaId , $sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select 
+            sm.soal_id,
+            sm.soal_no,
+            sm.soal_jawab,
+            sj.siswa_jawaban,
+            sm.matkul_id 
+            from soal_matkul sm 
+            inner join siswa_jawaban sj 
+            on sm.soal_id = sj.siswa_soalid  
+            where sj.siswa_id = :siswa_id and 
+            sj.sesi_id = :sesi_id
+            and sm.soal_jawab != sj.siswa_jawaban"
+        ,[
+            ':siswa_id'=>$siswaId,
+            ':sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
+    static function ambilJawabanYangBenar($siswaId ,$sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select 
+            sm.soal_id,
+            sm.soal_no,
+            sm.soal_jawab,
+            sj.siswa_jawaban,
+            sm.matkul_id from 
+            soal_matkul sm inner join siswa_jawaban 
+            sj on sm.soal_id = sj.siswa_soalid  
+            where sj.siswa_id = :siswa_id 
+            and sj.sesi_id = :sesi_id
+            and sm.soal_jawab = sj.siswa_jawaban"
+        ,[
+            ':siswa_id'=>$siswaId,
+            ':sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        
+        return $result;
+    }
+
     static function listSesiYangSudahDijawabSiswa($siswaId) {
         $webDb = self::getDb();
         $result = $webDb->query(

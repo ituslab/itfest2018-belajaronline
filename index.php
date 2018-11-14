@@ -492,6 +492,48 @@ $router->get('/api/jawab-soal/(\w+)',function($sesiId){
 
 });
 
+
+$router->get('/api/jawab-benar/(\w+)',function($sesiId){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    header('Content-type: application/json');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::ambilJawabanYangBenar($sessionUserId , $sesiId);
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    }else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+$router->get('/api/jawab-salah/(\w+)',function($sesiId){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    header('Content-type: application/json');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::ambilJawabanYangSalah($sessionUserId , $sesiId);
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    }else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
 // APIs endpoint
 
 $router->post('/buat-matkul','Controllers\WebController@handleBuatMatkul');
