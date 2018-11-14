@@ -53,6 +53,9 @@ CREATE TABLE `pengajar` (
   `pengajar_nama` varchar(250) DEFAULT NULL,
   `pengajar_password` varchar(250) DEFAULT NULL,
   `pengajar_nohp` varchar(12) DEFAULT NULL,
+  `pengajar_alamat` varchar(20) NOT NULL,
+  `pengajar_gender` varchar(20) NOT NULL,
+  `pengajar_email` varchar(20) NOT NULL,
   PRIMARY KEY (`pengajar_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -67,6 +70,32 @@ LOCK TABLES `pengajar` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `sesi_kuliah`
+--
+
+DROP TABLE IF EXISTS `sesi_kuliah`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sesi_kuliah` (
+  `sesi_id` varchar(20) NOT NULL,
+  `sesi_nama` text,
+  `matkul_id` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`sesi_id`),
+  KEY `matkul_id` (`matkul_id`),
+  CONSTRAINT `sesi_kuliah_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sesi_kuliah`
+--
+
+LOCK TABLES `sesi_kuliah` WRITE;
+/*!40000 ALTER TABLE `sesi_kuliah` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sesi_kuliah` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `siswa`
 --
 
@@ -78,6 +107,9 @@ CREATE TABLE `siswa` (
   `siswa_nama` varchar(250) DEFAULT NULL,
   `siswa_password` varchar(250) DEFAULT NULL,
   `siswa_nohp` varchar(12) DEFAULT NULL,
+  `siswa_alamat` varchar(20) NOT NULL,
+  `siswa_gender` varchar(20) NOT NULL,
+  `siswa_email` varchar(20) NOT NULL,
   PRIMARY KEY (`siswa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -148,32 +180,28 @@ LOCK TABLES `siswa_matkul` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `siswa_skor`
+-- Table structure for table `soal_detail`
 --
 
-DROP TABLE IF EXISTS `siswa_skor`;
+DROP TABLE IF EXISTS `soal_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `siswa_skor` (
-  `skor_id` varchar(10) NOT NULL,
-  `matkul_id` varchar(10) DEFAULT NULL,
-  `skor_nilai` double DEFAULT NULL,
-  `siswa_id` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`skor_id`),
-  KEY `matkul_id` (`matkul_id`),
-  KEY `siswa_id` (`siswa_id`),
-  CONSTRAINT `siswa_skor_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `soal_matkul` (`matkul_id`) ON DELETE CASCADE,
-  CONSTRAINT `siswa_skor_ibfk_2` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE
+CREATE TABLE `soal_detail` (
+  `soal_id` varchar(20) DEFAULT NULL,
+  `soal_opsi` varchar(1) DEFAULT NULL,
+  `soal_opsi_text` text,
+  KEY `soal_id` (`soal_id`),
+  CONSTRAINT `soal_detail_ibfk_1` FOREIGN KEY (`soal_id`) REFERENCES `soal_matkul` (`soal_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `siswa_skor`
+-- Dumping data for table `soal_detail`
 --
 
-LOCK TABLES `siswa_skor` WRITE;
-/*!40000 ALTER TABLE `siswa_skor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `siswa_skor` ENABLE KEYS */;
+LOCK TABLES `soal_detail` WRITE;
+/*!40000 ALTER TABLE `soal_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `soal_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -189,9 +217,12 @@ CREATE TABLE `soal_matkul` (
   `soal_text` text,
   `soal_jawab` varchar(1) DEFAULT NULL,
   `matkul_id` varchar(10) DEFAULT NULL,
+  `soal_jawab_text` text NOT NULL,
+  `sesi_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`soal_id`),
   KEY `matkul_id` (`matkul_id`),
-  CONSTRAINT `soal_matkul_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE
+  KEY `sesi_id` (`sesi_id`),
+  CONSTRAINT `soal_matkul_ibfk_1` FOREIGN KEY (`sesi_id`) REFERENCES `sesi_kuliah` (`sesi_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -213,4 +244,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-09 10:05:32
+-- Dump completed on 2018-11-14  5:42:43

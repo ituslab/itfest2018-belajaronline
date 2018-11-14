@@ -8,6 +8,7 @@
     <?php
         loadTop();
         loadCSS("dashboard.override.css");
+
     ?>
 </head>
 <body>
@@ -15,6 +16,25 @@
     <?php
         loadPengajarNavbar();
     ?>
+
+      <!-- progress bar modal here -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h5>Please wait...</h5>
+          <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-red-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- progress bar modal here -->
 
       <div class="my-sidebar-right">
         <div class="my-row">
@@ -30,6 +50,15 @@
                 </div>
               </div>
               <div class="row">
+                <div class="input-field col s12 m12">
+                  <input type="text" name="sesi-nama" id="sesi-nama" class="validate">
+                  <label for="sesi-nama">Nama sesi(atau materi) soal</label>
+                </div>
+              </div>
+              <!-- csrf token input -->
+              <input id="csrf-token" type="hidden" value="<?= csrfToken(true)?>"/>
+              <!-- csrf token input -->
+              <div class="row">
                 <div class="input-field col s12 m6">
                   <input min="5" max="10" type="number" name="jumlah-soal" id="jumlah-soal" class="validate">
                   <label for="jumlah-soal">Jumlah soal</label>
@@ -40,95 +69,8 @@
               </div>
               <div id="soal-container">
 
-                
-                <!-- <div class="card-panel">
-                  <div id="soal-no">Soal no 1</div>
-                  
-                  <div class="row">
-                    <div class="input-field col s12 m12">
-                      <input type="text" placeholder="" class="validate"/>
-                      <label>Masukkan pertanyaan</label>
-                    </div>
-                  </div>
-
-                  
-                  <div class="row">
-                    <div class="input-field col s2 m2">
-                      <p>
-                        <label>
-                          <input name="group1" class="with-gap" value="A"type="radio"  />
-                          <span>A.</span>
-                        </label>
-                      </p>
-                    </div>
-                    
-                    <div class="input-field col s10 m10">
-                      <input type="text" class="my-soal-text" />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s2 m2">
-                      <p>
-                        <label>
-                          <input name="group1" class="with-gap" value="B" type="radio"  />
-                          <span>B.</span>
-                        </label>
-                      </p>
-                    </div>
-                    
-                    <div class="input-field col s10 m10">
-                      <input type="text" class="my-soal-text" />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s2 m2">
-                      <p>
-                        <label>
-                          <input name="group1" class="with-gap" value="C" type="radio"  />
-                          <span>C.</span>
-                        </label>
-                      </p>
-                    </div>
-                    
-                    <div class="input-field col s10 m10">
-                      <input type="text" class="my-soal-text" />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s2 m2">
-                      <p>
-                        <label>
-                          <input name="group1" class="with-gap" value="D" type="radio"  />
-                          <span>D.</span>
-                        </label>
-                      </p>
-                    </div>
-                    
-                    <div class="input-field col s10 m10">
-                      <input type="text" class="my-soal-text" />
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="input-field col s2 m2">
-                      <p>
-                        <label>
-                          <input name="group1" class="with-gap" value="E" type="radio"  />
-                          <span>E.</span>
-                        </label>
-                      </p>
-                    </div>
-                    
-                    <div class="input-field col s10 m10">
-                      <input type="text" class="my-soal-text" />
-                    </div>
-                  </div>
-
-
-                </div> -->
+              </div>
+              <div id="error-soal-container">
 
               </div>
             </div>

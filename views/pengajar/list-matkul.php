@@ -18,15 +18,21 @@
 
     <div class="my-sidebar-right">
         <div class="my-row">
-            <ul class="collection">
-                <?php foreach($list_matkul as $l) {?>
-                    <li class="collection-item avatar">
-                        <i class="material-icons circle red">library_books</i>
-                        <span class="title">Nama matakuliah</span>
-                        <p><?= $l->matkul_nama?></p>
-                    </li>
-                <?php }?>
-            </ul>
+            <?php if (gettype($list_matkul) !== 'boolean') {?>
+                <ul class="collection">
+                        <?php foreach($list_matkul as $l) {?>
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle red">library_books</i>
+                                <span class="title">Nama matakuliah</span>
+                                <p><?= $l->matkul_nama?></p>
+                            </li>
+                        <?php }?>
+                </ul>
+            <?php }else{?>
+                <div class="col s12 m12 card-panel">
+                    Anda belum mempunyai mata kuliah
+                </div>
+            <?php }?>
         </div>
     </div>
 

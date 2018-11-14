@@ -3,6 +3,7 @@
 use Felis\Silvestris\Database;
 use Felis\Silvestris\Session;
 use Models\WebDb;
+use Ramsey\Uuid\Uuid;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/utils.php';
@@ -18,6 +19,22 @@ $router->get("/signout",function(){
     header("Location: /it-a");
 });
 
+$router->get('/dashboard/hasil-matkul',function(){
+    $sessionUserId = Session::get('user_id');
+    $sessionLoginSebagai = Session::get('login_sebagai');
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === 'siswa') {
+        $listMatkul = WebDb::listMatkulInnerJoinSiswaJawaban($sessionUserId);
+        loadViewAndModel('siswa/hasil-matkul.php',[
+            'list_matkul'=>$listMatkul    
+        ]);
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
 
 $router->get("/dashboard/buat-soal",function(){
     $sessionUserId = Session::get("user_id");
@@ -30,6 +47,59 @@ $router->get("/dashboard/buat-soal",function(){
             'title'=>'Warning',
             'desc'=>'Anda tidak berhak mengakses halaman ini'
         ));
+    }
+});
+
+$router->get('/dashboard/matkul-saya',function(){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        $result = WebDb::listMatkulYangDiambilSiswa($sessionUserId);
+        loadViewAndModel("siswa/list-matkul.php",[
+            'list_matkul'=>$result
+        ]);
+    }else {
+        loadViewAndModel('error.php',[
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ]);
+    }
+});
+
+$router->get('/dashboard/jawab-soal/(\w+)',function($matkulId){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    if($sessionUserId 
+        && $loginSebagai 
+        && $loginSebagai === 'siswa'
+    ){
+        loadView('siswa/jawab-soal.php');
+    } else {
+        loadViewAndModel('error.php',[
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ]);
+    }
+});
+
+
+$router->get('/dashboard/cari-matkul',function(){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        $result = WebDb::listMatkul();
+        
+        loadViewAndModel("siswa/cari-matkul.php",[
+            'cari_matkul'=>$result
+        ]);
+    }else {
+        loadViewAndModel('error.php',[
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ]);
     }
 });
 
@@ -74,7 +144,10 @@ $router->get("/dashboard",function(){
         $colArray = array(
             $loginSebagai. "_id",
             $loginSebagai. "_nama",
-            $loginSebagai. "_nohp"
+            $loginSebagai. "_nohp",
+            $loginSebagai. "_email",
+            $loginSebagai. "_alamat",
+            $loginSebagai. "_gender"
         );
         $whereArray = array(
             $loginSebagai. "_id"=>['=' => $userIdSession]
@@ -85,18 +158,24 @@ $router->get("/dashboard",function(){
             ->fetch()
             ->get();
 
-        
 
         if($loginSebagai === "pengajar") {
             loadViewAndModel("dashboard-new.php",array(
                 'pengajar_id'=>$getUser->pengajar_id,
                 'pengajar_nama'=>$getUser->pengajar_nama,
-                'pengajar_nohp'=>$getUser->pengajar_nohp
+                'pengajar_nohp'=>$getUser->pengajar_nohp,
+                'pengajar_email'=>$getUser->pengajar_email,
+                'pengajar_alamat'=>$getUser->pengajar_alamat,
+                'pengajar_gender'=>$getUser->pengajar_gender
             ));
         } else if($loginSebagai === "siswa") {
-            loadViewAndModel("dashboard-siswa.php",array(
+            loadViewAndModel("siswa/dashboard-siswa.php",array(
+                'siswa_id'=>$getUser->siswa_id,
                 'siswa_nama'=>$getUser->siswa_nama,
-                'siswa_nohp'=>$getUser->siswa_nohp
+                'siswa_nohp'=>$getUser->siswa_nohp,
+                'siswa_email'=>$getUser->siswa_email,
+                'siswa_alamat'=>$getUser->siswa_alamat,
+                'siswa_gender'=>$getUser->siswa_gender
             ));
         }
 
@@ -120,29 +199,6 @@ $router->get('/jawab-soal',function(){
 
 
 // APIs endpoint
-
-// $router->get('/api/matkul/list-siswa/(\w+)',function($matkulId){
-//     $userIdSession = Session::get('user_id');
-//     $loginSebagai = Session::get('login_sebagai');
-
-//     header('Content-type: application/json');
-
-//     if($userIdSession && $loginSebagai && $loginSebagai === 'pengajar') {
-//         http_response_code(200);
-//         $result = WebDb::countListSiswaYangMengambilMataKuliah($matkulId);
-//         echo json_encode([
-//             'code'=>200,
-//             'data'=>(int) $result->total
-//         ]);
-//     } else {
-//         http_response_code(403);
-//         echo json_encode([
-//             'code'=>403,
-//             'data'=>'Akses ditolak'
-//         ]);
-//     }
-    
-// });
 
 $router->post('/api/buat-matkul',function(){
     $userIdSession = Session::get("user_id");
@@ -194,21 +250,225 @@ $router->get('/api/list-matkul',function(){
     }else {
         http_response_code(403);
         echo json_encode([
-            'code'=>200,
+            'code'=>403,
             'data'=>'Akses ditolak'
         ]);
     }
 });
 
-$router->get('/api/jawab-soal/(\w+)',function($matkulId){
-    $result = WebDb::listSoalByMatkulId($matkulId);
-    $toJson = json_encode([
-        'code'=>200,
-        'data'=>$result
-    ]);
+$router->post('/api/buat-soal',function(){
+    $userIdSession = Session::get("user_id");
+    $loginSebagai = Session::get("login_sebagai");
     header('Content-type: application/json');
-    echo $toJson;
+
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'pengajar') {
+        $jsonString = file_get_contents('php://input');
+        $toObj = json_decode($jsonString);
+        
+        $csrfToken = $toObj->csrf_token;
+        $soalInput = $toObj->soal_input;
+        $matkulId = $toObj->matkul_id;
+        $newSesi = [
+            'sesi_id'=>substr('SS_'.Uuid::uuid4()->toString(), 0 , 10),
+            'sesi_nama'=>$toObj->sesi_nama,
+            'matkul_id'=>$matkulId
+        ];
+        
+        if(!isset($csrfToken)){
+            http_response_code(403);
+            echo json_encode([
+                'code'=>403,
+                'data'=>'Invalid token'
+            ]);
+            return;
+        }
+        $result = verifyCsrf($csrfToken);
+        
+        if($result) {
+            http_response_code(200);
+            
+            $result = WebDb::buatSoal($soalInput,$matkulId,$newSesi);
+
+            echo json_encode([
+                'code'=>200,
+                'data'=>'Soal berhasil dibuat'
+            ]);
+
+        } else {
+            http_response_code(403);
+            echo json_encode([
+                'code'=>403,
+                'data'=>'Akses ditolak'
+            ]);
+        }
+
+
+
+    }else{
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>"Akses Ditolak"
+        ]);
+    }
 });
+
+
+$router->post('/api/tambah-matkul',function(){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    header('Content-type: application/json');
+
+    if($userIdSession  && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+
+        $jsonString = file_get_contents('php://input');
+        $toObj = json_decode($jsonString);
+
+        $matkulId = $toObj->matkul_id;
+
+        $result = WebDb::addNewMatkulToSiswa($matkulId , $userIdSession);
+        if($result) {
+            echo json_encode([
+                'code'=>200,
+                'data'=>'Mata kuliah berhasil ditambahkan'
+            ]);
+        } else {
+            echo json_encode([
+                'code'=>200,
+                'data'=>'Mata kuliah ini sudah ada di dalam daftar matakuliah anda'
+            ]);
+        }
+    }else{
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
+
+
+$router->get('/dashboard/finish',function(){
+    header('Location: /it-a/dashboard');
+});
+
+
+$router->get('/api/ambil-jawaban/(\w+)',function($matkulId){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    header('Content-type: application/json');
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::ambilJawabanSiswaDanPengajar($userIdSession , $matkulId);
+
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+
+    }else{
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
+
+$router->get('/api/list-sesi/(\w+)',function($matkulId){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+
+    header('Content-type: application/json');
+    if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::listSesiByMatkul($matkulId);
+        
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    } else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
+
+$router->post('/api/jawab-soal',function(){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    $matkulIdSession = Session::get('matkul_id_session');
+
+    header('Content-type: application/json');
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'siswa' && $matkulIdSession) {
+        http_response_code(200);
+        $jsonString = file_get_contents('php://input');
+        $toObj = json_decode($jsonString);
+
+        foreach ($toObj as $v) {
+            $v->siswa_id = $userIdSession;
+            $v->matkul_id = $matkulIdSession;
+
+            WebDb::jawabSoal(
+                $v->siswa_id, 
+                $v->matkul_id , 
+                $v->siswa_soalid , 
+                $v->siswa_jawaban);
+        }
+
+
+        echo json_encode([
+            'code'=>200,
+            'data'=>'Jawab soal berhasil'
+        ]);
+
+    }else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
+$router->get('/api/jawab-soal/(\w+)',function($sesiId){
+    $userIdSession = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+
+    header('Content-type: application/json');
+
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::listSoalBySesi($sesiId);
+        
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    } else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+
+});
+
 // APIs endpoint
 
 $router->post('/buat-matkul','Controllers\WebController@handleBuatMatkul');

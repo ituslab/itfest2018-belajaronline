@@ -25,7 +25,7 @@
     	<a href="#daftar-form">
 		<div class="color-white fa-2x animasi-in-zoom-2">
 			<i class="fas fa-pen fa-2x fa-fw"></i>
-			<span class="left-side-desc">Kerjakan soal dan dapatkan nilai</span>
+			<span class="left-side-desc">Kerjakan soal dan lihat hasilnya</span>
 		</div>
 		</a>
     	</div>	
@@ -70,10 +70,10 @@
 					  <div id="error_email"></div>
 			        </div>
 	        	    <label class="margin-gender">
-				      <input class="with-gap" name="gender" type="radio"/>
-				      <span>Laki - Laki</span>
-				      <input class="with-gap" name="gender" type="radio" />
-				      <span>Perempuan</span>
+				      <input class="with-gap" name="gender" value="pria" type="radio"/>
+				      <span>Pria</span>
+				      <input class="with-gap" name="gender" value="wanita" type="radio" />
+				      <span>Wanita</span>
 				    </label>
 			        <div class="input-field col s12">
 			          <input id="alamat" name="alamat" type="text" class="validate">
@@ -82,7 +82,7 @@
 			        </div>
 			    </div>
 			    <div class="center">
-				    <a href="landing-page.php" class="waves-effect waves-light btn margin-btn">Batal</a>
+				    <a href="/it-a" class="waves-effect waves-light btn margin-btn">Batal</a>
 				    <button class="waves-effect waves-light btn">Daftar</button>				    	
 			    </div>        
 	    	</div>
