@@ -221,24 +221,140 @@ class WebDb {
 
             foreach($v->soal_detail as $eachSoalDetail) {
                 $eachSoalDetail->soal_id = $newSoal['soal_id'];
-                $pSt2 = $pdo->prepare('insert into soal_detail values (?,?,?)');
+                $eachSoalDetail->soal_no = $newSoal['soal_no'];
+                $pSt2 = $pdo->prepare('insert into soal_detail values (?,?,?,?)');
 
                 $pSt2->bindValue(1,$eachSoalDetail->soal_id);
                 $pSt2->bindValue(2,$eachSoalDetail->soal_opsi);
                 $pSt2->bindValue(3,$eachSoalDetail->soal_opsi_text);
+                $pSt2->bindValue(4,$eachSoalDetail->soal_no);
                 $pSt2->execute();
             }   
         }   
     }
 
-    static function jawabSoal($siswaId,$matkulId,$soalId,$siswaJawaban) {
+    static function listSiswaJawabanBySiswaIdAndSoalSesiId($siswaId , $sesiId){
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select * from siswa_jawaban  
+            where siswa_id = :siswa_id 
+            and sesi_id = :sesi_id"
+        ,[
+            'siswa_id'=>$siswaId,
+            'sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
+    static function jawabSoal($siswaId,$matkulId,$soalId,$siswaJawaban , $sesiId) {
         $webDb = self::getDb();
         $result = $webDb->insert('siswa_jawaban',[
             'siswa_id'=>$siswaId,
             'matkul_id'=>$matkulId,
             'siswa_soalid'=>$soalId,
-            'siswa_jawaban'=>$siswaJawaban
+            'siswa_jawaban'=>$siswaJawaban,
+            'sesi_id'=>$sesiId
         ]);
+        return $result;
+    }
+
+
+    static function ambilJawabanYangSalah($siswaId , $sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select 
+            sm.soal_id,
+            sm.soal_text,
+            sm.soal_no,
+            sm.soal_jawab,
+            sm.soal_jawab_text,
+            sj.siswa_jawaban,
+            (
+                select sd.soal_opsi_text
+                from soal_detail sd
+                where sd.soal_id = sm.soal_id
+                and
+                sd.soal_opsi = sj.siswa_jawaban
+                and
+                sd.soal_no = sm.soal_no
+            ) as siswa_jawaban_text
+            ,sm.matkul_id from 
+            soal_matkul sm 
+            inner join siswa_jawaban sj 
+            on sm.soal_id = sj.siswa_soalid  
+            where sj.siswa_id = :siswa_id and 
+            sj.sesi_id = :sesi_id
+            and sm.soal_jawab != sj.siswa_jawaban"
+        ,[
+            ':siswa_id'=>$siswaId,
+            ':sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
+    static function ambilJawabanYangBenar($siswaId ,$sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select 
+            sm.soal_id,
+            sm.soal_text,
+            sm.soal_no,
+            sm.soal_jawab,
+            sm.soal_jawab_text,
+            sj.siswa_jawaban,
+            (
+                select sd.soal_opsi_text
+                from soal_detail sd
+                where sd.soal_id = sm.soal_id
+                and
+                sd.soal_opsi = sj.siswa_jawaban
+                and
+                sd.soal_no = sm.soal_no
+            ) as siswa_jawaban_text
+            ,sm.matkul_id from 
+            soal_matkul sm 
+            inner join siswa_jawaban sj 
+            on sm.soal_id = sj.siswa_soalid  
+            where sj.siswa_id = :siswa_id and 
+            sj.sesi_id = :sesi_id
+            and sm.soal_jawab = sj.siswa_jawaban"
+        ,[
+            ':siswa_id'=>$siswaId,
+            ':sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        
+        return $result;
+    }
+
+    static function listSesiYangSudahDijawabSiswa($siswaId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select 
+                distinct(sj.sesi_id)
+                ,sj.matkul_id,
+                sj.siswa_id,
+                s.siswa_nama,
+                sk.sesi_nama,
+                m.matkul_nama 
+                from siswa_jawaban sj 
+                inner join sesi_kuliah sk 
+                on sj.sesi_id = sk.sesi_id 
+                inner join mata_kuliah m 
+                on sj.matkul_id = m.matkul_id 
+                inner join siswa s 
+                on s.siswa_id = sj.siswa_id 
+                where s.siswa_id = :siswa_id"
+        ,[
+            ':siswa_id'=>$siswaId
+        ])
+            ->fetchAll()
+            ->get();
         return $result;
     }
 
@@ -293,6 +409,8 @@ class WebDb {
             ->get();
         return $result;
     }
+
+
 
     static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp , $email , $alamat , $gender) {
         $webDb = self::getDb();

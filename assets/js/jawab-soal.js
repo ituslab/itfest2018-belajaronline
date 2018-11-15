@@ -102,11 +102,19 @@ $('input[name=soal_opsi]').change(function(){
 });
 
 $('#soal-submit-btn').click(function(){
+    var splitted = window.location.pathname.split('/');
+    var lastPath = splitted[splitted.length - 1];
+
+    console.log(lastPath);
+
     var currentModal = M.Modal.getInstance(document.querySelector('.modal'));
     currentModal.open();
 
     $.post('/it-a/api/jawab-soal',
-        JSON.stringify(inputSoalJawab),
+        JSON.stringify({
+            soal_jawab:inputSoalJawab,
+            sesi_id:lastPath
+        }),
         function(apiResponse,statusText,xhr){
             currentModal.close();
             

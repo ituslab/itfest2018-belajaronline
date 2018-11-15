@@ -53,7 +53,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 
 		        <div class="input-field col s12">
 		          	<input id="username" name="username" type="text" class="validate">
-					<label for="username" >Username</label>
+					<label for="username" >NIM or NIP</label>
 					<div id="error_username"></div>
 		        </div>
 		        <div class="input-field col s12">

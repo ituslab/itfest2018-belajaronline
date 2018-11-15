@@ -14,6 +14,10 @@ $router->get('/',function(){
     loadView("landing-page.php");
 });
 
+$router->set404(function(){
+  loadView("404.php");
+});
+
 $router->get("/signout",function(){
     Session::destroy();
     header("Location: /it-a");
@@ -24,9 +28,9 @@ $router->get('/dashboard/hasil-matkul',function(){
     $sessionLoginSebagai = Session::get('login_sebagai');
 
     if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === 'siswa') {
-        $listMatkul = WebDb::listMatkulInnerJoinSiswaJawaban($sessionUserId);
+        $listSesi = WebDb::listSesiYangSudahDijawabSiswa($sessionUserId);
         loadViewAndModel('siswa/hasil-matkul.php',[
-            'list_matkul'=>$listMatkul    
+            'list_sesi'=>$listSesi    
         ]);
     } else {
         loadViewAndModel("error.php",array(
@@ -67,15 +71,35 @@ $router->get('/dashboard/matkul-saya',function(){
     }
 });
 
-$router->get('/dashboard/jawab-soal/(\w+)',function($matkulId){
+$router->get('/dashboard/jawab-soal/(\w+)',function($sesiId){
     $sessionUserId = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
+
+
+
 
     if($sessionUserId 
         && $loginSebagai 
         && $loginSebagai === 'siswa'
     ){
-        loadView('siswa/jawab-soal.php');
+        $result = WebDb::listSiswaJawabanBySiswaIdAndSoalSesiId($sessionUserId , $sesiId);
+        $getInfo = WebDb::getDb()
+            ->query(
+                " select sk.sesi_nama,sm.matkul_nama from sesi_kuliah sk
+                inner join mata_kuliah sm 
+                on sk.matkul_id = sm.matkul_id 
+                where sk.sesi_id = :sesi_id "
+            ,[
+                ':sesi_id'=>$sesiId
+            ])
+            ->fetch()
+            ->get();
+        
+
+        loadViewAndModel('siswa/jawab-soal.php',[
+            'list_siswa_jawaban'=>$result,
+            'getInfo'=>$getInfo
+        ]);
     } else {
         loadViewAndModel('error.php',[
             'title'=>'Warning',
@@ -353,6 +377,7 @@ $router->post('/api/tambah-matkul',function(){
 
 
 $router->get('/dashboard/finish',function(){
+    Session::unset('matkul_id_session');
     header('Location: /it-a/dashboard');
 });
 
@@ -385,7 +410,7 @@ $router->get('/api/ambil-jawaban/(\w+)',function($matkulId){
 $router->get('/api/list-sesi/(\w+)',function($matkulId){
     $userIdSession = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
-
+    Session::set('matkul_id_session',$matkulId);
 
     header('Content-type: application/json');
     if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
@@ -418,15 +443,17 @@ $router->post('/api/jawab-soal',function(){
         $jsonString = file_get_contents('php://input');
         $toObj = json_decode($jsonString);
 
-        foreach ($toObj as $v) {
+        
+        foreach ($toObj->soal_jawab as $v) {
             $v->siswa_id = $userIdSession;
-            $v->matkul_id = $matkulIdSession;
 
             WebDb::jawabSoal(
                 $v->siswa_id, 
-                $v->matkul_id , 
+                $matkulIdSession , 
                 $v->siswa_soalid , 
-                $v->siswa_jawaban);
+                $v->siswa_jawaban,
+                $toObj->sesi_id
+            );
         }
 
 
@@ -467,6 +494,48 @@ $router->get('/api/jawab-soal/(\w+)',function($sesiId){
         ]);
     }
 
+});
+
+
+$router->get('/api/jawab-benar/(\w+)',function($sesiId){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    header('Content-type: application/json');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::ambilJawabanYangBenar($sessionUserId , $sesiId);
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    }else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+$router->get('/api/jawab-salah/(\w+)',function($sesiId){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    header('Content-type: application/json');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::ambilJawabanYangSalah($sessionUserId , $sesiId);
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    }else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
 });
 
 // APIs endpoint
