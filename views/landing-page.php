@@ -1,7 +1,10 @@
+<?php ob_start(); use Felis\Silvestris\Session; ?>
 <!DOCTYPE html>
 <html>
 <head>	
+	
 	<?php 
+
 
 include_once __DIR__ . '/includes/top.php'; ?>
     <link rel="stylesheet" type="text/css" href="/it-a/assets/css/index.css">
@@ -44,9 +47,9 @@ include_once __DIR__ . '/includes/top.php'; ?>
 		      <div class="row">	
 				<label class="label-size"><center>Login</center></label>
 				
-				<?php if (isset($_SESSION['login_gagal'])) {?>
+				<?php if (Session::get('login_gagal')) {?>
 					<div class="left-align red-text login-gagal-container">
-						<?= $_SESSION['login_gagal']?>
+						<?= Session::get('login_gagal'); Session::destroy(); ob_flush(); ?>
 					</div>
 				<?php }?>
 
@@ -192,10 +195,10 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto3.jpg" class="img-about">
 						</div>
 						<div class="center">
-							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Irvan%20Refnaldi%0A%0A+6282176868926"><i class="fab fa-whatsapp"></i></a>
+						<a class="btn-floating btn-medium grey darken-4 padding-sg" href="https://github.com/zzcomzz"><i class="fab fa-github"></i></a>
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/irvref02"><i class="fab fa-instagram"></i></a><br>
 
-	    					<p>M. Irvan Refnaldi<br>
+	    					<p>Muhammad Irvan Refnaldy<br>
        						JavaScript Developer</p>
 						</div>
 					</div>
@@ -307,6 +310,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
                   <li><a class="grey-text text-lighten-3" href="http://polsri.ac.id">POLSRI</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">IT FEST</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">HMJ MI</a></li>
+                  <li><a class="grey-text text-lighten-3" href="http://it-polsri.org">IT - POLSRI</a></li>
                 </ul>
               </div>
             </div>

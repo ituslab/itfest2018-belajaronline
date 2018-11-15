@@ -49,6 +49,18 @@ function loadCSS($cssFileName) {
     echo("<link rel='stylesheet' href='/it-a/assets/css/$cssFileName'/>");
 }
 
+function redirect($url) {
+    if(!headers_sent()) {
+        header('Location: '.$url);
+        exit();
+    }else{
+        die("
+            <script type='text/javascript'>window.location.href = {$url}</script>
+            <noscript> <meta http-equiv='refresh' content='0; url={$url}'></noscript>
+        ");
+    }
+}
+
 function loadJS($jsFileName) {
     echo("<script type='text/javascript' src='/it-a/assets/js/$jsFileName'></script>");
 }
