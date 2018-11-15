@@ -52,10 +52,10 @@ CREATE TABLE `pengajar` (
   `pengajar_id` varchar(20) NOT NULL,
   `pengajar_nama` varchar(250) DEFAULT NULL,
   `pengajar_password` varchar(250) DEFAULT NULL,
-  `pengajar_nohp` varchar(12) DEFAULT NULL,
-  `pengajar_alamat` varchar(20) NOT NULL,
+  `pengajar_nohp` varchar(30) DEFAULT NULL,
+  `pengajar_alamat` varchar(250) DEFAULT NULL,
   `pengajar_gender` varchar(20) NOT NULL,
-  `pengajar_email` varchar(20) NOT NULL,
+  `pengajar_email` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`pengajar_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -106,10 +106,10 @@ CREATE TABLE `siswa` (
   `siswa_id` varchar(20) NOT NULL,
   `siswa_nama` varchar(250) DEFAULT NULL,
   `siswa_password` varchar(250) DEFAULT NULL,
-  `siswa_nohp` varchar(12) DEFAULT NULL,
-  `siswa_alamat` varchar(20) NOT NULL,
+  `siswa_nohp` varchar(30) DEFAULT NULL,
+  `siswa_alamat` varchar(250) DEFAULT NULL,
   `siswa_gender` varchar(20) NOT NULL,
-  `siswa_email` varchar(20) NOT NULL,
+  `siswa_email` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`siswa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -193,6 +193,7 @@ CREATE TABLE `soal_detail` (
   `soal_id` varchar(20) DEFAULT NULL,
   `soal_opsi` varchar(1) DEFAULT NULL,
   `soal_opsi_text` text,
+  `soal_no` int(11) DEFAULT NULL,
   KEY `soal_id` (`soal_id`),
   CONSTRAINT `soal_detail_ibfk_1` FOREIGN KEY (`soal_id`) REFERENCES `soal_matkul` (`soal_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -247,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-14 14:11:44
+-- Dump completed on 2018-11-15  9:17:24

@@ -27,11 +27,11 @@
                             <div id="soal-review-content" class="collapsible-body">
                                 <div class="collection">
                                     <a href='#!' id='link-benar' class="collection-item">
-                                        <span class="new badge" id="badge-benar"></span>
+                                        <span class="badge teal white-text" id="badge-benar"></span>
                                         Total jawaban yang benar
                                     </a>
                                     <a href='#!' id='link-salah' class="collection-item">
-                                        <span class="new badge red" id="badge-salah"></span>
+                                        <span class="badge red white-text" id="badge-salah"></span>
                                         Total jawaban yang salah
                                     </a>
                                 </div>
@@ -39,11 +39,15 @@
                         </li>
                         <li id='li-benar'>
                             <div class="collapsible-header teal white-text">Review soal yang benar</div>
-                            <div class="collapsible-body"></div>
+                            <div id="cb-benar" class="collapsible-body">
+
+                            </div>
                         </li>
                         <li id='li-salah'>
-                            <div class="collapsible-header red white-text">Review soal yang salah</div>
-                            <div class="collapsible-body"></div>
+                            <div class="collapsible-header teal white-text">Review soal yang salah</div>
+                            <div id="cb-salah" class="collapsible-body">
+
+                            </div>
                         </li>
                     </ul>
                 </div>

@@ -221,11 +221,13 @@ class WebDb {
 
             foreach($v->soal_detail as $eachSoalDetail) {
                 $eachSoalDetail->soal_id = $newSoal['soal_id'];
-                $pSt2 = $pdo->prepare('insert into soal_detail values (?,?,?)');
+                $eachSoalDetail->soal_no = $newSoal['soal_no'];
+                $pSt2 = $pdo->prepare('insert into soal_detail values (?,?,?,?)');
 
                 $pSt2->bindValue(1,$eachSoalDetail->soal_id);
                 $pSt2->bindValue(2,$eachSoalDetail->soal_opsi);
                 $pSt2->bindValue(3,$eachSoalDetail->soal_opsi_text);
+                $pSt2->bindValue(4,$eachSoalDetail->soal_no);
                 $pSt2->execute();
             }   
         }   
@@ -264,11 +266,22 @@ class WebDb {
         $result = $webDb->query(
             "select 
             sm.soal_id,
+            sm.soal_text,
             sm.soal_no,
             sm.soal_jawab,
+            sm.soal_jawab_text,
             sj.siswa_jawaban,
-            sm.matkul_id 
-            from soal_matkul sm 
+            (
+                select sd.soal_opsi_text
+                from soal_detail sd
+                where sd.soal_id = sm.soal_id
+                and
+                sd.soal_opsi = sj.siswa_jawaban
+                and
+                sd.soal_no = sm.soal_no
+            ) as siswa_jawaban_text
+            ,sm.matkul_id from 
+            soal_matkul sm 
             inner join siswa_jawaban sj 
             on sm.soal_id = sj.siswa_soalid  
             where sj.siswa_id = :siswa_id and 
@@ -288,14 +301,26 @@ class WebDb {
         $result = $webDb->query(
             "select 
             sm.soal_id,
+            sm.soal_text,
             sm.soal_no,
             sm.soal_jawab,
+            sm.soal_jawab_text,
             sj.siswa_jawaban,
-            sm.matkul_id from 
-            soal_matkul sm inner join siswa_jawaban 
-            sj on sm.soal_id = sj.siswa_soalid  
-            where sj.siswa_id = :siswa_id 
-            and sj.sesi_id = :sesi_id
+            (
+                select sd.soal_opsi_text
+                from soal_detail sd
+                where sd.soal_id = sm.soal_id
+                and
+                sd.soal_opsi = sj.siswa_jawaban
+                and
+                sd.soal_no = sm.soal_no
+            ) as siswa_jawaban_text
+            ,sm.matkul_id from 
+            soal_matkul sm 
+            inner join siswa_jawaban sj 
+            on sm.soal_id = sj.siswa_soalid  
+            where sj.siswa_id = :siswa_id and 
+            sj.sesi_id = :sesi_id
             and sm.soal_jawab = sj.siswa_jawaban"
         ,[
             ':siswa_id'=>$siswaId,

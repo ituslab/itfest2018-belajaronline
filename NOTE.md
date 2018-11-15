@@ -18,13 +18,33 @@ select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from so
 
 ### Ambil jawaban yang salah (Dari siswa dan sesi id)
 ```
-select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
+select sm.soal_id,sm.soal_text,sm.soal_no,sm.soal_jawab,sm.soal_jawab_text,sj.siswa_jawaban,
+(
+    select sd.soal_opsi_text
+    from soal_detail sd
+    where sd.soal_id = sm.soal_id
+    and
+    sd.soal_opsi = sj.siswa_jawaban
+    and
+    sd.soal_no = sm.soal_no
+) as siswa_jawaban_text
+,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
 and sm.soal_jawab != sj.siswa_jawaban ;
 ```
 
 ### Ambil jawaban yang benar (Dari siswa id dan sesi id)
 ```
-select sm.soal_id,sm.soal_no,sm.soal_jawab,sj.siswa_jawaban,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
+select sm.soal_id,sm.soal_text,sm.soal_no,sm.soal_jawab,sm.soal_jawab_text,sj.siswa_jawaban,
+(
+    select sd.soal_opsi_text
+    from soal_detail sd
+    where sd.soal_id = sm.soal_id
+    and
+    sd.soal_opsi = sj.siswa_jawaban
+    and
+    sd.soal_no = sm.soal_no
+) as siswa_jawaban_text
+,sm.matkul_id from soal_matkul sm inner join siswa_jawaban sj on sm.soal_id = sj.siswa_soalid  where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID_VALUE'
 and sm.soal_jawab = sj.siswa_jawaban ;
 
 ```
@@ -58,4 +78,16 @@ select  sm.soal_no,sm.soal_text,sd.soal_opsi,sd.soal_opsi_text from soal_matkul 
 select distinct(sj.sesi_id),sj.matkul_id,sj.siswa_id,s.siswa_nama,sk.sesi_nama,m.matkul_nama from siswa_jawaban sj inner join sesi_kuliah sk on sj.sesi_id = sk.sesi_id  inner join mata_kuliah m on sj.matkul_id = m.matkul_id  inner join siswa s  on s.siswa_id = sj.siswa_id 
 where s.siswa_id = 'SISWA_ID_VALUE';
 
+```
+
+
+### Review soal lebih detail
+```
+select distinct(sj.sesi_id),sm.soal_id,sm.soal_no,sm.soal_text,sj.siswa_jawaban,sm.soal_jawab,(
+    select sd.soal_opsi_text
+    from soal_detail sd
+    where sd.soal_id = sm.soal_id
+    and sd.soal_opsi = sj.siswa_jawaban
+    and sd.soal_no = sm.soal_no
+) as siswa_jawaban_text,sm.soal_jawab_text from siswa_jawaban sj inner join soal_matkul sm on sj.siswa_soalid = sm.soal_id where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID';
 ```
