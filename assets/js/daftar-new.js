@@ -21,13 +21,20 @@ $("#form-daftar").validate({
     no_hp:{
       required:true,
       digits:true
+    },
+    email:{
+      required: true,
+      email: true
+    },
+    alamat: {
+      required: true
     }
   },
   errorPlacement:function(error,element){
     var errorText = $(error).html();
     var inputElName = $(element).attr('name');
     var errorIdElement = "#error_"+inputElName;
-    
+
     $(errorIdElement).html(errorText);
 
   },
@@ -42,6 +49,13 @@ $("#form-daftar").validate({
     no_hp:{
       required:"No hp tidak boleh kosong",
       digits:"Hanya angka yang diperbolehkan"
+    },
+    email:{
+      required: 'Email tidak boleh kosong',
+      email: 'Format email tidak cocok'
+    },
+    alamat: {
+      required: 'Alamat tidak boleh kosong'
     }
   }
 });
@@ -53,7 +67,7 @@ $('#daftar-sebagai').change(function(){
         prefix = "NIP";
     }
     var finalValue = prefix + " " + selectValue;
-    
+
     $('#user-id-label').html(finalValue);
 });
 
@@ -68,6 +82,6 @@ $(document).ready(function(){
       }, 800, function(){
         window.location.hash = hash;
       });
-    } 
+    }
   });
 });
