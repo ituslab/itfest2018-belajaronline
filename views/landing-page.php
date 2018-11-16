@@ -100,7 +100,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
        						<i class="fas fa-book-open medium fa-fw"></i>
 						</div>
 						<div class="center">	
-       						<p>Buat soal pilihan ganda</p>
+       						<p>Buat soal pilihan ganda atau Essay</p>
 						</div>
 					</div>
 					<div class="col s12 m4 margin-icon-top">
@@ -160,7 +160,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto2.jpg" class="img-about">
 						</div>
 						<div class="center">
-							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Aref%20Al-Kahfi%0A%0A+6282179400816"><i class="fab fa-whatsapp"></i></a>
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?phone=+6282179400816&text=Hai%20Arief"><i class="fab fa-whatsapp"></i></a>
 	    					<a class="btn-floating btn-medium grey darken-4" href="https://github.com/ariefkahfi"><i class="fab fa-github"></i></a><br>
 	    					<p>Arief Al-Kahfi Verdana<br>
        						Full Stack Developer</p>
@@ -171,7 +171,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto5.jpg" class="img-about">
 						</div>
 						<div class="center">
-							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Aji%20Prasetyo%0A%0A+6282311695444"><i class="fab fa-whatsapp"></i></a>
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?phone=+6282311695444&text=Hai%20Aji"><i class="fab fa-whatsapp"></i></a>
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/aji.prasetyoo.5"><i class="fab fa-instagram"></i></a><br>
 
 	    					<p>Aji Prasetyo<br>
@@ -183,7 +183,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto1.jpg" class="img-about">
 						</div>
 						<div class="center">
-							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Sutan%20Gading%0A%0A+6281271377018"><i class="fab fa-whatsapp"></i></a>
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?phone=+6281271377018&text=Hai%20Sutan"><i class="fab fa-whatsapp"></i></a>
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/sutan_gnst"><i class="fab fa-instagram"></i></a><br>
 
 	    					<p>Sutan Gading Fadilah N<br>
@@ -195,7 +195,11 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto3.jpg" class="img-about">
 						</div>
 						<div class="center">
+<<<<<<< HEAD
 						<a class="btn-floating btn-medium grey darken-4 padding-sg" href="https://github.com/zzcomzz"><i class="fab fa-github"></i></a>
+=======
+							<a class="btn-floating btn-medium grey darken-4 padding-sg" href="https://github.com/zzcomzz"><i class="fab fa-github"></i></a>
+>>>>>>> 73bfb28977ff8208c5bd350e01c5b97554409b88
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/irvref02"><i class="fab fa-instagram"></i></a><br>
 
 	    					<p>Muhammad Irvan Refnaldy<br>
@@ -207,7 +211,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto6.jpg" class="img-about">
 						</div>
 						<div class="center">
-							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?&text=Jian%20Malik%0A%0A+6285269574522"><i class="fab fa-whatsapp"></i></a>
+							<a class="btn-floating btn-medium green accent-3 padding-sg" href="https://api.whatsapp.com/send?phone=+6285269574522&text=Hai%20Jian"><i class="fab fa-whatsapp"></i></a>
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/Jian.malik69"><i class="fab fa-instagram"></i></a><br>
 
 	    					<p>Jian Malik Hidayat<br>
@@ -310,7 +314,11 @@ include_once __DIR__ . '/includes/top.php'; ?>
                   <li><a class="grey-text text-lighten-3" href="http://polsri.ac.id">POLSRI</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">IT FEST</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">HMJ MI</a></li>
+<<<<<<< HEAD
                   <li><a class="grey-text text-lighten-3" href="http://it-polsri.org">IT - POLSRI</a></li>
+=======
+                  <li><a class="grey-text text-lighten-3" href="http://itpolsri.org">IT - POLSRI</a></li>
+>>>>>>> 73bfb28977ff8208c5bd350e01c5b97554409b88
                 </ul>
               </div>
             </div>

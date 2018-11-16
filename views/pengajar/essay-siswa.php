@@ -17,7 +17,9 @@
     ?>
 
     <div class="my-sidebar-right">
-        <div class="my-row"></div>
+        <div class="my-row">
+            
+        </div>
     </div>
     
 </body>

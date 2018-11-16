@@ -92,3 +92,7 @@ select distinct(sj.sesi_id),sm.soal_id,sm.soal_no,sm.soal_text,sj.siswa_jawaban,
 ) as siswa_jawaban_text,sm.soal_jawab_text from siswa_jawaban sj inner join soal_matkul sm on sj.siswa_soalid = sm.soal_id where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID';
 ```
 
+### list soal essay yang sudah dijawab oleh siswa by pengajar id 
+```
+select js.siswa_id, js.soal_id, js.matkul_id, js.sesi_id, js.soal_no, ( select se.soal_text from soal_essay se where se.soal_id = js.soal_id and se.soal_no = js.soal_no ) as soal_text, js.jawab_text from jawab_essay js  inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join pengajar p on m.pengajar_id = p.pengajar_id where p.pengajar_id = 'PENGAJAR_ID_VALUE';
+```

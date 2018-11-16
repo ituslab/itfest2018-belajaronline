@@ -419,6 +419,41 @@ class WebDb {
     }
 
 
+    static function listSoalEssayYangSudahDijawabSiswa($pengajarId){
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "
+            select 
+            js.siswa_id, 
+            js.soal_id, 
+            js.matkul_id, 
+            js.sesi_id, 
+            js.soal_no, 
+            ( 
+                select se.soal_text 
+                from soal_essay se 
+                where se.soal_id = js.soal_id 
+                and se.soal_no = js.soal_no 
+            ) 
+            as soal_text, 
+            js.jawab_text 
+            from jawab_essay js  
+            inner join 
+            mata_kuliah m on 
+            js.matkul_id = m.matkul_id 
+            inner join pengajar p on 
+            m.pengajar_id = p.pengajar_id 
+            where 
+            p.pengajar_id = :pengajar_id
+            "
+        ,[
+            ':pengajar_id'=>$pengajarId
+        ])   
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
     static function listSesiEssayYangSudahDijawabSiswa($siswaId) {
         $webDb = self::getDb();
         $result = $webDb->query(

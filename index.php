@@ -177,6 +177,7 @@ $router->get('/dashboard/essay-siswa',function(){
     $sessionLoginSebagai = Session::get("login_sebagai");
 
     if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
+        
         loadView("pengajar/essay-siswa.php");
     } else {
         loadViewAndModel("error.php",array(
