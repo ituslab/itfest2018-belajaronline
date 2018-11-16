@@ -307,6 +307,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
                   <li><a class="grey-text text-lighten-3" href="http://polsri.ac.id">POLSRI</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">IT FEST</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">HMJ MI</a></li>
+                  <li><a class="grey-text text-lighten-3" href="http://itpolsri.org">IT - POLSRI</a></li>
                 </ul>
               </div>
             </div>
