@@ -172,13 +172,38 @@ $router->get("/dashboard/tambah-matkul",function(){
 });
 
 
+
+
+
+$router->get('/dashboard/review-siswa/(\w+)/sesi/(\w+)',function($siswaId, $sesiId){
+    $sessionUserId = Session::get("user_id");
+    $sessionLoginSebagai = Session::get("login_sebagai");
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === 'pengajar') {
+        $result = WebDb::listReviewSoalEssay($siswaId , $sesiId);
+        $listSubmitEssay = WebDb::listSubmitEssayBySiswaIdAndSesiId($siswaId , $sesiId);
+
+        loadViewAndModel('pengajar/review-siswa.php',[
+            'list_review'=>$result,
+            'list_submit_essay'=>$listSubmitEssay
+        ]);
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
+
 $router->get('/dashboard/essay-siswa',function(){
     $sessionUserId = Session::get("user_id");
     $sessionLoginSebagai = Session::get("login_sebagai");
 
     if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
-        
-        loadView("pengajar/essay-siswa.php");
+        $result = WebDb::listSiswaSudahEssay($sessionUserId);
+        loadViewAndModel("pengajar/essay-siswa.php",[
+            'list_siswa'=>$result
+        ]);
     } else {
         loadViewAndModel("error.php",array(
             'title'=>'Warning',
@@ -562,6 +587,36 @@ $router->get('/api/jawab-benar/(\w+)',function($sesiId){
         ]);
     }
 });
+
+$router->post('/api/submit-essay',function(){
+    $sessionUserId = Session::get('user_id');
+    $loginSebagai = Session::get('login_sebagai');
+    header('Content-type: application/json');
+
+    if($sessionUserId && $loginSebagai && $loginSebagai === 'pengajar') {
+        http_response_code(200);
+
+        $jsonString = file_get_contents('php://input');
+        $toObj = json_decode($jsonString);
+
+        foreach($toObj as $t) {
+            WebDb::submitEssay($t);
+        }
+
+        echo json_encode([
+            'code'=>200,
+            'data'=>'Submit essay berhasil'
+        ]);
+
+    }else{
+        http_response_code(403);
+        echo json_encode([
+            'code'=>200,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
 $router->get('/api/jawab-salah/(\w+)',function($sesiId){
     $sessionUserId = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');

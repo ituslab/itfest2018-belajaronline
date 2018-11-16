@@ -18,7 +18,24 @@
 
     <div class="my-sidebar-right">
         <div class="my-row">
-            
+            <?php if($list_siswa) {?>
+                <ul class="collection">
+                    <?php foreach($list_siswa as $l) {?>
+                        <li class="collection-item avatar">
+                            <i class="material-icons circle red">library_books</i>
+                            <span class="title">Nama siswa</span>
+                            <p><?= $l->siswa_nama?></p>
+                            <p>
+                                <a href='/it-a/dashboard/review-siswa/<?= $l->siswa_id?>/sesi/<?= $l->sesi_id?>'>Klik disini</a> untuk melihat jawaban dari siswa ini
+                            </p>
+                        </li>
+                    <?php }?>
+                </ul>
+            <?php }else{?>
+                <div class="card-panel teal white-text">
+                    Belum ada siswa yang menjawab soal essay anda...
+                </div>
+            <?php }?>
         </div>
     </div>
     

@@ -67,11 +67,10 @@ function createSoalPanel(soalTitleValue,soalNoValue){
     var inputPertanyaanEl = document.createElement('div');
     inputPertanyaanEl.className = 'input-field col s12 m12';
 
-    var inputTextPertanyaanEl = document.createElement('input');
-    inputTextPertanyaanEl.setAttribute('type','text');
+    var inputTextPertanyaanEl = document.createElement('textarea');
     inputTextPertanyaanEl.setAttribute('placeholder','');
     inputTextPertanyaanEl.setAttribute('data-soal_no',soalNoValue);
-    inputTextPertanyaanEl.className = 'validate my-soal-pertanyaan';
+    inputTextPertanyaanEl.className = 'materialize-textarea my-soal-pertanyaan';
 
     var labelPertanyaanEl = document.createElement('label');
     labelPertanyaanEl.innerHTML = 'Masukkan pertanyaan';

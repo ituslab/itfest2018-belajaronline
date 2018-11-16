@@ -125,8 +125,16 @@ class WebDb {
 
 
     // pengajar to siswa
-    static function submitEssay() {
-
+    static function submitEssay($submitEssay) {
+        $webDb = self::getDb();
+        $webDb->insert('submit_essay',[
+            'siswa_id'=>$submitEssay->siswa_id,
+            'matkul_id'=>$submitEssay->matkul_id,
+            'sesi_id'=>$submitEssay->sesi_id,
+            'soal_id'=>$submitEssay->soal_id,
+            'soal_no'=>$submitEssay->soal_no,
+            'pernyataan'=>$submitEssay->pernyataan
+        ]);
     }
 
     static function listSesiByMatkul($matkulId) {
@@ -419,32 +427,72 @@ class WebDb {
     }
 
 
-    static function listSoalEssayYangSudahDijawabSiswa($pengajarId){
+    static function listSubmitEssayBySiswaIdAndSesiId($siswaId, $sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "select * from submit_essay 
+            where siswa_id = :s_id  
+            and sesi_id = :ss_id 
+            "
+        ,[
+            ':s_id'=>$siswaId,
+            ':ss_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+    static function listReviewSoalEssay($siswaId,$sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "
+            select  
+            js.siswa_id,
+            js.soal_id, 
+            js.soal_no, 
+            se.soal_text, 
+            js.jawab_text,
+            js.matkul_id,
+            js.sesi_id 
+            from jawab_essay js 
+            inner join soal_essay se 
+            on js.soal_id = se.soal_id 
+            and js.soal_no = se.soal_no  
+            where js.siswa_id = :siswa_id 
+            and js.sesi_id = :sesi_id
+            order by js.soal_no asc
+            "
+        ,[
+            ':sesi_id'=>$sesiId,
+            ':siswa_id'=>$siswaId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
+
+    static function listSiswaSudahEssay($pengajarId){
         $webDb = self::getDb();
         $result = $webDb->query(
             "
             select 
-            js.siswa_id, 
-            js.soal_id, 
-            js.matkul_id, 
-            js.sesi_id, 
-            js.soal_no, 
-            ( 
-                select se.soal_text 
-                from soal_essay se 
-                where se.soal_id = js.soal_id 
-                and se.soal_no = js.soal_no 
-            ) 
-            as soal_text, 
-            js.jawab_text 
-            from jawab_essay js  
-            inner join 
-            mata_kuliah m on 
-            js.matkul_id = m.matkul_id 
-            inner join pengajar p on 
-            m.pengajar_id = p.pengajar_id 
-            where 
-            p.pengajar_id = :pengajar_id
+                distinct(js.siswa_id), 
+                js.matkul_id, 
+                js.sesi_id,
+                s.siswa_nama,
+                m.matkul_nama,
+                sk.sesi_nama 
+                from jawab_essay js 
+                inner join siswa s on 
+                js.siswa_id = s.siswa_id 
+                inner join mata_kuliah 
+                m on 
+                js.matkul_id = m.matkul_id 
+                inner join sesi_kuliah 
+                sk on sk.matkul_id = m.matkul_id  
+                inner join pengajar p 
+                on m.pengajar_id = p.pengajar_id 
+                where m.pengajar_id = :pengajar_id
             "
         ,[
             ':pengajar_id'=>$pengajarId

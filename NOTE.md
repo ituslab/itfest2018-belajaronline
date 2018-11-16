@@ -94,5 +94,12 @@ select distinct(sj.sesi_id),sm.soal_id,sm.soal_no,sm.soal_text,sj.siswa_jawaban,
 
 ### list soal essay yang sudah dijawab oleh siswa by pengajar id 
 ```
-select js.siswa_id, js.soal_id, js.matkul_id, js.sesi_id, js.soal_no, ( select se.soal_text from soal_essay se where se.soal_id = js.soal_id and se.soal_no = js.soal_no ) as soal_text, js.jawab_text from jawab_essay js  inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join pengajar p on m.pengajar_id = p.pengajar_id where p.pengajar_id = 'PENGAJAR_ID_VALUE';
+select distinct(js.siswa_id), js.matkul_id, js.sesi_id,s.siswa_nama,m.matkul_nama,sk.sesi_nama from jawab_essay js inner join siswa s  on js.siswa_id = s.siswa_id inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join sesi_kuliah sk on sk.matkul_id = m.matkul_id  inner join pengajar p on m.pengajar_id = p.pengajar_id where m.pengajar_id = 'PENGAJAR_ID_VALUE';
+```
+
+
+### list review essay dari siswa_id dan sesi_id
+```
+select  js.siswa_id,js.soal_id, js.soal_no, se.soal_text, js.jawab_text,js.matkul_id,js.sesi_id  from jawab_essay js inner join soal_essay se on js.soal_id = se.soal_id and js.soal_no = se.soal_no  where js.siswa_id = 'SISWA_ID_VALUE' and js.sesi_id = 'SESI_ID_VALUE'
+order by js.soal_no asc;
 ```
