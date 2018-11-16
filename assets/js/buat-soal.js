@@ -296,12 +296,6 @@ function validateSoal() {
     var totalSoalOpsiText = banyakSoal * 5;
 
 
-    console.log(banyakSoal, 
-        arrSoalJawab.length === banyakSoal, 
-        arrSoalJawabText.length === banyakSoal, 
-        arrSoalText.length === banyakSoal,
-        totalSoalOpsiText === allSoalOpsiText.length
-    );
 
     return (
         arrSoalJawab.length === banyakSoal &&
@@ -318,7 +312,7 @@ $('#buat-soal-form').submit(function(ev){
 
 
 
-    if(!sesiNamaEl || !$('#matkul-id').val() ) {
+    if(!sesiNamaEl || !$('#matkul-id').val() || !sesiNamaEl.toString().trim() ) {
         alert('Data tidak valid');
         ev.preventDefault();
         return;
