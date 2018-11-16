@@ -28,10 +28,10 @@
 			<span class="left-side-desc">Kerjakan soal dan lihat hasilnya</span>
 		</div>
 		</a>
-    	</div>	
+    	</div>
     </div>
 <!-- form daftar -->
-    <div class="col s12 m6 margin-form" id="daftar-form">	
+    <div class="col s12 m6 margin-form" id="daftar-form">
     <form method="POST" id="form-daftar" action="/it-a/daftar">
 	    <div class="section white width-daftar border-form" >
 	        <div class="title-form">Daftar</div>
@@ -44,7 +44,7 @@
 		            <div class="form-row">
 		                <label class="form-label">Daftar sebagai</label>
 		                <select id="daftar-sebagai" name="daftar_sebagai" class="form-input">
-		                    <option value="Mahasiswa">Mahasiswa</option>
+		                    <option value="Siswa">Mahasiswa</option>
 		                    <option value="Pengajar">Pengajar</option>
 						</select>
 						<div id="error_daftar_sebagai"></div>
@@ -83,15 +83,20 @@
 					  <div id="error_alamat"></div>
 			        </div>
 			    </div>
+					<?php if (Session::get('errdaftar')): ?>
+						<div class="text-red center">
+							<?= Session::get('errdaftar') ?>
+						</div>
+					<?php endif; ?>
 			    <div class="center">
 				    <a href="/it-a" class="waves-effect waves-light btn margin-btn">Batal</a>
-				    <button class="waves-effect waves-light btn">Daftar</button>				    	
-			    </div>        
+				    <button class="waves-effect waves-light btn">Daftar</button>
+			    </div>
 	    	</div>
 		</form>
 	</div>
 <!-- form daftar -->
-	
+
 </div>
 
 

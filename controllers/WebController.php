@@ -4,11 +4,11 @@ use Models\WebDb;
 use Felis\Silvestris\Database;
 use Felis\Silvestris\Session;
 
-class WebController { 
+class WebController {
 
 
     public function handleBuatMatkul(){
-        
+
     }
 
     public function handleLogin(){
@@ -28,9 +28,6 @@ class WebController {
         header("Location: /it-a/dashboard");
     }
 
-
-
-
     // handle gagal belum diperbaiki
     public function handleDaftar() {
         $nama = $_POST['nama'];
@@ -45,24 +42,27 @@ class WebController {
         $result = substr($daftarSebagai , 1 );
         $toLower = strtolower($daftarSebagai[0]);
         $daftarSebagai = $toLower . $result;
+        $field = ($daftarSebagai == 'pengajar') ? 'pengajar_id' : 'siswa_id';
+        if (WebDb::checkField($daftarSebagai, $field, $userId)) {
+          $saveResult = WebDb::handleSaveDaftar(
+                  $daftarSebagai,
+                  $nama,
+                  $userId,
+                  $userPassword,
+                  $noHp,
+                  $email,
+                  $alamat,
+                  $gender
+          );
 
-        $saveResult = WebDb::handleSaveDaftar(
-                $daftarSebagai,
-                $nama,
-                $userId,
-                $userPassword,
-                $noHp,
-                $email,
-                $alamat,
-                $gender
-        );
-
-        if($saveResult) {
-            header("Location: /it-a/daftar");
-            return;
+          if($saveResult) {
+              header("Location: /it-a/daftar");
+              return;
+          }
+          echo("Pendaftaran gagal...");
+        }else {
+          Session::set('errdaftar', 'Id sudah terdaftar');
+          redirect('/it-a/daftar');
         }
-        echo("Pendaftaran gagal...");
     }
 }
-
-
