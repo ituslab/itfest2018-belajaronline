@@ -11,7 +11,7 @@ COPY . .
 # RUN apt-get install -y libxml2* zip unzip
 # RUN docker-php-ext-install xml
 RUN composer install
-
+RUN composer dump-autoload
 
 
 EXPOSE 80
