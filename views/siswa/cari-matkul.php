@@ -49,8 +49,13 @@
                                         </li>
                                         <li class="collection-item avatar">
                                             <i class="material-icons circle teal">library_books</i>
-                                            <span class="title">Total soal</span>
+                                            <span class="title">Total soal (pilihan ganda)</span>
                                             <p><?= $c->total_soal?></p>
+                                        </li>
+                                        <li class="collection-item avatar">
+                                            <i class="material-icons circle teal">library_books</i>
+                                            <span class="title">Total soal (essay)</span>
+                                            <p><?= $c->total_essay?></p>
                                         </li>
                                         <li class="collection-item avatar">
                                             <i class="material-icons circle teal">layers</i>
@@ -60,7 +65,7 @@
                                     </ul>
                                 </div>
                                 <div class="card-action">
-                                    <?php if($c->total_soal >= 5) {?>
+                                    <?php if($c->total_soal >= 5 || $c->total_essay >= 1) {?>
                                         <button class="btn waves-effect waves-light" onclick="onTambahMatkul('<?php echo($c->matkul_id);?>')">Tambahkan ke matakuliah saya
                                             <i class="material-icons right">add</i>
                                         </button>

@@ -75,7 +75,7 @@ select  sm.soal_no,sm.soal_text,sd.soal_opsi,sd.soal_opsi_text from soal_matkul 
 
 ### List sesi yang sudah dijawab oleh siswa
 ```
-select distinct(sj.sesi_id),sj.matkul_id,sj.siswa_id,s.siswa_nama,sk.sesi_nama,m.matkul_nama from siswa_jawaban sj inner join sesi_kuliah sk on sj.sesi_id = sk.sesi_id  inner join mata_kuliah m on sj.matkul_id = m.matkul_id  inner join siswa s  on s.siswa_id = sj.siswa_id 
+select distinct(sj.sesi_id),sj.matkul_id,sj.siswa_id,s.siswa_nama,sk.tipe_soal,sk.sesi_nama,m.matkul_nama from siswa_jawaban sj inner join sesi_kuliah sk on sj.sesi_id = sk.sesi_id  inner join mata_kuliah m on sj.matkul_id = m.matkul_id  inner join siswa s  on s.siswa_id = sj.siswa_id 
 where s.siswa_id = 'SISWA_ID_VALUE';
 
 ```
@@ -91,3 +91,4 @@ select distinct(sj.sesi_id),sm.soal_id,sm.soal_no,sm.soal_text,sj.siswa_jawaban,
     and sd.soal_no = sm.soal_no
 ) as siswa_jawaban_text,sm.soal_jawab_text from siswa_jawaban sj inner join soal_matkul sm on sj.siswa_soalid = sm.soal_id where sj.siswa_id = 'SISWA_ID_VALUE' and sj.sesi_id = 'SESI_ID';
 ```
+

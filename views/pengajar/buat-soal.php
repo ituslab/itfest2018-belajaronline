@@ -8,7 +8,7 @@
     <?php
         loadTop();
         loadCSS("dashboard.override.css");
-
+        
     ?>
 </head>
 <body>
@@ -55,12 +55,21 @@
                   <label for="sesi-nama">Nama sesi(atau materi) soal</label>
                 </div>
               </div>
+              <div class="row">
+                <div class="input-field col s12 m12">
+                  <select id="tipe-soal" name="tipe-soal">
+                    <option value="pilgan" selected>Pilihan ganda</option></option>
+                    <option value="essay">Essay</option>
+                  </select>
+                  <label for="tipe-soal">Pilih tipe soal</label>
+                </div>
+              </div>
               <!-- csrf token input -->
               <input id="csrf-token" type="hidden" value="<?= csrfToken(true)?>"/>
               <!-- csrf token input -->
               <div class="row">
                 <div class="input-field col s12 m6">
-                  <input min="5" max="10" type="number" name="jumlah-soal" id="jumlah-soal" class="validate">
+                  <input type="number" name="jumlah-soal" id="jumlah-soal" class="validate">
                   <label for="jumlah-soal">Jumlah soal</label>
                 </div>
                 <div class="input-field col s12 m6">

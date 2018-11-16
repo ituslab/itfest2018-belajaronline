@@ -14,6 +14,42 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
 
+function createSoalEssay(soalNoText,soalNoVal){
+    var essayPanel = document.createElement('div');
+    essayPanel.className = 'card-panel';
+
+    // child of essayPanel (essay soal no title)
+    var essaySoalTitle = document.createElement('div');
+    essaySoalTitle.innerHTML = soalNoText + ' ' + soalNoVal;
+    essayPanel.appendChild(essaySoalTitle);
+
+
+    var rowPertanyaanEl = document.createElement('div');
+    rowPertanyaanEl.className = 'row';
+
+
+    var inputPertanyaanEl = document.createElement('div');
+    inputPertanyaanEl.className = 'input-field col s12 m12';
+
+
+    var textAreaPertanyaanEl = document.createElement('textarea');
+    textAreaPertanyaanEl.setAttribute('placeholder','');
+    textAreaPertanyaanEl.setAttribute('data-soal_no',soalNoVal);
+    textAreaPertanyaanEl.className = 'materialize-textarea my-soal-pertanyaan';
+
+    var labelPertanyaanEl = document.createElement('label');
+    labelPertanyaanEl.innerHTML = 'Masukkan pertanyaan';
+
+
+    inputPertanyaanEl.appendChild(textAreaPertanyaanEl);
+    inputPertanyaanEl.appendChild(labelPertanyaanEl);
+    rowPertanyaanEl.appendChild(inputPertanyaanEl);
+
+    essayPanel.appendChild(rowPertanyaanEl);
+
+    $('#soal-container').append(essayPanel);
+}
+
 function createSoalPanel(soalTitleValue,soalNoValue){
     var soalCardPanel = document.createElement('div');
     soalCardPanel.className = 'card-panel';
@@ -125,14 +161,16 @@ loadListMatkul();
 
 
 $('#btn-buat-soal').click(function(){
+    var tipeSoalSelectedVal = $('#tipe-soal').val();
+
     var jumlahSoalValue = $('#jumlah-soal').val();
     // do process
-    if(jumlahSoalValue >=5 && jumlahSoalValue <= 10) {
+    if(jumlahSoalValue >=5 && jumlahSoalValue <= 10 && tipeSoalSelectedVal === 'pilgan') {
         if(arrSoalInput.length > 0) {
             arrSoalInput = [];
         }
         $('#soal-container').empty();
-         for(var i =1; i<=jumlahSoalValue; i++){
+        for(var i =1; i<=jumlahSoalValue; i++){
              createSoalPanel('Soal no',i);
              arrSoalInput.push({
                  soal_no:i,
@@ -142,11 +180,30 @@ $('#btn-buat-soal').click(function(){
                  soal_detail:[]
              });
          }
-    }
 
+         return false;
+    } else if(jumlahSoalValue >=1 && jumlahSoalValue <=5 && tipeSoalSelectedVal === 'essay') {
+        console.log('buat soal essay...',jumlahSoalValue , tipeSoalSelectedVal);
+        if(arrSoalInput.length > 0){
+            arrSoalInput = [];
+        }
+        $('#soal-container').empty();
+        for(var i = 1; i<=jumlahSoalValue; i++) {
+            createSoalEssay('Soal no',i);
+            arrSoalInput.push({
+                soal_no:i,
+                soal_text:null
+            });
+        }
+        return false;
+    }
 
     return false;
 });
+
+
+
+
 
 function getSoalPertanyaanInput(){
     $('.my-soal-pertanyaan').each(function(i,el){
@@ -255,65 +312,106 @@ function validateSoal() {
 
 
 $('#buat-soal-form').submit(function(ev){
-    
-    getRadioSoalInputVal();
-    getSoalPertanyaanInput();
-    getSoalTextInputVal();
-
-    
-    
-    $('.my-soal-text').each(function(i,el){
-        var myRadioSoalEl = $(el).closest('.row').find('.my-radio-soal');
-        
-        var myRadioVal = myRadioSoalEl.attr('value');
-        var soalNo = $(el).data('soal_no');
-        var inputVal = $(el).val().toString().trim();
-        
-        if(inputVal) {
-            currentSoal(soalNo).soal_detail.push({
-                soal_opsi:myRadioVal,
-                soal_opsi_text:inputVal
-            });
-        } else {
-            currentSoal(soalNo).soal_detail.push({
-                soal_opsi:myRadioVal,
-                soal_opsi_text:null
-            });
-        }
-        
-    });
-    
-    
-    
-    var isValid = validateSoal();
-    if(!isValid) {
-        alert('soal tidak valid, silahkan diisi');
-        ev.preventDefault();
-        return;
-    }
-    
+    var tipeSoalSelectedVal = $('#tipe-soal').val();
     var currentModal = M.Modal.getInstance(document.querySelector('.modal'));
-    currentModal.open();
 
-    $.post('/it-a/api/buat-soal',
-    JSON.stringify({
-        csrf_token:$('#csrf-token').val(),
-        soal_input:arrSoalInput,
-        matkul_id:$('#matkul-id').val(),
-        sesi_nama:$('#sesi-nama').val()
-    }),
-    function(data,statusText,xhr){
-        currentModal.close();
-        // console.log(data,statusText,xhr);
 
-        if(statusText === 'success') {
-            console.log(data);
-            arrSoalInput = [];
-            $('#soal-container').empty();
-            $('#jumlah-soal').val('');
-            $('#sesi-nama').val('');
+    if(tipeSoalSelectedVal === 'pilgan') {
+        getRadioSoalInputVal();
+        getSoalPertanyaanInput();
+        getSoalTextInputVal();
+        
+        $('.my-soal-text').each(function(i,el){
+            var myRadioSoalEl = $(el).closest('.row').find('.my-radio-soal');
+            
+            var myRadioVal = myRadioSoalEl.attr('value');
+            var soalNo = $(el).data('soal_no');
+            var inputVal = $(el).val().toString().trim();
+            
+            if(inputVal) {
+                currentSoal(soalNo).soal_detail.push({
+                    soal_opsi:myRadioVal,
+                    soal_opsi_text:inputVal
+                });
+            } else {
+                currentSoal(soalNo).soal_detail.push({
+                    soal_opsi:myRadioVal,
+                    soal_opsi_text:null
+                });
+            }
+            
+        });
+        
+        var isValid = validateSoal();
+        if(!isValid) {
+            alert('soal tidak valid, silahkan diisi');
+            ev.preventDefault();
+            return;
         }
-    });
+        
+        currentModal.open();
+    
+        $.post('/it-a/api/buat-soal',
+        JSON.stringify({
+            csrf_token:$('#csrf-token').val(),
+            soal_input:arrSoalInput,
+            matkul_id:$('#matkul-id').val(),
+            sesi_nama:$('#sesi-nama').val(),
+            tipe_soal:tipeSoalSelectedVal
+        }),
+        function(data,statusText,xhr){
+            currentModal.close();
+            // console.log(data,statusText,xhr);
+    
+            if(statusText === 'success') {
+                console.log(data);
+                arrSoalInput = [];
+                $('#soal-container').empty();
+                $('#jumlah-soal').val('');
+                $('#sesi-nama').val('');
+            }
+        });
+
+    } else {
+        getSoalPertanyaanInput();
+        
+        var validateSoalText = 
+            arrSoalInput.map(function(v){return v.soal_text})
+            .filter(function(x){
+                return x !== null;
+            })
+        
+        var isValidInput = validateSoalText.length === arrSoalInput.length; 
+        
+        if(isValidInput) {
+                currentModal.open();
+                
+                $.post('/it-a/api/buat-soal',
+                    JSON.stringify({
+                        csrf_token:$('#csrf-token').val(),
+                        soal_input:arrSoalInput,
+                        matkul_id:$('#matkul-id').val(),
+                        sesi_nama:$('#sesi-nama').val(),
+                        tipe_soal:tipeSoalSelectedVal
+                    }),
+                function(data,statusText,xhr){
+                    currentModal.close();
+                    // console.log(data,statusText,xhr);
+            
+                    if(statusText === 'success') {
+                        console.log(data);
+                        arrSoalInput = [];
+                        $('#soal-container').empty();
+                        $('#jumlah-soal').val('');
+                        $('#sesi-nama').val('');
+                    }
+                });
+        } else {
+            alert('Soal input tidak valid, silahkan diisi');
+        }
+    }
+
+
 
 
     ev.preventDefault();

@@ -16,6 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `jawab_essay`
+--
+
+DROP TABLE IF EXISTS `jawab_essay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jawab_essay` (
+  `siswa_id` varchar(20) DEFAULT NULL,
+  `soal_id` varchar(20) DEFAULT NULL,
+  `matkul_id` varchar(20) DEFAULT NULL,
+  `sesi_id` varchar(20) DEFAULT NULL,
+  `soal_no` int(11) DEFAULT NULL,
+  `jawab_text` text,
+  KEY `siswa_id` (`siswa_id`),
+  KEY `soal_id` (`soal_id`),
+  KEY `matkul_id` (`matkul_id`),
+  KEY `sesi_id` (`sesi_id`),
+  CONSTRAINT `jawab_essay_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE,
+  CONSTRAINT `jawab_essay_ibfk_2` FOREIGN KEY (`soal_id`) REFERENCES `soal_essay` (`soal_id`) ON DELETE CASCADE,
+  CONSTRAINT `jawab_essay_ibfk_3` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE,
+  CONSTRAINT `jawab_essay_ibfk_4` FOREIGN KEY (`sesi_id`) REFERENCES `sesi_kuliah` (`sesi_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jawab_essay`
+--
+
+LOCK TABLES `jawab_essay` WRITE;
+/*!40000 ALTER TABLE `jawab_essay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `jawab_essay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `mata_kuliah`
 --
 
@@ -80,6 +114,7 @@ CREATE TABLE `sesi_kuliah` (
   `sesi_id` varchar(20) NOT NULL,
   `sesi_nama` text,
   `matkul_id` varchar(20) DEFAULT NULL,
+  `tipe_soal` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`sesi_id`),
   KEY `matkul_id` (`matkul_id`),
   CONSTRAINT `sesi_kuliah_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE
@@ -120,6 +155,7 @@ CREATE TABLE `siswa` (
 
 LOCK TABLES `siswa` WRITE;
 /*!40000 ALTER TABLE `siswa` DISABLE KEYS */;
+INSERT INTO `siswa` VALUES ('SW_001','Ariefkahfi','123456','23123','ooasjdij','male','asd@a.com');
 /*!40000 ALTER TABLE `siswa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,6 +245,36 @@ LOCK TABLES `soal_detail` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `soal_essay`
+--
+
+DROP TABLE IF EXISTS `soal_essay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `soal_essay` (
+  `soal_id` varchar(20) NOT NULL,
+  `soal_no` int(11) DEFAULT NULL,
+  `matkul_id` varchar(20) DEFAULT NULL,
+  `sesi_id` varchar(20) DEFAULT NULL,
+  `soal_text` text,
+  PRIMARY KEY (`soal_id`),
+  KEY `matkul_id` (`matkul_id`),
+  KEY `sesi_id` (`sesi_id`),
+  CONSTRAINT `soal_essay_ibfk_1` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE,
+  CONSTRAINT `soal_essay_ibfk_2` FOREIGN KEY (`sesi_id`) REFERENCES `sesi_kuliah` (`sesi_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `soal_essay`
+--
+
+LOCK TABLES `soal_essay` WRITE;
+/*!40000 ALTER TABLE `soal_essay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `soal_essay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `soal_matkul`
 --
 
@@ -238,6 +304,40 @@ LOCK TABLES `soal_matkul` WRITE;
 /*!40000 ALTER TABLE `soal_matkul` DISABLE KEYS */;
 /*!40000 ALTER TABLE `soal_matkul` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `submit_essay`
+--
+
+DROP TABLE IF EXISTS `submit_essay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `submit_essay` (
+  `siswa_id` varchar(20) DEFAULT NULL,
+  `matkul_id` varchar(20) DEFAULT NULL,
+  `sesi_id` varchar(20) DEFAULT NULL,
+  `soal_id` varchar(20) DEFAULT NULL,
+  `soal_no` int(11) DEFAULT NULL,
+  `pernyataan` varchar(10) DEFAULT NULL,
+  KEY `siswa_id` (`siswa_id`),
+  KEY `matkul_id` (`matkul_id`),
+  KEY `sesi_id` (`sesi_id`),
+  KEY `soal_id` (`soal_id`),
+  CONSTRAINT `submit_essay_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`siswa_id`) ON DELETE CASCADE,
+  CONSTRAINT `submit_essay_ibfk_2` FOREIGN KEY (`matkul_id`) REFERENCES `mata_kuliah` (`matkul_id`) ON DELETE CASCADE,
+  CONSTRAINT `submit_essay_ibfk_3` FOREIGN KEY (`sesi_id`) REFERENCES `sesi_kuliah` (`sesi_id`) ON DELETE CASCADE,
+  CONSTRAINT `submit_essay_ibfk_4` FOREIGN KEY (`soal_id`) REFERENCES `soal_essay` (`soal_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `submit_essay`
+--
+
+LOCK TABLES `submit_essay` WRITE;
+/*!40000 ALTER TABLE `submit_essay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `submit_essay` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -248,4 +348,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-15  9:17:24
+-- Dump completed on 2018-11-16 13:32:16

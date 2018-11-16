@@ -11,7 +11,6 @@ class WebController {
         
     }
 
-    // login gagal belum diperbaiki
     public function handleLogin(){
         $username = $_POST['username'];
         $password = $_POST['password'];

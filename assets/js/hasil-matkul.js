@@ -96,16 +96,14 @@ function onResponseJawabSalah(jawabanSalah){
 
 
 
-function onReviewSoalMoreDetail(sesiId){
+function onReviewEssay(sesiId){
 
 }
-
 
 function onReviewSoal(sesiId){
     console.log('sesi_id',sesiId);
 
     $('.modal').modal('open');
-    onReviewSoalMoreDetail(sesiId);
 
     $.get('/it-a/api/jawab-benar/' +sesiId, 
     function(apiResponse,statusText,xhr){

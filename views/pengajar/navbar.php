@@ -33,6 +33,10 @@
       <a href="/it-a/dashboard/list-matkul" class="my-sidebar-link">List Matakuliah</a>
     </div>
     <div class="my-sidebar-item">
+      <i class="fas fa-swatchbook fa-fw fa-lg my-icons-default"></i>
+      <a href="/it-a/dashboard/essay-siswa" class="my-sidebar-link">Hasil essay siswa</a>
+    </div>
+    <div class="my-sidebar-item">
       <i class="fas fa-plus fa-fw fa-lg my-icons-default"></i>
       <a href="/it-a/dashboard/tambah-matkul" class="my-sidebar-link">Tambah Matakuliah</a>
     </div>

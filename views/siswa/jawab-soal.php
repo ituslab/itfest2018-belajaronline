@@ -41,7 +41,7 @@
         <div class="my-row">
             <div class="row">
                 <div class="col s12 m12">
-                    <?php if (!$list_siswa_jawaban) {?>
+                    <?php if (!$list_siswa_jawaban && $tipe_soal === 'pilgan') {?>
                         <!-- my-soal-card -->
                             <div id="my-soal-card" class="card">
                                 <div class="card-content">
@@ -86,6 +86,25 @@
                                 </div>
                             </div>
                         <!-- my-soal-card -->
+
+                    <?php } else if(!$list_siswa_jawaban && $tipe_soal === 'essay'){?>
+                            <div id="my-soal-card" class="card">
+                                <div class="card-content">
+                                    <span id="soal-no-el" class="card-title"></span>
+                                    <p id="soal-pertanyaan-el"></p>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <textarea id="jawab-text" class="materialize-textarea"></textarea>
+                                            <label for="jawab-text">Jawab</label>
+                                        </div>
+                                    </div>
+                                <div class="card-action">
+                                    <a id="soal-prev-btn" class="waves-effect waves-light btn">Previous</a>
+                                    <a id="soal-next-btn" class="waves-effect waves-light btn">Next</a>
+
+                                    <a id="soal-submit-btn" class="waves-effect waves-light btn">Submit</a>
+                                </div>
+                            </div>
                     <?php }else{?>
                         <div class="card-panel teal white-text">
                             Anda sudah menyelesaikan soal '<?= $getInfo->matkul_nama?>' dengan nama sesi '<?= $getInfo->sesi_nama?>' <br/>

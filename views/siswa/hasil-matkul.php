@@ -61,46 +61,102 @@
     
     <div class="my-sidebar-right">
         <div class="my-row">
-            <?php if($list_sesi) {?>
-                <?php foreach($list_sesi as $l) {?>
-                    <ul class="collapsible popout">
-                        <li>
-                            <div class="collapsible-header teal white-text">
-                                <i class="material-icons">account_circle</i>Nama siswa
-                            </div>
-                            <div class="collapsible-body">
-                                <?= $l->siswa_nama?>
-                            </div>
-                        </li>
+            <?php if($list_sesi || $list_sesi_essay) {?>
+                
+                <?php if($list_sesi_essay) {?>
+                    <?php foreach($list_sesi_essay as $l) {?>
+                        <ul class="collapsible popout">
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">account_circle</i>Nama siswa
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->siswa_nama?>
+                                </div>
+                            </li>
 
-                        <li>
-                            <div class="collapsible-header teal white-text">
-                                <i class="material-icons">layers</i>Nama sesi matakuliah
-                            </div>
-                            <div class="collapsible-body">
-                                <?= $l->sesi_nama?>
-                            </div>
-                        </li>
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">layers</i>Nama sesi matakuliah
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->sesi_nama?>
+                                </div>
+                            </li>
 
-                        <li>
-                            <div class="collapsible-header teal white-text">
-                                <i class="material-icons">book</i>Nama matakuliah
-                            </div>
-                            <div class="collapsible-body">
-                                <?= $l->matkul_nama?>
-                            </div>
-                        </li>
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">layers</i>Tipe soal
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->tipe_soal?>
+                                </div>
+                            </li>
 
-                        <li>
-                            <div class="collapsible-header teal white-text">
-                                <i class="material-icons">rate_review</i>Review soal
-                            </div>
-                            <div class="collapsible-body">
-                                <a onclick="onReviewSoal('<?= $l->sesi_id?>')" class="waves-effect waves-light btn">review</a>
-                            </div>
-                        </li>
-                    </ul>
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">book</i>Nama matakuliah
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->matkul_nama?>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">rate_review</i>Review soal
+                                </div>
+                                <div class="collapsible-body">
+                                    <a onclick="onReviewEssay('<?= $l->sesi_id?>')" class="waves-effect waves-light btn">review</a>
+                                </div>
+                            </li>
+                        </ul>
+                    <?php }?>
                 <?php }?>
+                
+                <?php if($list_sesi) {?>
+                    <?php foreach($list_sesi as $l) {?>
+                        <ul class="collapsible popout">
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">account_circle</i>Nama siswa
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->siswa_nama?>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">layers</i>Nama sesi matakuliah
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->sesi_nama?>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">book</i>Nama matakuliah
+                                </div>
+                                <div class="collapsible-body">
+                                    <?= $l->matkul_nama?>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="collapsible-header teal white-text">
+                                    <i class="material-icons">rate_review</i>Review soal
+                                </div>
+                                <div class="collapsible-body">
+                                    <a onclick="onReviewSoal('<?= $l->sesi_id?>')" class="waves-effect waves-light btn">review</a>
+                                </div>
+                            </li>
+                        </ul>
+                    <?php }?>
+                <?php }?>
+
+
             <?php }else{?>
                 <div class="col s12 m12 card-panel">
                     Anda belum menjawab soal mata kuliah apa pun 

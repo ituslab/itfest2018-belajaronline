@@ -29,8 +29,11 @@ $router->get('/dashboard/hasil-matkul',function(){
 
     if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === 'siswa') {
         $listSesi = WebDb::listSesiYangSudahDijawabSiswa($sessionUserId);
+        $listSesiEssay = WebDb::listSesiEssayYangSudahDijawabSiswa($sessionUserId);
+
         loadViewAndModel('siswa/hasil-matkul.php',[
-            'list_sesi'=>$listSesi    
+            'list_sesi'=>$listSesi,
+            'list_sesi_essay'=>$listSesiEssay    
         ]);
     } else {
         loadViewAndModel("error.php",array(
@@ -71,7 +74,7 @@ $router->get('/dashboard/matkul-saya',function(){
     }
 });
 
-$router->get('/dashboard/jawab-soal/(\w+)',function($sesiId){
+$router->get('/dashboard/jawab-soal/(\w+)/(\w+)',function($sesiId,$tipeSoal){
     $sessionUserId = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
 
@@ -82,7 +85,15 @@ $router->get('/dashboard/jawab-soal/(\w+)',function($sesiId){
         && $loginSebagai 
         && $loginSebagai === 'siswa'
     ){
-        $result = WebDb::listSiswaJawabanBySiswaIdAndSoalSesiId($sessionUserId , $sesiId);
+        $result = false;
+
+        // cek apakah siswa ini telah menjawab soal dengan sesi ini
+        if($tipeSoal === 'pilgan') {
+            $result = WebDb::listSiswaJawabanBySiswaIdAndSoalSesiId($sessionUserId , $sesiId);
+        } else {
+            $result = WebDb::countListJawabanEssayDariSiswaDanSesiId($sessionUserId , $sesiId);    
+        }
+
         $getInfo = WebDb::getDb()
             ->query(
                 " select sk.sesi_nama,sm.matkul_nama from sesi_kuliah sk
@@ -98,6 +109,7 @@ $router->get('/dashboard/jawab-soal/(\w+)',function($sesiId){
 
         loadViewAndModel('siswa/jawab-soal.php',[
             'list_siswa_jawaban'=>$result,
+            'tipe_soal'=>$tipeSoal,
             'getInfo'=>$getInfo
         ]);
     } else {
@@ -160,6 +172,19 @@ $router->get("/dashboard/tambah-matkul",function(){
 });
 
 
+$router->get('/dashboard/essay-siswa',function(){
+    $sessionUserId = Session::get("user_id");
+    $sessionLoginSebagai = Session::get("login_sebagai");
+
+    if($sessionUserId && $sessionLoginSebagai && $sessionLoginSebagai === "pengajar") {
+        loadView("pengajar/essay-siswa.php");
+    } else {
+        loadViewAndModel("error.php",array(
+            'title'=>'Warning',
+            'desc'=>'Anda tidak berhak mengakses halaman ini'
+        ));
+    }
+});
 
 $router->get("/dashboard",function(){
     $userIdSession = Session::get("user_id");
@@ -293,10 +318,13 @@ $router->post('/api/buat-soal',function(){
         $csrfToken = $toObj->csrf_token;
         $soalInput = $toObj->soal_input;
         $matkulId = $toObj->matkul_id;
+
+
         $newSesi = [
             'sesi_id'=>substr('SS_'.Uuid::uuid4()->toString(), 0 , 10),
             'sesi_nama'=>$toObj->sesi_nama,
-            'matkul_id'=>$matkulId
+            'matkul_id'=>$matkulId,
+            'tipe_soal'=>$toObj->tipe_soal
         ];
         
         if(!isset($csrfToken)){
@@ -443,18 +471,29 @@ $router->post('/api/jawab-soal',function(){
         $jsonString = file_get_contents('php://input');
         $toObj = json_decode($jsonString);
 
-        
-        foreach ($toObj->soal_jawab as $v) {
-            $v->siswa_id = $userIdSession;
+        $sesiId = $toObj->sesi_id;
+        $tipeSoal = $toObj->tipe_soal;
 
-            WebDb::jawabSoal(
-                $v->siswa_id, 
-                $matkulIdSession , 
-                $v->siswa_soalid , 
-                $v->siswa_jawaban,
-                $toObj->sesi_id
-            );
+        if($tipeSoal === 'pilgan') {
+            foreach ($toObj->soal_jawab as $v) {
+                $v->siswa_id = $userIdSession;
+    
+                WebDb::jawabSoal(
+                    $v->siswa_id, 
+                    $matkulIdSession , 
+                    $v->siswa_soalid , 
+                    $v->siswa_jawaban,
+                    $toObj->sesi_id
+                );
+            }
+        } else if($tipeSoal === 'essay') {
+            foreach ($toObj->soal_jawab as $v) {
+                $v->siswa_id = $userIdSession;
+                WebDb::jawabEssay($v);
+            }
         }
+
+
 
 
         echo json_encode([
@@ -471,7 +510,7 @@ $router->post('/api/jawab-soal',function(){
     }
 });
 
-$router->get('/api/jawab-soal/(\w+)',function($sesiId){
+$router->get('/api/jawab-soal/(\w+)/(\w+)',function($sesiId , $tipeSoal){
     $userIdSession = Session::get('user_id');
     $loginSebagai = Session::get('login_sebagai');
 
@@ -480,7 +519,12 @@ $router->get('/api/jawab-soal/(\w+)',function($sesiId){
 
     if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
         http_response_code(200);
-        $result = WebDb::listSoalBySesi($sesiId);
+        $result = false;
+        if($tipeSoal === 'pilgan') {
+            $result = WebDb::listSoalBySesi($sesiId);
+        } else {
+            $result = WebDb::listSoalEssayBySesi($sesiId);
+        }
         
         echo json_encode([
             'code'=>200,

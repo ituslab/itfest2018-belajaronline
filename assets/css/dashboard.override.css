@@ -15,11 +15,13 @@
 }
 
 #my-overlay {
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);
     top:0;
     bottom: 0;
+    height: 100%;
     left: 0;
     right: 0;
 }

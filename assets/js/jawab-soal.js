@@ -16,6 +16,56 @@ var freshSoalArr = [];
 var inputSoalJawab = [];
 var currentIdx = 0;
 
+function processEssay(essays){
+    essays.forEach(function(e){
+        var eSoalId = e.soal_id;
+        var eSoalNo = e.soal_no;
+        var eSoalText = e.soal_text;
+        var eMatkulId = e.matkul_id;
+        var eSesiId = e.sesi_id;
+
+        freshSoalArr.push({
+            soal_id:eSoalId,
+            soal_no:eSoalNo,
+            soal_text:eSoalText
+        });
+
+        inputSoalJawab.push({
+            soal_id:eSoalId,
+            matkul_id:eMatkulId,
+            sesi_id:eSesiId,
+            soal_no:eSoalNo,
+            jawab_text:null
+        });
+    });
+    loadEssayIntoDom(freshSoalArr[currentIdx]);
+}
+
+function loadEssayIntoDom(currentSoal) {
+    $('#soal-no-el').text('Soal no ' +currentSoal.soal_no);
+    $('#soal-pertanyaan-el').text(currentSoal.soal_text);
+
+    var currentJawabText = inputSoalJawab[currentIdx].jawab_text;
+
+    if(currentJawabText) {
+        $('#jawab-text').val(currentJawabText);
+    } else {
+        $('#jawab-text').val('');
+    }
+}
+
+
+$('#jawab-text').on('input',function(){
+    var thisVal = $(this).val().toString().trim();
+
+    if(thisVal) {
+        inputSoalJawab[currentIdx].jawab_text = thisVal;
+    } else {
+        inputSoalJawab[currentIdx].jawab_text = null;
+    }
+});
+
+
 function processSoal(soals){
     var onlySoalId =
         soals.map(function(v){return v.soal_id;});
@@ -103,9 +153,9 @@ $('input[name=soal_opsi]').change(function(){
 
 $('#soal-submit-btn').click(function(){
     var splitted = window.location.pathname.split('/');
-    var lastPath = splitted[splitted.length - 1];
+    var sesiIdParam = splitted[splitted.length - 2];
+    var tipeSoalParam = splitted[splitted.length - 1];
 
-    console.log(lastPath);
 
     var currentModal = M.Modal.getInstance(document.querySelector('.modal'));
     currentModal.open();
@@ -113,7 +163,8 @@ $('#soal-submit-btn').click(function(){
     $.post('/it-a/api/jawab-soal',
         JSON.stringify({
             soal_jawab:inputSoalJawab,
-            sesi_id:lastPath
+            sesi_id:sesiIdParam,
+            tipe_soal:tipeSoalParam
         }),
         function(apiResponse,statusText,xhr){
             currentModal.close();
@@ -126,11 +177,24 @@ $('#soal-submit-btn').click(function(){
 });
 
 $('#soal-next-btn').click(function(){
+    var splitted = window.location.pathname.split('/');
+    var tipeSoalParam = splitted[splitted.length - 1];
+
+
+
     ++currentIdx;
-    loadIntoDom(freshSoalArr[currentIdx]);
+
+    if(tipeSoalParam === 'pilgan') {
+        loadIntoDom(freshSoalArr[currentIdx]);
+    } else {
+        loadEssayIntoDom(freshSoalArr[currentIdx]);
+    }
+
 
     if(currentIdx === freshSoalArr.length - 1) {
         $('#soal-submit-btn').show();
+        $('#soal-prev-btn').show();
+
         $(this).hide();
         return;
     }
@@ -141,10 +205,19 @@ $('#soal-next-btn').click(function(){
 });
 
 $('#soal-prev-btn').click(function(){
-   --currentIdx;
-   loadIntoDom(freshSoalArr[currentIdx]);
+    var splitted = window.location.pathname.split('/');
+    var tipeSoalParam = splitted[splitted.length - 1];
+    --currentIdx;
+
+    if(tipeSoalParam === 'pilgan') {
+        loadIntoDom(freshSoalArr[currentIdx]);
+    } else {
+        loadEssayIntoDom(freshSoalArr[currentIdx]);
+    }
 
    if(currentIdx === 0) {
+       $('#soal-next-btn').show();
+       $('#soal-submit-btn').hide();
        $(this).hide();
        return;
    }
@@ -157,17 +230,21 @@ $('#soal-prev-btn').click(function(){
 
 function fetchSoal(){
     var splitted = window.location.pathname.split('/');
-    var lastPath = splitted[splitted.length - 1];
-    
+    var sesiIdParam = splitted[splitted.length - 2];
+    var tipeSoalParam = splitted[splitted.length - 1];
 
-    $.get("/it-a/api/jawab-soal/"+lastPath,
-    function(apiResponse,statusText,xhr){
-        if(statusText === 'success') {
-            processSoal(apiResponse.data);
-        }else{
-            console.log('gagal load soal dari server');
-        }
-    });
+        $.get("/it-a/api/jawab-soal/"+sesiIdParam+"/"+tipeSoalParam,
+        function(apiResponse,statusText,xhr){
+            if(statusText === 'success') {
+                if(tipeSoalParam === 'pilgan') {
+                    processSoal(apiResponse.data);
+                } else {
+                    processEssay(apiResponse.data);
+                }
+            }else{
+                console.log('gagal load soal dari server');
+            }
+        });
 }
 
 fetchSoal();
