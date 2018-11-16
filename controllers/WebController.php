@@ -13,9 +13,9 @@ class WebController {
 
     // login gagal belum diperbaiki
     public function handleLogin(){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $loginSebagai = $_POST['login_sebagai'];
+        $username = htmlentities(trim($_POST['username']));
+        $password = htmlentities(trim($_POST['password']));
+        $loginSebagai = htmlentities(trim($_POST['login_sebagai']));
 
         $loginResult = WebDb::handleLogin($username,$password, $loginSebagai);
 
@@ -34,35 +34,36 @@ class WebController {
 
     // handle gagal belum diperbaiki
     public function handleDaftar() {
-        $nama = $_POST['nama'];
-        $daftarSebagai = $_POST['daftar_sebagai'];
-        $userId = $_POST['user_id'];
-        $userPassword = $_POST['user_password'];
-        $noHp = $_POST['no_hp'];
-        $gender = $_POST['gender'];
-        $alamat = $_POST['alamat'];
-        $email = $_POST['email'];
+        $nama = htmlentities(trim($_POST['nama']));
+        $daftarSebagai = htmlentities(trim($_POST['daftar_sebagai']));
+        $userId = htmlentities(trim($_POST['user_id']));
+        $userPassword = htmlentities(trim($_POST['user_password']));
+        $noHp = htmlentities(trim($_POST['no_hp']));
+        $gender = htmlentities(trim($_POST['gender']));
+        $alamat = htmlentities(trim($_POST['alamat']));
+        $email = htmlentities(trim($_POST['email']));
 
         $result = substr($daftarSebagai , 1 );
         $toLower = strtolower($daftarSebagai[0]);
         $daftarSebagai = $toLower . $result;
 
-        $saveResult = WebDb::handleSaveDaftar(
-                $daftarSebagai,
-                $nama,
-                $userId,
-                $userPassword,
-                $noHp,
-                $email,
-                $alamat,
-                $gender
-        );
-
-        if($saveResult) {
+        try {
+            $saveResult = WebDb::handleSaveDaftar(
+                    $daftarSebagai,
+                    $nama,
+                    $userId,
+                    $userPassword,
+                    $noHp,
+                    $email,
+                    $alamat,
+                    $gender
+            );
             header("Location: /it-a/daftar");
-            return;
+        }catch(\PDOException $pEx){
+            echo("Pendaftaran gagal");
         }
-        echo("Pendaftaran gagal...");
+
+
     }
 }
 
