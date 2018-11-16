@@ -6,14 +6,9 @@ use Felis\Silvestris\Session;
 
 class WebController {
 
-
-    public function handleBuatMatkul(){
-
-    }
-
     public function handleLogin(){
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $username = htmlentities(trim($_POST['username']));
+        $password = htmlentities(trim($_POST['password']));
         $loginSebagai = $_POST['login_sebagai'];
 
         $loginResult = WebDb::handleLogin($username,$password, $loginSebagai);
@@ -30,14 +25,14 @@ class WebController {
 
     // handle gagal belum diperbaiki
     public function handleDaftar() {
-        $nama = $_POST['nama'];
+        $nama = htmlentities(trim($_POST['nama']));
         $daftarSebagai = $_POST['daftar_sebagai'];
-        $userId = $_POST['user_id'];
-        $userPassword = $_POST['user_password'];
-        $noHp = $_POST['no_hp'];
+        $userId = htmlentities(trim($_POST['user_id']));
+        $userPassword = htmlentities(trim($_POST['user_password']));
+        $noHp = htmlentities(trim($_POST['no_hp']));
         $gender = $_POST['gender'];
-        $alamat = $_POST['alamat'];
-        $email = $_POST['email'];
+        $alamat = htmlentities(trim($_POST['alamat']));
+        $email = htmlentities(trim($_POST['email']));
 
         $result = substr($daftarSebagai , 1 );
         $toLower = strtolower($daftarSebagai[0]);

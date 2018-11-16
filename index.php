@@ -275,6 +275,30 @@ $router->get('/jawab-soal',function(){
 
 // APIs endpoint
 
+$router->get('/api/review-essay/(\w+)',function($sesiId){
+    $userIdSession = Session::get("user_id");
+    $loginSebagai = Session::get("login_sebagai");
+    header('Content-type: application/json');
+
+
+    if($userIdSession && $loginSebagai && $loginSebagai === 'siswa') {
+        http_response_code(200);
+        $result = WebDb::onReviewEssay($userIdSession , $sesiId);
+
+        echo json_encode([
+            'code'=>200,
+            'data'=>$result
+        ]);
+    } else {
+        http_response_code(403);
+        echo json_encode([
+            'code'=>403,
+            'data'=>'Akses ditolak'
+        ]);
+    }
+});
+
+
 $router->post('/api/buat-matkul',function(){
     $userIdSession = Session::get("user_id");
     $loginSebagai = Session::get("login_sebagai");

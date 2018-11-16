@@ -103,3 +103,10 @@ select distinct(js.siswa_id), js.matkul_id, js.sesi_id,s.siswa_nama,m.matkul_nam
 select  js.siswa_id,js.soal_id, js.soal_no, se.soal_text, js.jawab_text,js.matkul_id,js.sesi_id  from jawab_essay js inner join soal_essay se on js.soal_id = se.soal_id and js.soal_no = se.soal_no  where js.siswa_id = 'SISWA_ID_VALUE' and js.sesi_id = 'SESI_ID_VALUE'
 order by js.soal_no asc;
 ```
+
+
+
+### List submit_essay by siswa_id dan sesi_id
+```
+select  se.siswa_id, se.sesi_id, se.soal_no, sy.soal_text, je.jawab_text, se.pernyataan from submit_essay se inner join soal_essay sy on se.soal_id = sy.soal_id and se.soal_no = sy.soal_no inner join jawab_essay je on se.soal_id = je.soal_id and se.soal_no = je.soal_no where se.siswa_id = :siswa_id and se.sesi_id = :sesi_id
+```

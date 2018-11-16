@@ -148,9 +148,11 @@ function loadListMatkul() {
         if(textStatus === 'success') {
             $('#matkul-id').empty()
             var data = apiResponse.data;
-            data.forEach(function(d){
-                createOptionMatkulEl(d.matkul_id, d.matkul_nama);
-            }); 
+            if(data && data.length > 0){
+                data.forEach(function(d){
+                    createOptionMatkulEl(d.matkul_id, d.matkul_nama);
+                }); 
+            }
         }
     });
 }
@@ -312,6 +314,16 @@ function validateSoal() {
 
 $('#buat-soal-form').submit(function(ev){
     var tipeSoalSelectedVal = $('#tipe-soal').val();
+    var sesiNamaEl = $('#sesi-nama').val();
+
+
+
+    if(!sesiNamaEl || !$('#matkul-id').val() ) {
+        alert('Data tidak valid');
+        ev.preventDefault();
+        return;
+    }
+
     var currentModal = M.Modal.getInstance(document.querySelector('.modal'));
 
 

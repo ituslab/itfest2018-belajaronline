@@ -27,14 +27,18 @@ class WebDb {
         $username = str_replace("'","",$username);
 
         $webDb = self::getDb();
-        $toMd5 = md5($password);
         $getUser = $webDb->select($loginSebagai)->where([
-            $loginSebagai."_id"=>['=' => $username],
-            $loginSebagai."_password"=>['=' => $toMd5]
+            $loginSebagai."_id"=>['=' => $username]
         ]);
+
+        
         // stdClass object return
         $data = $getUser->fetch()->get();
-        return $data;
+        
+        if (password_verify($password, $data->{$loginSebagai."_password"})) {
+          return $data;
+        }
+        return false;
     }
 
     static function checkField($tb, $field, $value){
@@ -496,7 +500,7 @@ class WebDb {
             "
         ,[
             ':pengajar_id'=>$pengajarId
-        ])   
+        ])
             ->fetchAll()
             ->get();
         return $result;
@@ -614,6 +618,35 @@ class WebDb {
         return $result;
     }
 
+    static function onReviewEssay($siswaId, $sesiId) {
+        $webDb = self::getDb();
+        $result = $webDb->query(
+            "
+            select  
+                se.siswa_id, 
+                se.sesi_id, 
+                se.soal_no, 
+                sy.soal_text, 
+                je.jawab_text, 
+                se.pernyataan 
+                from submit_essay se 
+                inner join soal_essay sy 
+                on se.soal_id = sy.soal_id 
+                and se.soal_no = sy.soal_no 
+                inner join jawab_essay je 
+                on se.soal_id = je.soal_id 
+                and se.soal_no = je.soal_no 
+                where se.siswa_id = :siswa_id 
+                and se.sesi_id = :sesi_id
+            "
+        ,[
+            ':siswa_id'=>$siswaId,
+            ':sesi_id'=>$sesiId
+        ])
+            ->fetchAll()
+            ->get();
+        return $result;
+    }
 
 
     static function handleSaveDaftar($daftarSebagai , $nama , $userId , $password , $noHp , $email , $alamat , $gender) {
@@ -623,7 +656,7 @@ class WebDb {
             $result = $webDb->insert("pengajar",array(
                 'pengajar_id'=>$userId,
                 'pengajar_nama'=>$nama,
-                'pengajar_password'=>md5($password),
+                'pengajar_password'=> \password_hash($password, PASSWORD_DEFAULT),
                 'pengajar_nohp'=>$noHp,
                 'pengajar_email'=>$email,
                 'pengajar_gender'=>$gender,
@@ -633,7 +666,7 @@ class WebDb {
             $result = $webDb->insert("siswa",array(
                 'siswa_id'=>$userId,
                 'siswa_nama'=>$nama,
-                'siswa_password'=>md5($password),
+                'siswa_password'=>\password_hash($password, PASSWORD_DEFAULT),
                 'siswa_nohp'=>$noHp,
                 'siswa_email'=>$email,
                 'siswa_gender'=>$gender,

@@ -97,7 +97,31 @@ function onResponseJawabSalah(jawabanSalah){
 
 
 function onReviewEssay(sesiId){
+    console.log('on review essay...');
+    $('#soal-review-container-essay').empty();
 
+
+    $.get('/it-a/api/review-essay/'+sesiId,
+    function(apiResponse,statusText,xhr){
+        if(apiResponse.data) {
+            apiResponse.data.forEach(function(d){
+                
+                var isBenar = d.pernyataan === 'BENAR' ? 'teal' : 'red';
+                var n = d.pernyataan === 'BENAR' ? 'Selamat jawaban anda benar' : 'Maaf, jawaban anda salah';
+                $('#soal-review-container-essay').append(`
+                        <div class="card-panel ${isBenar} white-text">
+                            <p>Soal no. ${d.soal_no}</p>
+                            <p>
+                                ${d.soal_text}
+                            </p>
+                            <p>${n}</p>
+                            <p>Anda menjawab: ${d.jawab_text}</p>
+                        </div>`);                
+            });
+        }
+    });
+
+    $('#modal2').modal('open');
 }
 
 function onReviewSoal(sesiId){

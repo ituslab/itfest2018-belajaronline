@@ -58,6 +58,21 @@
         </div>
     <!--  modal here -->
 
+
+    <!-- modal essay -->
+    <div id="modal2" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Detail matakuliah (essay)</h4>
+                <div id="soal-review-container-essay">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
+            </div>
+        </div>
+        <!-- modal essay -->
+
     
     <div class="my-sidebar-right">
         <div class="my-row">

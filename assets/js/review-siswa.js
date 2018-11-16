@@ -29,6 +29,7 @@ function onSubmitReview(){
     $.post('/it-a/api/submit-essay',
     JSON.stringify(submitEssay)
     ,function(apiResp,textStatus ,xhr){
-        console.log(apiResp);
+        console.log(apiResp);   
+        window.location.reload(window.location.pathname);
     });
 }
