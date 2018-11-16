@@ -155,7 +155,6 @@ CREATE TABLE `siswa` (
 
 LOCK TABLES `siswa` WRITE;
 /*!40000 ALTER TABLE `siswa` DISABLE KEYS */;
-INSERT INTO `siswa` VALUES ('SW_001','Ariefkahfi','123456','23123','ooasjdij','male','asd@a.com');
 /*!40000 ALTER TABLE `siswa` ENABLE KEYS */;
 UNLOCK TABLES;
 
