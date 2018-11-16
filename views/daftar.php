@@ -1,9 +1,13 @@
+<?php ob_start();
+	use Felis\Silvestris\Session;?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>BelajarOnline</title>
 </head>
-	<?php include_once __DIR__ . '/includes/top.php'; ?>
+	<?php 
+	
+ include_once __DIR__ . '/includes/top.php'; ?>
     <link rel="stylesheet" href="/it-a/assets/css/daftar.css"/>
 <body>
 
@@ -85,7 +89,7 @@
 			    </div>
 					<?php if (Session::get('errdaftar')): ?>
 						<div class="text-red center">
-							<?= Session::get('errdaftar') ?>
+							<?= Session::get('errdaftar'); Session::unset('errdaftar'); ob_flush(); ?>
 						</div>
 					<?php endif; ?>
 			    <div class="center">
