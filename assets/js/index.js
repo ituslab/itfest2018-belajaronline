@@ -1,3 +1,9 @@
+
+function onLoginClick(){
+  $('.modal').modal('open');
+}
+
+
 $('#form-login').validate({
   rules:{
     username:'required',
