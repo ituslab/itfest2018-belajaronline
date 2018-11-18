@@ -60,7 +60,7 @@
 
 
     <!-- modal essay -->
-    <div id="modal2" class="modal modal-fixed-footer">
+    <!-- <div id="modal2" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <h4>Detail matakuliah (essay)</h4>
                 <div id="soal-review-container-essay">
@@ -70,7 +70,7 @@
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">Tutup</a>
             </div>
-        </div>
+        </div> -->
         <!-- modal essay -->
 
     

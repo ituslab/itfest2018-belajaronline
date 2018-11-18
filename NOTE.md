@@ -94,19 +94,76 @@ select distinct(sj.sesi_id),sm.soal_id,sm.soal_no,sm.soal_text,sj.siswa_jawaban,
 
 ### list soal essay yang sudah dijawab oleh siswa by pengajar id 
 ```
-select distinct(js.siswa_id), js.matkul_id, js.sesi_id,s.siswa_nama,m.matkul_nama,sk.sesi_nama from jawab_essay js inner join siswa s  on js.siswa_id = s.siswa_id inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join sesi_kuliah sk on sk.matkul_id = m.matkul_id  inner join pengajar p on m.pengajar_id = p.pengajar_id where m.pengajar_id = 'PENGAJAR_ID_VALUE';
+select distinct(js.siswa_id), js.matkul_id, js.sesi_id,s.siswa_nama,m.matkul_nama,sk.sesi_nama from jawab_essay js inner join siswa s  on js.siswa_id = s.siswa_id inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join sesi_kuliah sk on js.sesi_id = sk.sesi_id inner join pengajar p on m.pengajar_id = p.pengajar_id where m.pengajar_id = 'PENGAJAR_ID_VALUE';
+```
+
+### (Revisi ?) list soal essay yang sudah dijawab oleh siswa by pengajar id
+```
+select distinct(js.siswa_id), m.matkul_nama, s.sesi_nama, sw.siswa_nama,p.pengajar_nama from jawab_essay js inner join mata_kuliah m on js.matkul_id = m.matkul_id inner join sesi_kuliah s on js.sesi_id = s.sesi_id inner join siswa sw on js.siswa_id = sw.siswa_id inner join pengajar p on m.pengajar_id = p.pengajar_id
+where m.pengajar_id = :pengajar_id
 ```
 
 
 ### list review essay dari siswa_id dan sesi_id
 ```
-select  js.siswa_id,js.soal_id, js.soal_no, se.soal_text, js.jawab_text,js.matkul_id,js.sesi_id  from jawab_essay js inner join soal_essay se on js.soal_id = se.soal_id and js.soal_no = se.soal_no  where js.siswa_id = 'SISWA_ID_VALUE' and js.sesi_id = 'SESI_ID_VALUE'
-order by js.soal_no asc;
+select se.siswa_id,m.matkul_nama,s.sesi_nama, se.soal_no, sy.soal_text, je.jawab_text, se.pernyataan from submit_essay se inner join soal_essay sy on se.sesi_id = sy.sesi_id and se.soal_id = sy.soal_id and se.soal_no = sy.soal_no  inner join jawab_essay je on se.sesi_id = je.sesi_id and se.soal_id = je.soal_id and  se.soal_no = je.soal_no  and se.siswa_id = je.siswa_id  
+inner join mata_kuliah m 
+on se.matkul_id = m.matkul_id 
+inner join sesi_kuliah s 
+on se.sesi_id = s.sesi_id 
+where se.siswa_id = :siswa_id
+and se.sesi_id = :sesi_id
 ```
 
 
 
 ### List submit_essay by siswa_id dan sesi_id
 ```
-select  se.siswa_id, se.sesi_id, se.soal_no, sy.soal_text, je.jawab_text, se.pernyataan from submit_essay se inner join soal_essay sy on se.soal_id = sy.soal_id and se.soal_no = sy.soal_no inner join jawab_essay je on se.soal_id = je.soal_id and se.soal_no = je.soal_no where se.siswa_id = :siswa_id and se.sesi_id = :sesi_id
+select  se.siswa_id, se.sesi_id, se.soal_no, sy.soal_text, je.jawab_text, se.pernyataan from submit_essay se inner join 
+soal_essay sy on se.soal_id = sy.soal_id 
+and se.soal_no = sy.soal_no 
+inner join jawab_essay je on se.soal_id = je.soal_id 
+and se.soal_no = je.soal_no 
+where se.siswa_id = :siswa_id and se.sesi_id = :sesi_id
+```
+
+
+
+### (REVISI ?)List submit_essay by siswa_id dan sesi_id
+```
+select  
+se.siswa_id,  
+se.sesi_id,  
+se.soal_id, 
+se.soal_no, 
+se.pernyataan, 
+sy.soal_text, 
+je.jawab_text  from submit_essay  
+se inner join soal_essay sy on  se.soal_id = sy.soal_id  
+and se.sesi_id = sy.sesi_id 
+and se.soal_no = sy.soal_no inner join 
+jawab_essay je on se.siswa_id = je.siswa_id 
+and se.soal_id = je.soal_id 
+and se.sesi_id = je.sesi_id 
+and se.soal_no = je.soal_no 
+where se.siswa_id = :siswa_id 
+and se.sesi_id = :sesi_id
+```
+
+
+### List sesi essay yang sudah dijawab oleh siswa (by siswa_Id)
+```
+select  
+distinct(je.sesi_id), 
+ss.sesi_nama, 
+s.siswa_nama, 
+m.matkul_nama 
+from jawab_essay je 
+inner join sesi_kuliah ss 
+on je.sesi_id = ss.sesi_id 
+inner join siswa s 
+on je.siswa_id = s.siswa_id  
+inner join mata_kuliah m 
+on je.matkul_id = m.matkul_id 
+where je.siswa_id = :siswa_id
 ```

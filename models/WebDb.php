@@ -493,7 +493,7 @@ class WebDb {
                 m on 
                 js.matkul_id = m.matkul_id 
                 inner join sesi_kuliah 
-                sk on sk.matkul_id = m.matkul_id  
+                sk on js.sesi_id = sk.sesi_id  
                 inner join pengajar p 
                 on m.pengajar_id = p.pengajar_id 
                 where m.pengajar_id = :pengajar_id
@@ -509,21 +509,21 @@ class WebDb {
     static function listSesiEssayYangSudahDijawabSiswa($siswaId) {
         $webDb = self::getDb();
         $result = $webDb->query(
-            "select distinct
-                (js.sesi_id),
-                js.matkul_id,
-                m.matkul_nama,
-                sk.sesi_nama,
-                sk.tipe_soal,
-                s.siswa_nama
-                from jawab_essay js
-                inner join mata_kuliah m
-                on js.matkul_id = m.matkul_id
-                inner join sesi_kuliah sk
-                on js.sesi_id = sk.sesi_id
-                inner join siswa s
-                on js.siswa_id = s.siswa_id
-                where js.siswa_id = :siswa_id"
+            "select  
+            distinct(je.sesi_id), 
+            m.matkul_id,
+            ss.sesi_nama, 
+            ss.tipe_soal,
+            s.siswa_nama, 
+            m.matkul_nama 
+            from jawab_essay je 
+            inner join sesi_kuliah ss 
+            on je.sesi_id = ss.sesi_id 
+            inner join siswa s 
+            on je.siswa_id = s.siswa_id  
+            inner join mata_kuliah m 
+            on je.matkul_id = m.matkul_id 
+            where je.siswa_id = :siswa_id"
         ,[
             ':siswa_id'=>$siswaId
         ])
@@ -622,22 +622,29 @@ class WebDb {
         $webDb = self::getDb();
         $result = $webDb->query(
             "
-            select  
-                se.siswa_id, 
-                se.sesi_id, 
-                se.soal_no, 
-                sy.soal_text, 
-                je.jawab_text, 
-                se.pernyataan 
-                from submit_essay se 
-                inner join soal_essay sy 
-                on se.soal_id = sy.soal_id 
-                and se.soal_no = sy.soal_no 
-                inner join jawab_essay je 
-                on se.soal_id = je.soal_id 
-                and se.soal_no = je.soal_no 
-                where se.siswa_id = :siswa_id 
-                and se.sesi_id = :sesi_id
+            select 
+            se.siswa_id,
+            m.matkul_nama,
+            s.sesi_nama, 
+            se.soal_no, 
+            sy.soal_text, 
+            je.jawab_text, 
+            se.pernyataan 
+            from submit_essay se 
+            inner join soal_essay sy 
+            on se.sesi_id = sy.sesi_id 
+            and se.soal_id = sy.soal_id and se.soal_no = sy.soal_no  
+            inner join jawab_essay je on 
+            se.sesi_id = je.sesi_id 
+            and se.soal_id = je.soal_id and  
+            se.soal_no = je.soal_no  
+            and se.siswa_id = je.siswa_id  
+            inner join mata_kuliah m 
+            on se.matkul_id = m.matkul_id 
+            inner join sesi_kuliah s 
+            on se.sesi_id = s.sesi_id 
+            where se.siswa_id = :siswa_id
+            and se.sesi_id = :sesi_id
             "
         ,[
             ':siswa_id'=>$siswaId,

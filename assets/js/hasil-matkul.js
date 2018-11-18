@@ -98,17 +98,19 @@ function onResponseJawabSalah(jawabanSalah){
 
 function onReviewEssay(sesiId){
     console.log('on review essay...');
-    $('#soal-review-container-essay').empty();
+    $('#soal-review-container').empty();
 
 
     $.get('/it-a/api/review-essay/'+sesiId,
     function(apiResponse,statusText,xhr){
         if(apiResponse.data) {
+            console.log(apiResponse.data);
+            
             apiResponse.data.forEach(function(d){
                 
                 var isBenar = d.pernyataan === 'BENAR' ? 'teal' : 'red';
                 var n = d.pernyataan === 'BENAR' ? 'Selamat jawaban anda benar' : 'Maaf, jawaban anda salah';
-                $('#soal-review-container-essay').append(`
+                $('#soal-review-container').append(`
                         <div class="card-panel ${isBenar} white-text">
                             <p>Soal no. ${d.soal_no}</p>
                             <p>
@@ -121,7 +123,7 @@ function onReviewEssay(sesiId){
         }
     });
 
-    $('#modal2').modal('open');
+    $('.modal').modal('open');
 }
 
 function onReviewSoal(sesiId){
