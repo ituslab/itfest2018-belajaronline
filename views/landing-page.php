@@ -195,11 +195,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 							<img src="/it-a/assets/img/foto3.jpg" class="img-about">
 						</div>
 						<div class="center">
-<<<<<<< HEAD
-						<a class="btn-floating btn-medium grey darken-4 padding-sg" href="https://github.com/zzcomzz"><i class="fab fa-github"></i></a>
-=======
 							<a class="btn-floating btn-medium grey darken-4 padding-sg" href="https://github.com/zzcomzz"><i class="fab fa-github"></i></a>
->>>>>>> 73bfb28977ff8208c5bd350e01c5b97554409b88
 	    					<a class="btn-floating btn-medium red accent-3" href="https://api.instagram.com/irvref02"><i class="fab fa-instagram"></i></a><br>
 
 	    					<p>Muhammad Irvan Refnaldy<br>
@@ -314,11 +310,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
                   <li><a class="grey-text text-lighten-3" href="http://polsri.ac.id">POLSRI</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">IT FEST</a></li>
                   <li><a class="grey-text text-lighten-3" href="http://itfest-mipolsri.com">HMJ MI</a></li>
-<<<<<<< HEAD
-                  <li><a class="grey-text text-lighten-3" href="http://it-polsri.org">IT - POLSRI</a></li>
-=======
                   <li><a class="grey-text text-lighten-3" href="http://itpolsri.org">IT - POLSRI</a></li>
->>>>>>> 73bfb28977ff8208c5bd350e01c5b97554409b88
                 </ul>
               </div>
             </div>
