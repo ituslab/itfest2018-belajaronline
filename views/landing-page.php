@@ -83,8 +83,7 @@ include_once __DIR__ . '/includes/top.php'; ?>
 		<div class="title-page center">
 			<p class="font-size animasi-in-zoom">Welcome To Belajar Online</p>
 			<p class="font-size-2 animasi-in-zoom">Belajar Online adalah solusi belajar untuk segala kesulitan kamu di kampus. Matakuliah tersedia untuk seluruh mahasiswa dengan pengajar berpengalaman serta dapat diakses dimanapun.</p>
-			<a href="/it-a/daftar" class="waves-effect waves-light btn-large red hover-animasi">Daftar Sekarang</a><a href="/it-a/daftar" class="waves-effect waves-light btn-large red hover-animasi">Daftar Sekarang</a>
-			<a class="waves-effect waves-light btn-large red hover-animasi" onclick="onLoginClick()">Login Sekarang</a>
+			<a href="/it-a/daftar" class="waves-effect waves-light btn-large red hover-animasi">Daftar Sekarang</a>
 		</div>
       	<div class="parallax"><img src="/it-a/assets/img/background-2.jpg"></div>
     </div>
