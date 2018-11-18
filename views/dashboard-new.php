@@ -59,6 +59,6 @@
       loadBottom();
       loadJS("dashboard.override.js");
    ?>
-  <!-- <script type="text/javascript" src="/it-a/assets/js/dashboard-new.js"></script> --> -->
+  <!-- <script type="text/javascript" src="/it-a/assets/js/dashboard-new.js"></script> -->
 
 </html>
